@@ -148,7 +148,7 @@ item(FEAT_ROADVEHS, ChorzowK) {
         refit_cost:                     CHORZOWP15_REFIT_COST;
         cargo_age_period:               CARGO_DECAY(HARD_COMFORT, CHORZOWK_CAP, CHORZOWK_SIT);
         power:                          84 kW;
-        running_cost_base:              RUNNING_COST_ELECTRIC;
+        running_cost_base:              RUNNING_COST_ROADVEH;
         cargo_capacity:                 CHORZOWK_CAP; //unit
         weight:                         CHORZOWK_MASS ton;
         tractive_effort_coefficient:    0.22;

@@ -84,7 +84,7 @@ item(FEAT_ROADVEHS, Bombardierngt8) {
         refit_cost:                     0;
         cargo_age_period:               CARGO_DECAY(CLIMA_COMFORT, BOMBARDIERNGT8_CAP, BOMBARDIERNGT8_SIT);
         power:                          420 kW; 
-        running_cost_base:              RUNNING_COST_ELECTRIC;
+        running_cost_base:              RUNNING_COST_ROADVEH;
         cargo_capacity:                 BOMBARDIERNGT8_CAP; //total
         weight:                         BOMBARDIERNGT8_MASS ton; 
         tractive_effort_coefficient:    0.3;

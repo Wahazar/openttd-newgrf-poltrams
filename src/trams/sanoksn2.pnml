@@ -124,7 +124,7 @@ item(FEAT_ROADVEHS, SanokSN2) {
         refit_cost:                     SANOKPN2_REFIT_COST;
         cargo_age_period:               CARGO_DECAY(HARD_COMFORT, SANOKSN2_CAP, SANOKSN2_SIT);
         power:                          88 kW;
-        running_cost_base:              RUNNING_COST_ELECTRIC;
+        running_cost_base:              RUNNING_COST_ROADVEH;
         cargo_capacity:                 SANOKSN2_CAP; //car
         weight:                         SANOKSN2_MASS ton;
         tractive_effort_coefficient:    0.25;

@@ -45,7 +45,7 @@ item(FEAT_ROADVEHS, ChorzowK_worktram) {
         refit_cost:                     0;
         cargo_age_period:               185;
         power:                          80 kW;
-        running_cost_base:              RUNNING_COST_ELECTRIC;
+        running_cost_base:              RUNNING_COST_ROADVEH;
         cargo_capacity:                 CHORZOW_CARGO_TRAM_LOAD;
         weight:                         CHORZOWK_MASS ton;
         tractive_effort_coefficient:    0.3;

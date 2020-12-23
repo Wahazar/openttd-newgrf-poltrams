@@ -1,8 +1,9 @@
 
-Version 1.15
+Version 1.16
 - Feature: Universal horse tram
 - Change: all cargo trams can carry MAIL, ARMOURED class.
 - Bugfix: horse trams compatible with RAIL tramtype
+- running cost base fixed
 
 Version 1.14
 - Feature: Ringhoffer tram

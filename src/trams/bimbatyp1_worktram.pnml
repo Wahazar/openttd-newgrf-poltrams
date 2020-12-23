@@ -50,7 +50,7 @@ item(FEAT_ROADVEHS, BimbaTyp1_worktram) {
         refit_cost:                     0;
         cargo_age_period:               185;
         power:                          22 kW;
-        running_cost_base:              RUNNING_COST_ELECTRIC;
+        running_cost_base:              RUNNING_COST_ROADVEH;
         cargo_capacity:                 BIMBA_CARGO_TRAM_LOAD;
         weight:                         BIMBATYP1_MASS ton;
         tractive_effort_coefficient:    1.0;

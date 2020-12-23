@@ -72,7 +72,7 @@ item(FEAT_ROADVEHS, HorseUniversal) {
         refit_cost:                     0;
         cargo_age_period:               185;
         power:                          20 hp;
-        running_cost_base:              RUNNING_COST_ELECTRIC;
+        running_cost_base:              RUNNING_COST_ROADVEH;
         cargo_capacity:                 HORSE_UNIVERSAL_TRAM_LOAD_PASS;
         weight:                         HORSE_UNIVERSAL_TRAM_MASS ton;
         tractive_effort_coefficient:    0.8;

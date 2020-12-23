@@ -57,7 +57,7 @@ item(FEAT_ROADVEHS, Konstal13N_worktram) {
         refit_cost:                     0;
         cargo_age_period:               185;
         power:                          150 kW;
-        running_cost_base:              RUNNING_COST_ELECTRIC;
+        running_cost_base:              RUNNING_COST_ROADVEH;
         cargo_capacity:                 K13N_CARGO_TRAM_LOAD;
         weight:                         KONSTALN13_MASS ton;
         tractive_effort_coefficient:    0.3;

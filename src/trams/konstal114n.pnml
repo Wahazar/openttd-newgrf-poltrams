@@ -86,7 +86,7 @@ item(FEAT_ROADVEHS, Konstaln114) {
         refit_cost:                     0;
         cargo_age_period:               CARGO_DECAY(SOFT_COMFORT, KONSTALN114_CAP, KONSTALN114_SIT);
         power:                          332 kW; 
-        running_cost_base:              RUNNING_COST_ELECTRIC;
+        running_cost_base:              RUNNING_COST_ROADVEH;
         cargo_capacity:                 KONSTALN114_CAP/3; //per unit
         weight:                         KONSTALN114_MASS ton; 
         tractive_effort_coefficient:    0.3;

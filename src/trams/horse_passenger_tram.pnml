@@ -63,7 +63,7 @@ item(FEAT_ROADVEHS, HorsePass) {
         refit_cost:                     0;
         cargo_age_period:               CARGO_DECAY(SOFT_COMFORT, HORSE_TRAM_CAP,HORSE_TRAM_SIT);
         power:                          10 hp;
-        running_cost_base:              RUNNING_COST_ELECTRIC;
+        running_cost_base:              RUNNING_COST_ROADVEH;
         cargo_capacity:                 HORSE_TRAM_CAP;
         weight:                         HORSE_TRAM_MASS ton;
         tractive_effort_coefficient:    0.3;

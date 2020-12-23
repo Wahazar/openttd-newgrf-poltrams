@@ -124,7 +124,7 @@ item(FEAT_ROADVEHS, Ringhoffer) {
         refit_cost:                     RINGHOFFER_D_REFIT_COST;
         cargo_age_period:               CARGO_DECAY(HARD_COMFORT, RINGHOFFER_CAP, RINGHOFFER_SIT);
         power:                          68 kW;
-        running_cost_base:              RUNNING_COST_ELECTRIC;
+        running_cost_base:              RUNNING_COST_ROADVEH;
         cargo_capacity:                 RINGHOFFER_CAP; //car
         weight:                         RINGHOFFER_MASS ton;
         tractive_effort_coefficient:    0.25;
