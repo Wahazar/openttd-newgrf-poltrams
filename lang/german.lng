@@ -1,0 +1,67 @@
+##grflangid 0x02
+##plural 0
+##gender m w n p
+# This is the English language file
+
+# GRF name and description
+STR_GRF_NAME        :PolTrams – das neue Set mit polnischen Trams {VERSION}
+STR_GRF_DESCRIPTION :{TITLE} - Set mit polnischen Trams von 1866 bis 2015 mit im Umrüstungsmenü veränderbarer Fahrzeuglängen.{}{COPYRIGHT}2014 Sojita, Voyager One (Grafiken), McZapkie (NML-Code, Grafiken){}Lizenz: GPL v2
+
+STR_PARAM_NAME_RESERVED         :Reserviert
+STR_PARAM_DESC_RESERVED         : Place-holder...
+STR_PARAM_NAME_HORSE_TRAMS      :Pferdetrams
+STR_PARAM_DESC_HORSE_TRAMS      :Aktiviere Pferdetrams
+STR_PARAM_NAME_ELECTRIC_PASSENGER_TRAMS         :Elektrische Passagiertrams
+STR_PARAM_DESC_ELECTRIC_PASSENGER_TRAMS         :Aktiviere die Standard-Passagier-Trams. Standard eingeschaltet.
+STR_PARAM_NAME_CARGO_WORKTRAMS  :Fracht-Tram
+STR_PARAM_DESC_CARGO_WORKTRAMS  :Aktiviere Fracht-Tram für Expressfracht (Waren, etc.)
+STR_PARAM_NAME_PURCHASE_COST    :Kaufpreismodifikator
+STR_PARAM_DESC_PURCHASE_COST    :Benutze diese Option, um die Anschaffungskosten der Trams des Sets anzupassen.
+STR_PARAM_NAME_RUNNING_COST     :Betriebskostenmodifikator
+STR_PARAM_DESC_RUNNING_COST     :Benutze diese Option, um die Betriebskosten der Trams des Sets anzupassen.
+STR_PARAM_COST_H                :Hälfte
+STR_PARAM_COST_N                :Normal
+STR_PARAM_COST_D                :Doppelt
+STR_PARAM_NAME_KEEP_OLD_VEHS    :Behalte veraltete Trams im Kaufmenü
+STR_PARAM_DESC_KEEP_OLD_VEHS    :Benutze diese Option, um das Veralten der Trams abzuschalten. Diese Option gilt nur für dieses Set. Um das Veralten aller Sets abzuschalten, benutzt die Option "Fahrzeuge veralten nie" in den Einstellungen.
+STR_PARAM_NAME_SECOND_HAND      :Erlaube preiswerte Trams und Umrüstung
+STR_PARAM_DESC_SECOND_HAND      :Abschalten, um den Kauf von preiswerten aber ineffizienten Gebrauchtfahrzeugen zu verhindern. Dabei wird gleichzeitig der Kaufzeitraum der Trams verlängert und der Anschaffungspreis von Anhängern gängiger Trams verringert. Beim Spiel mit aktivierten Fahrzeugpannen wird empfohlen, diese Option aktiviert zu lassen.
+
+STR_HORSE_TRAM_NAME             :Pferdetram für Passagiere
+STR_BIMBATYP1_NAME              :Tram Bergische Stahlindustrie Typ 1
+STR_SANOKSN1_NAME               :Tram Graz/Sanok SN1
+STR_RINGHOFFER_NAME                     :Tram Ringhoffer Typ R
+STR_SANOKSN2_NAME               :Tram Sanok SN2 (wahlweise mit PN2-Anhänger)
+STR_CHORZOWK_NAME               :Tram Chorzow K (mit einem oder zwei P15-Anhängern)
+STR_KONSTALN_NAME               :Tram Konstal N (mit einem oder zwei ND-Anhängern)
+STR_KONSTALN13_NAME             :Tram Konstal 13N (schneller PCC, bis zu drei Einheiten)
+STR_KONSTALN102_NAME            :Tram Konstal 102N (zusammenhängender PCC-Zug, 1 oder 2 Einheiten)
+STR_KONSTALN105_NAME            :Tram Konstal 105N (hohe Kapazität, bis zu 3 Einheiten)
+STR_MANT4_NAME                  :Tram MAN T4 als Gebrauchtfahrzeug (mit B4-Anhänger)
+STR_ROTAXE1_NAME                :Tram SGP/Lohner E1 als Gebrauchtfahrzeug (mit C3-Anhänger)
+STR_KONSTALN114_NAME            :Tram Konstal 114N (lange Dreifacheinheit)
+STR_KONSTALN116_NAME            :Tram Konstal 116N (schnelle Dreifacheinheit)
+STR_ALSTOMNGD99_NAME            :Tram Alstom-Konstal NGd99 (lange Dreifacheinheit)
+STR_PROTRAM204WR_NAME           :Tram Protram 204Wr As (modernisierte 105Na, bis zu 3 Einheiten)
+STR_PESA120N_NAME               :Tram Pesa "Swing" 120N (3 oder 5 Sektionen)
+STR_BOMBARDIERNGT8_NAME         :Tram Bombardier NGT8 (schnelle lange Dreifacheinheit)
+
+STR_HORSE_CARGO_TRAM_NAME       :Pferdetram für Fracht
+STR_BIMBATYP1_WORKTRAM_NAME     :Arbeitszug (vormals Bergische Stahlindustrie Typ 1)
+STR_CHORZOWK_WORKTRAM_NAME      :Arbeitszug (vormals Chorzow K)
+STR_KONSTALN13_WORKTRAM_NAME    :Arbeitszug (vormals Konstal 13N)
+STR_KONSTALN105_WORKTRAM_NAME   :Arbeitszug (vormals Konstal 105N)
+
+STR_REFIT_SINGLE :- kurz (einzelner Triebwagen)
+STR_REFIT_DOUBLE :- mittel (Triebwagen mit Anhänger)
+STR_REFIT_TRIPLE :- lang (Triebwagen mit zwei Anhängern)
+
+STR_SINGLE_TRAM :Einzelwagen, {SIGNED_WORD} Sitz- und {SIGNED_WORD} Stehplätze.{}Be-, Entladezeit: {COMMA} Tage
+
+STR_DYNAMIC_RUNNING_COST :Schnelle Tram, {SIGNED_WORD} Sitz- und {SIGNED_WORD} Stehplätze. Die Betriebskosten hängen von der {YELLOW}gegenwärtigen Geschwindigkeit{BLACK} ab.{}Be-, Entladezeit: {COMMA} Tage
+
+STR_BUY_TRAILERS_VIA_REFIT : {SIGNED_WORD} Sitz- und  {SIGNED_WORD} Stehplätze in einer Einheit. Benutze die {YELLOW}Umrüstung{BLACK}, um bis zu {SIGNED_WORD} weitere Anhänger zu kaufen oder verkaufen.{}Be-, Entladezeit: {COMMA} Tage
+
+STR_DYNAMIC_RUNNING_COST_UNITS_VIA_REFIT :{SIGNED_WORD} Sitz- und {SIGNED_WORD} Stehplätze in der kurzen Version. Benutze die {YELLOW}Umrüstung{BLACK}, um die Zusammensetzung (bis zu {SIGNED_WORD} Einheiten) zu ändern. Die Betriebskosten hängen von der {YELLOW}gegenwärtigen Geschwindigkeit{BLACK} ab.{}Be-, Entladezeit: {COMMA} Tage
+
+STR_CARGO_TRAM          : Tram für Expressfracht (Waren, etc.).

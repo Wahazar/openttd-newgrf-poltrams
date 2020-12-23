@@ -1,0 +1,67 @@
+##grflangid 0x03
+##plural 2
+##gender m m2 f
+# This is the English language file
+
+# GRF name and description
+STR_GRF_NAME        :PolTrams - les nouveaux tramways de Pologne {VERSION}
+STR_GRF_DESCRIPTION :{TITLE} - Set de trams polonais (électriques ou à cheval) de 1866 à 2015, avec ajout de remorques via réaménagement.{}{COPYRIGHT}2014 Sojita, Voyager One (graphismes), McZapkie (code NML, graphismes){}Licence{NBSP}: GPL v2
+
+STR_PARAM_NAME_RESERVED         :<réservé>
+STR_PARAM_DESC_RESERVED         :<réservé>
+STR_PARAM_NAME_HORSE_TRAMS      :Tramways à chevaux
+STR_PARAM_DESC_HORSE_TRAMS      :Activer ce paramètre pour introduire dans le jeu les tramways remorqués par des chevaux.
+STR_PARAM_NAME_ELECTRIC_PASSENGER_TRAMS         : Tramways électriques pour passagers
+STR_PARAM_DESC_ELECTRIC_PASSENGER_TRAMS         :Activer ce paramètre pour introduire dans le jeu les tramways électriques standard pour passagers (paramètre activé par défaut).
+STR_PARAM_NAME_CARGO_WORKTRAMS  : Tramways de service
+STR_PARAM_DESC_CARGO_WORKTRAMS  :Activer ce paramètre pour introduire dans le jeu les tramways de services (modifiés pour transporter les cargaisons express{NBSP}: marchandises, fournitures, etc.)
+STR_PARAM_NAME_PURCHASE_COST    :Prix d'achat
+STR_PARAM_DESC_PURCHASE_COST    :Ce paramètre permet de changer le prix d'achat des tramways de ce set.
+STR_PARAM_NAME_RUNNING_COST     :Coût d'entretien
+STR_PARAM_DESC_RUNNING_COST     :Ce paramètre permet de changer le coût d'entretien des tramways de ce set.
+STR_PARAM_COST_H                :Moitié
+STR_PARAM_COST_N                : Normal
+STR_PARAM_COST_D                : Double
+STR_PARAM_NAME_KEEP_OLD_VEHS    :Conserver les anciens modèles dans la liste d'achat
+STR_PARAM_DESC_KEEP_OLD_VEHS    :Ce paramètre permet de désactiver l'expiration des trams. Seuls les véhicules de ce set sont affectés. Pour éviter que tous les véhicules n'expirent, choisir l'option concernée dans les réglages du jeu.
+STR_PARAM_NAME_SECOND_HAND      :Tramways d'occasion
+STR_PARAM_DESC_SECOND_HAND      :Ce paramètre introduit les tramways d'occasion (moins chers, mais moins fiables), ce qui est intéressant quand on joue avec les pannes activées. Pour augmenter la durée de vie des modèles de tramway et diminuer le prix des remorques, désactiver ce paramètre.
+
+STR_HORSE_TRAM_NAME             :Tramway passager + 1 cheval
+STR_BIMBATYP1_NAME              :Tram Bergische Stahlindustrie Type 1
+STR_SANOKSN1_NAME               :Tram Graz/Sanok SN1
+STR_RINGHOFFER_NAME                     :Tram Ringhoffer Type R
+STR_SANOKSN2_NAME               :Tram Sanok SN2 (remorque PN2 optionnelle)
+STR_CHORZOWK_NAME               :Tram Chorzow K (avec une ou deux remorques P15)
+STR_KONSTALN_NAME               :Tram Konstal N (avec une ou deux remorques ND)
+STR_KONSTALN13_NAME             :Tram Konstal 13N (PCC rapide, jusqu'à 3 éléments)
+STR_KONSTALN102_NAME            :Tram Konstal 102N (PCC articulé, 1 ou 2 éléments)
+STR_KONSTALN105_NAME            :Tram Konstal 105N (haute capacité, jusqu'à 3 éléments)
+STR_MANT4_NAME                  :Tram "occasion" MAN T4 (avec remorque B4)
+STR_ROTAXE1_NAME                :Tram "occasion" SGP/Lohner E1 (avec remorque C3)
+STR_KONSTALN114_NAME            :Tram Konstal 114N (long, 3 éléments)
+STR_KONSTALN116_NAME            :Tram Konstal 116N (rapide, 3 éléments)
+STR_ALSTOMNGD99_NAME            :Tram Alstom-Konstal NGd99 (long, 3 éléments)
+STR_PROTRAM204WR_NAME           :Tram Protram 204Wr As (105Na rénové, jusqu'à 3 éléments)
+STR_PESA120N_NAME               :Tram Pesa "Swing" 120N (3 ou 5 sections)
+STR_BOMBARDIERNGT8_NAME         :Tram Bombardier NGT8 (rapide et long, 3 éléments)
+
+STR_HORSE_CARGO_TRAM_NAME       :Tramway fret + 1 cheval
+STR_BIMBATYP1_WORKTRAM_NAME     :Tram de service (ex-Bergische Stahlindustrie Type 1)
+STR_CHORZOWK_WORKTRAM_NAME      :Tram de service (ex-Chorzow K)
+STR_KONSTALN13_WORKTRAM_NAME    :Tram de service (ex-Konstal 13N)
+STR_KONSTALN105_WORKTRAM_NAME   :Tram de service (ex-Konstal 105N)
+
+STR_REFIT_SINGLE : - court (motrice seule)
+STR_REFIT_DOUBLE : - moyen (motrice avec 1 remorque)
+STR_REFIT_TRIPLE : - long (motrice avec 2 remorques)
+
+STR_SINGLE_TRAM : Motrice seule avec {SIGNED_WORD} places assises et {SIGNED_WORD} places debout.{}Temps de charge/décharge{NBSP}: {COMMA} jours
+
+STR_DYNAMIC_RUNNING_COST : Tram rapide, {SIGNED_WORD} places assises et {SIGNED_WORD} places debout. Le coût d'entretien varie selon la {YELLOW}vitesse{BLACK}.{}Temps de charge/décharge{NBSP}: {COMMA} jours
+
+STR_BUY_TRAILERS_VIA_REFIT : {SIGNED_WORD} places assises et {SIGNED_WORD} places debout par élément. {YELLOW}Réaménager{BLACK} pour acheter/vendre des remorques, jusqu'à {SIGNED_WORD} pass.{}Temps de charge/décharge{NBSP}: {COMMA} jours
+
+STR_DYNAMIC_RUNNING_COST_UNITS_VIA_REFIT : {SIGNED_WORD} places assises et {SIGNED_WORD} places debout (version courte). {YELLOW}Réaménager{BLACK} pour atteler des remorques, jusqu'à {SIGNED_WORD} pass. Le coût d'entretien varie selon la {YELLOW}vitesse{BLACK}.{}Temps de charge/décharge{NBSP}: {COMMA} jours
+
+STR_CARGO_TRAM          : Cargaison "de service" pour le fret express (marchandises, fournitures, etc.).

@@ -1,0 +1,179 @@
+// part of the Polish Tram Set
+// Graphic by Sojita, McZapkie
+// NML code by McZapkie
+// Chorzow tram K type + P15 trailer
+spriteset(spriteset_K_purchase, "gfx/ChorzowK.png") { template_sprite_purchase_consist(50,104) }
+spriteset(spriteset_K_depot, "gfx/ChorzowK.png") { template_sprite_window_sideview8(28) }
+spriteset(spriteset_P15_depot, "gfx/ChorzowK.png") { template_sprite_window_sideview8(4) }
+spriteset(spriteset_K, "gfx/ChorzowK.png") { template_sprite8(28) }
+spriteset(spriteset_P15, "gfx/ChorzowK.png") { template_sprite8(4) }
+
+switch (FEAT_ROADVEHS, SELF, ChorzowK_articulated_switch, extra_callback_info1) {
+    1..2: return ChorzowK;
+    return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+switch(FEAT_ROADVEHS, SELF, ChorzowK_graphic_switch, extra_callback_info1) {
+    /* Decide whether vehicle is drawn on map or in a special window  */
+	0x00:		spriteset_K;
+	0x10..0x12:	spriteset_K_depot;
+	return spriteset_K_purchase;
+}
+
+switch(FEAT_ROADVEHS, SELF, ChorzowP15_graphic_switch, extra_callback_info1) {
+    /* Decide whether vehicle is drawn on map or in a special window  */
+	0x00:		spriteset_P15;
+	0x10..0x12:	spriteset_P15_depot;
+	return spriteset_K_purchase;
+}
+
+
+switch(FEAT_ROADVEHS, SELF, ChorzowK_single_graphics_switch, position_in_consist) {
+	0: 	ChorzowK_graphic_switch;
+	1..2: invisible;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, ChorzowK_1P15_graphics_switch, position_in_consist) {
+	0: 	ChorzowK_graphic_switch;
+	1:	ChorzowP15_graphic_switch;
+	2: 	invisible;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, ChorzowK_2P15_graphics_switch, position_in_consist) {
+	0: 	ChorzowK_graphic_switch;
+	1:	ChorzowP15_graphic_switch;
+	2: 	ChorzowP15_graphic_switch;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, ChorzowK_consist_graphic_switch, cargo_subtype) {
+    /* Pass cargo subtype to next switch  */
+	0: ChorzowK_single_graphics_switch;
+	1: ChorzowK_1P15_graphics_switch;
+	2: ChorzowK_2P15_graphics_switch;
+	return CB_FAILED;
+}
+
+
+switch(FEAT_ROADVEHS, SELF, switch_ChorzowK_cap1, position_in_consist) {
+	0: return (cargo_type_in_veh==PASS)?CHORZOWK_CAP-1:CHORZOWK_SIT;
+	1..2: return 0;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_ChorzowK_cap2, position_in_consist) {
+	0: return (cargo_type_in_veh==PASS)?CHORZOWK_CAP-1:CHORZOWK_SIT;
+	1: return (cargo_type_in_veh==PASS)?CHORZOWK_CAP+1:CHORZOWK_SIT;
+	2: return 0;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_ChorzowK_cap3, position_in_consist) {
+	0: return (cargo_type_in_veh==PASS)?CHORZOWK_CAP-1:CHORZOWK_SIT;
+	1..2: return (cargo_type_in_veh==PASS)?CHORZOWK_CAP-1:CHORZOWK_SIT +1;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_ChorzowK_capacity, cargo_subtype) {
+	0: switch_ChorzowK_cap1;
+	1: switch_ChorzowK_cap2;
+	2: switch_ChorzowK_cap3;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_ChorzowK_visual_effect, position_in_consist) {
+	0: return visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+	1..2: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	return CB_FAILED;
+}
+
+#define CHORZOWK_VMAX 35
+#define CHORZOWK_MASS 15
+#define CHORZOWP15_MASS 10
+
+switch(FEAT_ROADVEHS, SELF, switch_ChorzowK_running_cost, cargo_subtype) {
+	0: return tram_running_cost(CHORZOWK_MASS, CHORZOWK_VMAX, RHEOSTAT, HARD_COMFORT);
+	1: return tram_running_cost(CHORZOWK_MASS + CHORZOWP15_MASS, CHORZOWK_VMAX, RHEOSTAT, HARD_COMFORT);
+	2: return tram_running_cost(CHORZOWK_MASS + 2 * CHORZOWP15_MASS, CHORZOWK_VMAX, RHEOSTAT, HARD_COMFORT);
+	return CB_FAILED;
+}
+// au
+switch(FEAT_ROADVEHS, SELF, switch_ChorzowK_weight, cargo_subtype) {
+	0: return CHORZOWK_MASS * 4;
+	1: return (CHORZOWK_MASS + CHORZOWP15_MASS) *4;
+	2: return (CHORZOWK_MASS + 2 * CHORZOWP15_MASS) *4;
+	return CB_FAILED;
+}
+
+
+switch(FEAT_ROADVEHS, SELF, switch_ChorzowK_maxspeed, cargo_subtype) {
+// units: km/h:2
+	0: return 18;
+	1: return 17;
+	2: return 15;
+	return CB_FAILED;
+}
+
+
+switch(FEAT_ROADVEHS, SELF, switch_ChorzowK_refit_cost, var[0x10,8,0xFF] - cargo_subtype) {
+    /* Refit cost based on difference between target cargo sybtype and current cargo subtype.
+	   Refitting to fewer carriages refunds money, while adding carriages costs (2x) money.        */
+	-2:				-(2*CHORZOWP15_REFIT_REFUND);
+	-1:				-(1*CHORZOWP15_REFIT_REFUND);
+	0:				0;
+	1:				(1*CHORZOWP15_REFIT_COST);
+	2:				(2*CHORZOWP15_REFIT_COST);
+	return CB_FAILED;
+}
+
+CARGO_DECAY_SWITCH(HARD_COMFORT, CHORZOWK) 
+
+if (param_electric_passenger_trams == 1) {
+item(FEAT_ROADVEHS, ChorzowK) {
+    property {
+        name:                           string(STR_CHORZOWK_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(1940, 1, 1);            
+        model_life:                     get_model_life(1940,1951,20);
+        vehicle_life:                   25;
+        retire_early:                   5;
+        reliability_decay:              15;
+        loading_speed:                  get_loading_speed(4, 0);
+        cost_factor:                    CHORZOWK_COST;      
+        running_cost_factor:            tram_running_cost(CHORZOWK_MASS, CHORZOWK_VMAX, RHEOSTAT, HARD_COMFORT);      
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          CHORZOWK_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_PASSENGERS);
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM,ROADVEH_FLAG_AUTOREFIT, ROADVEH_FLAG_2CC);
+        refit_cost:                     CHORZOWP15_REFIT_COST;
+        cargo_age_period:               CARGO_DECAY(HARD_COMFORT, CHORZOWK_CAP, CHORZOWK_SIT);
+        power:                          84 kW;
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 CHORZOWK_CAP; //unit
+        weight:                         CHORZOWK_MASS ton;
+        tractive_effort_coefficient:    0.22;
+        air_drag_coefficient:           0.3;
+        visual_effect:      		    visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+//	sound_effect: return sound("sfx/81052__inplano__tram-turn2.wav");
+        length:      			    8;
+    }
+
+    graphics {
+	articulated_part:	ChorzowK_articulated_switch;
+	default:            	ChorzowK_consist_graphic_switch;
+	purchase:           	spriteset_K_purchase;
+	cargo_subtype_text: 	switch_trailers_subtype_text;
+	length:			switch_trailers123_length;
+	cargo_capacity:		switch_ChorzowK_capacity;
+	purchase_cargo_capacity: return CHORZOWK_CAP/3;
+	purchase_running_cost_factor: return tram_running_cost(CHORZOWK_MASS, CHORZOWK_VMAX, RHEOSTAT,  HARD_COMFORT);
+	visual_effect: 		switch_ChorzowK_visual_effect;
+	running_cost_factor:	switch_ChorzowK_running_cost;  
+	speed:			switch_ChorzowK_maxspeed;
+	weight:			switch_ChorzowK_weight;
+	refit_cost:		switch_ChorzowK_refit_cost;
+	cargo_age_period:	switch_CHORZOWK_comfort;
+	additional_text: 	return string(STR_BUY_TRAILERS_VIA_REFIT, CHORZOWK_SIT, CHORZOWK_CAP-CHORZOWK_SIT, CHORZOWK_CAP * 3, get_total_loading_speed(4, 0, CHORZOWK_CAP));
+    }
+}
+}// if

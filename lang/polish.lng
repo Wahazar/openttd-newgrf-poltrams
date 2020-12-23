@@ -1,0 +1,68 @@
+##grflangid 0x30
+##plural 7
+##gender m f n
+##case b c d m n w
+# This is the English language file
+
+# GRF name and description
+STR_GRF_NAME        :PolTrams - nowy zestaw polskich tramwajów {VERSION}
+STR_GRF_DESCRIPTION :{TITLE} - Zestaw polskich trawmajów z lat 1866 do 2014.{}{COPYRIGHT}2014 grafiki: Sojita, McZapkie, Voyager One, Husak, kod NML: McZapkie{}Licencja: GPL v2
+
+STR_PARAM_NAME_HORSE_TRAMS      :Tramwaje konne
+STR_PARAM_DESC_HORSE_TRAMS      :Włącz tramwaje konne
+STR_PARAM_NAME_ELECTRIC_PASSENGER_TRAMS         :Tramwaje pasażerskie
+STR_PARAM_DESC_ELECTRIC_PASSENGER_TRAMS         :Włącz standardowe elektryczne tramwaje pasażerskie.
+STR_PARAM_NAME_CARGO_WORKTRAMS  :Tramwaje techniczne
+STR_PARAM_DESC_CARGO_WORKTRAMS  :Włącz tramwaje techniczne (towarowe dla przesyłek ekspresowych).
+STR_PARAM_NAME_PURCHASE_COST    :Modyfikator kosztu zakupu
+STR_PARAM_DESC_PURCHASE_COST    :Ta opcja zmniejsza lub zwiększa koszty zakupu tramwajow z tego zestawu.
+STR_PARAM_NAME_RUNNING_COST     :Modyfikator kosztow utrzymania
+STR_PARAM_DESC_RUNNING_COST     :Ta opcja zmniejsza lub zwiększa koszty utrzymania tramwajow z tego zestawu
+STR_PARAM_COST_H                :o połowę tańsze
+STR_PARAM_COST_N                :standard
+STR_PARAM_COST_D                :dwukrotnie droższe
+STR_PARAM_NAME_KEEP_OLD_VEHS    :Stare tramwaje dostępne zawsze
+STR_PARAM_DESC_KEEP_OLD_VEHS    :Zaznacz tę opcję, aby wyłączyc wycofywanie starych tramwajow. Opcja dotyczy tylko tramwajów z tego zestawu. Aby wyłączyć wycofywanie innych pojazdów, użyj parametru "Pojazdy nigdy nie są wycofywane" w ustawieniach gry.
+STR_PARAM_NAME_SECOND_HAND      :Tanie tramwaje i doczepy staroużyteczne
+STR_PARAM_DESC_SECOND_HAND      :Wyłączenie opcji usuwa z menu tanie (ale awaryjne) tramwaje "z drugiej ręki", usuwa rozszerzony czas dostępności popularnych modeli oraz możliwość taniego kupowania doczep do używanych tramwajów. Zaleca się wyłączyć jeśli wyłączone są awarie taboru, w przeciwnym wypadku zaleca się zostawić opcję włączoną.
+
+STR_HORSE_UNIVERSAL_TRAM_NAME   :Pasażersko-bagażowy tramwaj konny
+STR_HORSE_TRAM_NAME             :Tramwaj konny "belgijka"
+STR_BIMBATYP1_NAME              :Tramwaj Typ 1 (Bergische Stahlindustrie "bimba")
+STR_SANOKSN1_NAME               :Tramwaj Graz/Sanok SN1
+STR_RINGHOFFER_NAME                     :Tramwaj Typ R
+STR_SANOKSN2_NAME               :Tramwaj Sanok SN2 (z opcjonalną doczepą PN2)
+STR_CHORZOWK_NAME               :Tramwaj Chorzow K (z jedną lub dwiema doczepami P15)
+STR_KONSTALN_NAME               :Tram Konstal N (z jedną lub dwiema doczepami ND)
+STR_KONSTALN13_NAME             :Tram Konstal 13N (z opcją sterowania ukrotnionego 3x13N)
+STR_KONSTALN102_NAME            :Tram Konstal 102N ("przegubowiec", z opcją sterowania ukrotnionego 2x102N)
+STR_KONSTALN105_NAME            :Tram Konstal 105N ("gablota", z opcją sterowania ukrotnionego 3x105N)
+STR_MANT4_NAME                  :Staroużyteczny tramwaj MAN T4 (z doczepą B4)
+STR_ROTAXE1_NAME                :Staroużyteczny tramwaj SGP/Lohner E1 (z doczepą C3)
+STR_KONSTALN114_NAME            :Tram Konstal 114N (przegubowy trójczłonowy długi)
+STR_KONSTALN116_NAME            :Tram Konstal 116N (przegubowy trójczłonowy szybki)
+STR_ALSTOMNGD99_NAME            :Tram Alstom-Konstal NGd99 (przegubowy trójczłonowy długi)
+STR_PROTRAM204WR_NAME           :Tramwaj 204Wr As (Protram - modernizacja 105Na)
+STR_PESA120N_NAME               :Tramwaj Pesa Swing 120N (3- lub 5-członowy)
+STR_BOMBARDIERNGT8_NAME         :Tram Bombardier NGT8 (przegubowy trójczłonowy szybki i długi)
+
+STR_HORSE_CARGO_TRAM_NAME       :Towarowy tramwaj konny
+STR_BIMBATYP1_WORKTRAM_NAME     :Tramwaj techniczny (przebudowana "bimba" Typ 1)
+STR_CHORZOWK_WORKTRAM_NAME      :Tramwaj techniczny (przebudowany z "berlinki" typu K)
+STR_KONSTALN13_WORKTRAM_NAME    :Tramwaj techniczny (przebudowany z Konstalu 13N)
+STR_KONSTALN105_WORKTRAM_NAME   :Tramwaj techniczny (przebudowany z Konstalu 105N)
+
+STR_REFIT_SINGLE : - krótki (solówka)
+STR_REFIT_DOUBLE : - średni (z doczepą)
+STR_REFIT_TRIPLE : - długi (z dwiema doczepami)
+
+STR_SINGLE_TRAM : Solówka z {SIGNED_WORD} miejscami do siedzenia oraz {SIGNED_WORD} miejscami stojącymi.{}Czas całkowitego wy/załadunku: {COMMA} dni
+
+STR_DYNAMIC_RUNNING_COST :Tramwaj szybkobieżny z {SIGNED_WORD} miejscami do siedzenia oraz {SIGNED_WORD} miejscami stojącymi. Koszty utrzymania zależą od {YELLOW}chwilowej prędkości{BLACK}.{}Czas całkowitego wy/załadunku: {COMMA} dni
+
+STR_BUY_TRAILERS_VIA_REFIT :{SIGNED_WORD} miejsc do siedzenia oraz {SIGNED_WORD} miejsc stojących. Opcja {YELLOW}"przebudowa"{BLACK} pozwala na kupno/sprzedaż dodatkowych doczep/członów - maksymalna pojemność {SIGNED_WORD} pasażerów.{}Czas całkowitego wy/załadunku: {COMMA} dni
+
+STR_DYNAMIC_RUNNING_COST_UNITS_VIA_REFIT : Wersja podstawowa tramwaju z {SIGNED_WORD} miejscami do siedzenia oraz {SIGNED_WORD} miejscami stojącymi. Opcja {YELLOW}"przebudowa"{BLACK} pozwala na zmianę długości składu i zwiększenie pojemności do {SIGNED_WORD} pasażerów. Koszty utrzymania zależą od {YELLOW}chwilowej prędkości{BLACK}.{}Czas całkowitego wy/załadunku: {COMMA} dni
+
+STR_CARGO_TRAM          :Tramwaj techniczny do przesyłek ekspresowych (towary, sprzęt itp).
+STR_UNIVERSAL_TRAM          :Tramwaj ogólnego przeznaczenia, do przewozu pasażerów i przesyłek ekspresowych.

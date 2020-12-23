@@ -1,0 +1,76 @@
+// part of Polish Tram Set
+// Graphic by McZapkie
+// NML code by McZapkie
+
+spriteset(spriteset_Konstal105N_worktram_purchase, "gfx/Konstal105N_worktram.png") { template_sprite_purchase_consist(50,104) }
+spriteset(spriteset_Konstal105N_worktram_depot, "gfx/Konstal105N_worktram.png") { template_sprite_window_sideview8(4) }
+spriteset(spriteset_Konstal105N_worktram_loaded_depot, "gfx/Konstal105N_worktram.png") { template_sprite_window_sideview8(27) }
+spriteset(spriteset_Konstal105N_worktram, "gfx/Konstal105N_worktram.png") { template_sprite8(4) }
+spriteset(spriteset_Konstal105N_worktram_loaded, "gfx/Konstal105N_worktram.png") { template_sprite8(27) }
+
+spritegroup graphic_Konstal105N_worktram_spritegroup {
+    loaded:     [spriteset_Konstal105N_worktram, spriteset_Konstal105N_worktram_loaded, spriteset_Konstal105N_worktram_loaded];
+    loading:    [spriteset_Konstal105N_worktram, spriteset_Konstal105N_worktram, spriteset_Konstal105N_worktram_loaded];
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Konstal105N_worktram_depot_sprite, cargo_count ) {
+	0: return spriteset_Konstal105N_worktram_depot;
+	return spriteset_Konstal105N_worktram_loaded_depot;
+}
+
+switch(FEAT_ROADVEHS, SELF, Konstal105N_worktram_graphic_switch, extra_callback_info1) {
+	0x00:		graphic_Konstal105N_worktram_spritegroup;
+	0x10..0x12:	switch_Konstal105N_worktram_depot_sprite;
+	return spriteset_Konstal105N_worktram_purchase;
+}
+
+#define K105N_CARGO_TRAM_LOAD 20
+
+switch(FEAT_ROADVEHS, SELF, maxload_K105N_cargo_tram_switch, cargo_type_in_veh) {    
+	GOOD: return K105N_CARGO_TRAM_LOAD*8/4;  
+	ENSP: return K105N_CARGO_TRAM_LOAD*8/5;  
+	FMSP: return K105N_CARGO_TRAM_LOAD*8/4;  
+	MNSP: return K105N_CARGO_TRAM_LOAD*8/3;    
+        return K105N_CARGO_TRAM_LOAD;  
+} 
+
+if (param_cargo_worktrams == 1) {
+item(FEAT_ROADVEHS, Konstal105N_worktram) {
+    property {
+        /* common properties */
+        name:                           string(STR_KONSTALN105_WORKTRAM_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(2010, 1, 1);            
+        model_life:                     get_model_life(1980,0,0);
+        vehicle_life:                   20;
+	retire_early:			0;
+        reliability_decay:              20;
+        loading_speed:                  6;
+        cost_factor:                    KONSTALN105_COST /2;      
+        running_cost_factor:            tram_running_cost(KONSTALN105_MASS, KONSTALN105_VMAX/2, RHEOSTAT, HARD_COMFORT);
+        /* tram properties */
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          KONSTALN105_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_EXPRESS, CC_MAIL, CC_ARMOURED);
+	non_refittable_cargo_classes:   bitmask(CC_LIQUID, CC_PASSENGERS, CC_BULK, CC_OVERSIZED);
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM,ROADVEH_FLAG_AUTOREFIT, ROADVEH_FLAG_2CC);
+        refit_cost:                     0;
+        cargo_age_period:               185;
+        power:                          160 kW;
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 K105N_CARGO_TRAM_LOAD;
+        weight:                         KONSTALN105_MASS ton;
+        tractive_effort_coefficient:    0.3;
+        air_drag_coefficient:           0.2;
+        visual_effect:      		visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+        length:      			8;
+    }
+
+    graphics {
+	default:            	Konstal105N_worktram_graphic_switch;
+	purchase:           	spriteset_Konstal105N_worktram_purchase;
+	cargo_capacity:		maxload_K105N_cargo_tram_switch;
+	additional_text: 	return string(STR_CARGO_TRAM);
+    }
+}
+} //if

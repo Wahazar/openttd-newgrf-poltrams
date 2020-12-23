@@ -1,0 +1,68 @@
+##grflangid 0x38
+##plural 6
+##gender male female middle
+##case aku dat gen ins lok nom vok
+# This is the English language file
+
+# GRF name and description
+STR_GRF_NAME        :PolTrams - novi set poljskih tramvaja {VERSION}
+STR_GRF_DESCRIPTION :{TITLE} - Set poljskih električnih i konjskih tramvaja od 1866 do 2015., sa dužinom tramvaja prilagodljivom kroz meni za remont.{}{COPYRIGHT}2014 Sojita, Voyager One (grafika), McZapkie (NML kod, grafika){}Licenca: GPL v2
+
+STR_PARAM_NAME_RESERVED         :Rezervirano za buduće korištenje.
+STR_PARAM_DESC_RESERVED         :Držač mjesta...
+STR_PARAM_NAME_HORSE_TRAMS      :Konjski tramvaji
+STR_PARAM_DESC_HORSE_TRAMS      :Uključi konjske tramvaje
+STR_PARAM_NAME_ELECTRIC_PASSENGER_TRAMS         :Električni putnički tramvaji
+STR_PARAM_DESC_ELECTRIC_PASSENGER_TRAMS         :Uključi standardne električne putničke tramvaje. Osnovna postavka je uključeno.
+STR_PARAM_NAME_CARGO_WORKTRAMS  :Teretni radni tramvaji
+STR_PARAM_DESC_CARGO_WORKTRAMS  :Uključi teretne radne tramvaje (za klase brzih tereta: roba, opskrba, itd.)
+STR_PARAM_NAME_PURCHASE_COST    :Parametar za nabavne troškove
+STR_PARAM_DESC_PURCHASE_COST    :Koristite ovu opciju za promjenu nabavnih troškova tramvaja iz ovog seta.
+STR_PARAM_NAME_RUNNING_COST     :Parametar za tekuće troškove
+STR_PARAM_DESC_RUNNING_COST     :Koristite ovu opciju za promjenu tekućih troškova tramvaja iz ovog seta.
+STR_PARAM_COST_H                :Pola
+STR_PARAM_COST_N                :Normalno
+STR_PARAM_COST_D                :Dvostruko
+STR_PARAM_NAME_KEEP_OLD_VEHS    :Zadrži stare tramvaje u meniju za nabavu
+STR_PARAM_DESC_KEEP_OLD_VEHS    :Odaberite ovu opciju za isključivanje vijeka trajanja starih tramvaja. Ova opcija utječe samo na ovaj set. Za isključivanje vijeka trajanja drugih vozila koristite "Vozila nikad ne zastarijevaju" u postavkama igre.
+STR_PARAM_NAME_SECOND_HAND      :Dozvoli jeftine tramvaje i remonte
+STR_PARAM_DESC_SECOND_HAND      :Isključite za isključivanje jeftinih (ali ne baš pouzdanih) "rabljenih" tramvaja, produživanje vijeka trajanja i kupovinu jeftinih prikolica za popularne tramvaje. Preporučeno da bude uključeno ako je postavka "kvarovi vozila" uključena.
+
+STR_HORSE_TRAM_NAME             :Konjski putnički tramvaji
+STR_BIMBATYP1_NAME              :Tramvaj Bergische Stahlindustrie tip 1
+STR_SANOKSN1_NAME               :Tramvaj Graz/Sanok SN1
+STR_RINGHOFFER_NAME                     :Tramvaj Ringhoffer tip R
+STR_SANOKSN2_NAME               :Tramvaj Sanok SN2 (sa PN2 prikolicom kao opcija)
+STR_CHORZOWK_NAME               :Tramvaj Chorzow K (sa jednom ili dvije P15 prikolice)
+STR_KONSTALN_NAME               :Tramvaj Konstal N (sa jednom ili dvije ND prikolice)
+STR_KONSTALN13_NAME             :Tramvaj Konstal 13N (brzi pcc, do 3 višestruke jedinice)
+STR_KONSTALN102_NAME            :Tramvaj Konstal 102N (zglobni pcc, 1 ili 2 višestruke jedinice)
+STR_KONSTALN105_NAME            :Tramvaj Konstal 105N (visok kapacitet, do 3 višestruke jedinice)
+STR_MANT4_NAME                  :"rabljeni" tramvaj MAN T4 (sa B4 prikolicom)
+STR_ROTAXE1_NAME                :"rabljeni" tramvaj SGP/Lohner E1 (sa C3 prikolicom)
+STR_KONSTALN114_NAME            :Tramvaj Konstal 114N (dugačka trostruka jedinica)
+STR_KONSTALN116_NAME            :Tramvaj Konstal 116N (brza trostruka jedinica)
+STR_ALSTOMNGD99_NAME            :Tramvaj Alstom-Konstal NGd99 (dugačka trostruka jedinica)
+STR_PROTRAM204WR_NAME           :Tramvaj Protram 204Wr As (modernizirani 105Na, do 3 višestruke jedinice)
+STR_PESA120N_NAME               :Tramvaj Pesa "Swing" 120N (3 ili 5 jedinica)
+STR_BOMBARDIERNGT8_NAME         :Tramvaj Bombardier NGT8 (brza dugačka trostruka jedinica)
+
+STR_HORSE_CARGO_TRAM_NAME       :Konjski teretni tramvaji
+STR_BIMBATYP1_WORKTRAM_NAME     :Radni tramvaj (ex-Bergische Stahlindustrie tip 1)
+STR_CHORZOWK_WORKTRAM_NAME      :Radni tramvaj (ex-Chorzow K)
+STR_KONSTALN13_WORKTRAM_NAME    :Radni tramvaj (ex-Konstal 13N)
+STR_KONSTALN105_WORKTRAM_NAME   :Radni tramvaj (ex-Konstal 105N)
+
+STR_REFIT_SINGLE :- kratka (jednostruka motorna jedinica)
+STR_REFIT_DOUBLE :- srednja (motorna jedinica sa prikolicom)
+STR_REFIT_TRIPLE :- dugačka (motorna jedinica sa dvije prikolice)
+
+STR_SINGLE_TRAM :Jednostruko vozilo sa {SIGNED_WORD} sjedećih i {SIGNED_WORD} stajaćih mjesta.{}Vrijeme ukrcaja/ iskrcaja: {COMMA} dana
+
+STR_DYNAMIC_RUNNING_COST :Brzi tramvaj, {SIGNED_WORD} sjedećih i {SIGNED_WORD} stajaćih mjesta. Tekući troškovi ovise o {YELLOW}stvarnoj brzini{BLACK}.{}Vrijeme ukrcaja/ iskrcaja: {COMMA} dana
+
+STR_BUY_TRAILERS_VIA_REFIT :{SIGNED_WORD} sjedećih i {SIGNED_WORD} stajaćih mjesta u jednoj jedinici. Koristi {YELLOW}remont{BLACK} za kupnju/prodaju dodatnih prikolica/jedinica, do {SIGNED_WORD} komada.{}Vrijeme ukrcaja/ iskrcaja: {COMMA} dana
+
+STR_DYNAMIC_RUNNING_COST_UNITS_VIA_REFIT :{SIGNED_WORD} sjedećih i {SIGNED_WORD} stajaćih mjesta u kratkoj verziji. Koristite {YELLOW}remont{BLACK} za izmjenu sastava tramvaja, do {SIGNED_WORD} prolaza. Tekući troškovi ovise o {YELLOW}stvarnoj brzini{BLACK}.{}Vrijeme ukrcaja/ iskrcaja: {COMMA} dana
+
+STR_CARGO_TRAM          :Teretni "radni tramvaj" za brze terete (roba, opskrba, itd.)

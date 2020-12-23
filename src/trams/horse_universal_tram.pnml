@@ -1,0 +1,96 @@
+// part of Polish Tram Set
+// Graphic by McZapkie, Voyager One
+// NML code by McZapkie
+
+//cargo tram
+
+spriteset(spriteset_HorseUniversal_purchase, "gfx/horse_tram_universal.png") { template_sprite_purchase_consist(28,104) }
+spriteset(spriteset_HorseUniversal, "gfx/horse_tram_universal.png") { template_sprite8(6) }
+
+switch(FEAT_ROADVEHS, SELF, HorseUniversal_graphic_switch, position_in_consist) {
+	0:	return velocity_horsewalk_rc_graphic_switch;
+	1:	return spriteset_HorseUniversal;
+return CB_FAILED;
+}
+
+switch (FEAT_ROADVEHS, SELF, switch_HorseUniversal_articulated, extra_callback_info1) { 
+    1 : return HorseUniversal; 
+    return CB_RESULT_NO_MORE_ARTICULATED_PARTS; 
+} 
+switch(FEAT_ROADVEHS, SELF, switch_HorseUniversal_length, position_in_consist) {
+	0:	return 4;
+	1:	return 3;
+return CB_FAILED;
+}
+
+#define HORSE_UNIVERSAL_TRAM_VMAX 10
+#define HORSE_UNIVERSAL_TRAM_MASS 4
+#define HORSE_UNIVERSAL_TRAM_LOAD 8
+#define HORSE_UNIVERSAL_TRAM_LOAD_PASS 28
+
+switch(FEAT_ROADVEHS, SELF, maxload_horse_universal_tram_switch, cargo_type_in_veh) { 
+	PASS: return HORSE_UNIVERSAL_TRAM_LOAD_PASS; 
+	TOUR: return HORSE_UNIVERSAL_TRAM_LOAD_PASS/4; 
+	MAIL: return HORSE_UNIVERSAL_TRAM_LOAD*8/2;  
+	GOOD: return HORSE_UNIVERSAL_TRAM_LOAD*8/4;  
+	ENSP: return HORSE_UNIVERSAL_TRAM_LOAD*8/5;  
+	FMSP: return HORSE_UNIVERSAL_TRAM_LOAD*8/4;  
+	MNSP: return HORSE_UNIVERSAL_TRAM_LOAD*8/3;  
+	VALU: return HORSE_UNIVERSAL_TRAM_LOAD*8/1;  
+	GOLD: return HORSE_UNIVERSAL_TRAM_LOAD*8/4;  
+	DIAM: return HORSE_UNIVERSAL_TRAM_LOAD*8/1;  
+        return HORSE_UNIVERSAL_TRAM_LOAD;  
+}  
+switch(FEAT_ROADVEHS, SELF, capacity_HorseUniversal_switch, position_in_consist) {
+	0:	return 0;
+	1:	return maxload_horse_universal_tram_switch;
+return CB_FAILED;
+}
+
+if ((param_horse_trams == 1) && (param_cargo_worktrams == 1)) {
+item(FEAT_ROADVEHS, HorseUniversal) {
+    property {
+        /* common properties */
+        name:                           string(STR_HORSE_UNIVERSAL_TRAM_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(1860, 1, 1);            
+        model_life:                     get_model_life(1870,1920,10);
+        vehicle_life:                   20;
+	retire_early:			10;
+        reliability_decay:              8;
+        loading_speed:                  5;
+        cost_factor:                    HORSE_TRAM_COST;      
+        running_cost_factor:            min(2 * STAFF_RUNNING_COST /9, 255);
+        /* tram properties */
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          HORSE_UNIVERSAL_TRAM_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_PASSENGERS, CC_EXPRESS, CC_MAIL, CC_ARMOURED);
+	non_refittable_cargo_classes:       bitmask(CC_LIQUID, CC_BULK, CC_OVERSIZED, CC_REFRIGERATED);
+	cargo_disallow_refit:       	[BOOM];
+	default_cargo_type:		PASS;
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM, ROADVEH_FLAG_AUTOREFIT, ROADVEH_FLAG_2CC, ROADVEH_FLAG_NO_BREAKDOWN_SMOKE);
+        refit_cost:                     0;
+        cargo_age_period:               185;
+        power:                          20 hp;
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 HORSE_UNIVERSAL_TRAM_LOAD_PASS;
+        weight:                         HORSE_UNIVERSAL_TRAM_MASS ton;
+        tractive_effort_coefficient:    0.8;
+        air_drag_coefficient:           0.5;
+        visual_effect:      		visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	sound_effect: SOUND_HORSE;
+	tram_type:			RAIL;
+        length:      			4;
+    }
+
+    graphics {
+	default:            	HorseUniversal_graphic_switch;
+	purchase:           	spriteset_HorseUniversal_purchase;
+	cargo_capacity:		capacity_HorseUniversal_switch;
+	purchase_cargo_capacity: return HORSE_UNIVERSAL_TRAM_LOAD_PASS/2;
+	articulated_part:	switch_HorseUniversal_articulated;
+	length:			switch_HorseUniversal_length;
+	additional_text: 	return string(STR_UNIVERSAL_TRAM);
+    }
+}
+} //if

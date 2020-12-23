@@ -1,0 +1,68 @@
+##grflangid 0x01
+##plural 0
+# This is the English language file
+
+# GRF name and description
+STR_GRF_NAME        :PolTrams - the new Polish Tram set {VERSION}
+STR_GRF_DESCRIPTION :{TITLE} - Set of Polish electric and horse trams from 1866 to 2015, with tram length adjustable through refit menu.{}{COPYRIGHT}2014 Sojita, Voyager One (graphics), McZapkie (NML code, graphics){}License: GPL v2
+
+STR_PARAM_NAME_RESERVED 	: Reserved for future use.
+STR_PARAM_DESC_RESERVED		: Place-holder...
+STR_PARAM_NAME_HORSE_TRAMS 	: Horse trams
+STR_PARAM_DESC_HORSE_TRAMS	: Enable horse trams
+STR_PARAM_NAME_ELECTRIC_PASSENGER_TRAMS 	: Electric passenger trams
+STR_PARAM_DESC_ELECTRIC_PASSENGER_TRAMS		: Enable standard electric passenger trams. Default is on.
+STR_PARAM_NAME_CARGO_WORKTRAMS 	: Cargo worktrams
+STR_PARAM_DESC_CARGO_WORKTRAMS	: Enable cargo worktrams (for express cargo classes: goods, supplies etc)
+STR_PARAM_NAME_PURCHASE_COST    :Purchase cost modifier
+STR_PARAM_DESC_PURCHASE_COST    :Use this option to change the purchase costs of trams from this set.
+STR_PARAM_NAME_RUNNING_COST     :Running cost modifier
+STR_PARAM_DESC_RUNNING_COST     :Use this option to change the running costs of trams from this set.
+STR_PARAM_COST_H               	: Half
+STR_PARAM_COST_N               	: Normal
+STR_PARAM_COST_D               	: Double
+STR_PARAM_NAME_KEEP_OLD_VEHS    :Keep old trams in purchase menu
+STR_PARAM_DESC_KEEP_OLD_VEHS    :Select this option to disable expiration of old trams. This option applies only to this tram set. To disable expiration of other sets use option "Vehicles never expire" in game settings.
+STR_PARAM_NAME_SECOND_HAND    	:Allow cheap trams and refits
+STR_PARAM_DESC_SECOND_HAND    	:Switch off to disable cheap (but not very reliable) "second hand" trams, extend model life time and cheap trailer purchase of popular trams. Recommended to keep turned on if "vehicle breakdowns" setting is turned on. 
+
+STR_HORSE_UNIVERSAL_TRAM_NAME   :Universal horse tram
+STR_HORSE_TRAM_NAME      	:Horse passenger tram
+STR_BIMBATYP1_NAME      	:Tram Bergische Stahlindustrie Type 1 
+STR_SANOKSN1_NAME      		:Tram Graz/Sanok SN1
+STR_RINGHOFFER_NAME      		:Tram Ringhoffer Type R
+STR_SANOKSN2_NAME      		:Tram Sanok SN2 (with optional PN2 trailer)
+STR_CHORZOWK_NAME      		:Tram Chorzow K (with one or two P15 trailers)
+STR_KONSTALN_NAME      		:Tram Konstal N (with one or two ND trailers)
+STR_KONSTALN13_NAME     	:Tram Konstal 13N (fast pcc, up to 3 units)
+STR_KONSTALN102_NAME      	:Tram Konstal 102N (pcc articulated, 1 or 2 units)
+STR_KONSTALN105_NAME      	:Tram Konstal 105N (high capacity, up to 3 units)
+STR_MANT4_NAME      		:"second hand" tram MAN T4 (with B4 trailer)
+STR_ROTAXE1_NAME      		:"second hand" tram SGP/Lohner E1 (with C3 trailer)
+STR_KONSTALN114_NAME      	:Tram Konstal 114N (long triple unit)
+STR_KONSTALN116_NAME      	:Tram Konstal 116N (fast triple unit)
+STR_ALSTOMNGD99_NAME      	:Tram Alstom-Konstal NGd99 (long triple unit)
+STR_PROTRAM204WR_NAME      	:Tram Protram 204Wr As (refurbished 105Na, up to 3 u.)
+STR_PESA120N_NAME      		:Tram Pesa "Swing" 120N (3 or 5 sections)
+STR_BOMBARDIERNGT8_NAME      	:Tram Bombardier NGT8 (fast long triple unit)
+
+STR_HORSE_CARGO_TRAM_NAME      	:Horse freight tram
+STR_BIMBATYP1_WORKTRAM_NAME     :Worktram (ex-Bergische Stahlindustrie Type 1)
+STR_CHORZOWK_WORKTRAM_NAME      :Worktram (ex-Chorzow K)
+STR_KONSTALN13_WORKTRAM_NAME    :Worktram (ex-Konstal 13N)
+STR_KONSTALN105_WORKTRAM_NAME   :Worktram (ex-Konstal 105N)
+
+STR_REFIT_SINGLE : - short (single motor car)
+STR_REFIT_DOUBLE : - medium (motor car with trailer)
+STR_REFIT_TRIPLE : - long (motor car with two trailers)
+
+STR_SINGLE_TRAM : Single car with {SIGNED_WORD} sitting and {SIGNED_WORD} standing places. {}Load/unload time: {COMMA} days
+
+STR_DYNAMIC_RUNNING_COST : Fast tram, {SIGNED_WORD} sitting and {SIGNED_WORD} standing places. Running costs depends on {YELLOW}actual speed{BLACK}. {}Load/unload time: {COMMA} days
+
+STR_BUY_TRAILERS_VIA_REFIT : {SIGNED_WORD} sitting and {SIGNED_WORD} standing places in one unit. Use {YELLOW}refit{BLACK} to buy/sell additional trailers/units, up to {SIGNED_WORD} pass. {}Load/unload time: {COMMA} days
+
+STR_DYNAMIC_RUNNING_COST_UNITS_VIA_REFIT : {SIGNED_WORD} sitting and {SIGNED_WORD} standing places in short version. Use {YELLOW}refit{BLACK} to change tram consist, up to {SIGNED_WORD} pass. Running costs depends on {YELLOW}actual speed{BLACK}. {}Load/unload time: {COMMA} days
+
+STR_CARGO_TRAM		: Cargo "worktram" for express freight (good, supplies etc).
+STR_UNIVERSAL_TRAM	: All-purpose tram for passengers, mail and light freight.

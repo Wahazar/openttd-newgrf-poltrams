@@ -1,0 +1,154 @@
+// part of the Polish Tram Set
+// Graphic by Sojita
+// NML code by McZapkie
+
+spriteset(spriteset_R_purchase, "gfx/Ringhoffer.png") { template_sprite_purchase_consist(50,104) }
+spriteset(spriteset_R_depot, "gfx/Ringhoffer.png") { template_sprite_window_sideview8(28) }
+spriteset(spriteset_Rd_depot, "gfx/Ringhoffer.png") { template_sprite_window_sideview8(4) }
+spriteset(spriteset_R, "gfx/Ringhoffer.png") { template_sprite8(28) }
+spriteset(spriteset_Rd, "gfx/Ringhoffer.png") { template_sprite8(4) }
+
+switch (FEAT_ROADVEHS, SELF, Ringhoffer_articulated_switch, extra_callback_info1) {
+    1: return Ringhoffer;
+    return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+switch(FEAT_ROADVEHS, SELF, Ringhoffer_graphic_switch, extra_callback_info1) {
+    /* Decide whether vehicle is drawn on map or in a special window  */
+	0x00:		spriteset_R;
+	0x10..0x12:	spriteset_R_depot;
+	return spriteset_R_purchase;
+}
+
+switch(FEAT_ROADVEHS, SELF, RinghofferD_graphic_switch, extra_callback_info1) {
+    /* Decide whether vehicle is drawn on map or in a special window  */
+	0x00:		spriteset_Rd;
+	0x10..0x12:	spriteset_Rd_depot;
+	return spriteset_R_purchase;
+}
+
+
+switch(FEAT_ROADVEHS, SELF, Ringhoffer_single_graphics_switch, position_in_consist) {
+	0: 	Ringhoffer_graphic_switch;
+	1: invisible;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, Ringhoffer_D_graphics_switch, position_in_consist) {
+	0: 	Ringhoffer_graphic_switch;
+	1:	RinghofferD_graphic_switch;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, Ringhoffer_consist_graphic_switch, cargo_subtype) {
+    /* Pass cargo subtype to next switch  */
+	0: Ringhoffer_single_graphics_switch;
+	1: Ringhoffer_D_graphics_switch;
+	return CB_FAILED;
+}
+
+
+switch(FEAT_ROADVEHS, SELF, switch_Ringhoffer_cap1, position_in_consist) {
+	0: return (cargo_type_in_veh==PASS)?RINGHOFFER_CAP:RINGHOFFER_SIT;
+	1: return 0;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_Ringhoffer_cap2, position_in_consist) {
+	0..1: return (cargo_type_in_veh==PASS)?RINGHOFFER_CAP:RINGHOFFER_SIT;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Ringhoffer_capacity, cargo_subtype) {
+	0: switch_Ringhoffer_cap1;
+	1: switch_Ringhoffer_cap2;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Ringhoffer_visual_effect, position_in_consist) {
+	0: return visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+	1: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	return CB_FAILED;
+}
+
+#define RINGHOFFER_VMAX 34
+#define RINGHOFFER_MASS 11
+#define RINGHOFFER_D_MASS 8
+
+switch(FEAT_ROADVEHS, SELF, switch_Ringhoffer_running_cost, cargo_subtype) {
+	0: return tram_running_cost(RINGHOFFER_MASS, RINGHOFFER_VMAX, RHEOSTAT, HARD_COMFORT);
+	1: return tram_running_cost(RINGHOFFER_MASS + RINGHOFFER_D_MASS, RINGHOFFER_VMAX, RHEOSTAT, HARD_COMFORT);
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Ringhoffer_weight, cargo_subtype) {
+	0: return RINGHOFFER_MASS * 4;
+	1: return (RINGHOFFER_MASS + RINGHOFFER_D_MASS) * 4;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Ringhoffer_maxspeed, cargo_subtype) {
+// units: km/h:2
+	0: return 18;
+	1: return 17;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Ringhoffer_refit_cost, var[0x10,8,0xFF] - cargo_subtype) {
+    /* Refit cost based on difference between target cargo sybtype and current cargo subtype.
+	   Refitting to fewer carriages refunds money, while adding carriages costs (2x) money.        */
+	-1:				-(1*RINGHOFFER_D_REFIT_REFUND);
+	0:				0;
+	1:				(1*RINGHOFFER_D_REFIT_COST);
+	return CB_FAILED;
+}
+
+CARGO_DECAY_SWITCH(HARD_COMFORT, RINGHOFFER) 
+
+if (param_electric_passenger_trams == 1) {
+item(FEAT_ROADVEHS, Ringhoffer) {
+    property {
+        name:                           string(STR_RINGHOFFER_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(1924, 1, 1);            
+        model_life:                     get_model_life(1924,1949,15);
+        vehicle_life:                   35;
+        retire_early:                   15;
+        reliability_decay:              12;
+        loading_speed:                  get_loading_speed(4, 0);
+        cost_factor:                    RINGHOFFER_COST;      
+        running_cost_factor:            tram_running_cost(RINGHOFFER_MASS, RINGHOFFER_VMAX, RHEOSTAT, HARD_COMFORT);      
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          RINGHOFFER_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_PASSENGERS);
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM,ROADVEH_FLAG_AUTOREFIT, ROADVEH_FLAG_2CC);
+        refit_cost:                     RINGHOFFER_D_REFIT_COST;
+        cargo_age_period:               CARGO_DECAY(HARD_COMFORT, RINGHOFFER_CAP, RINGHOFFER_SIT);
+        power:                          68 kW;
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 RINGHOFFER_CAP; //car
+        weight:                         RINGHOFFER_MASS ton;
+        tractive_effort_coefficient:    0.25;
+        air_drag_coefficient:           0.2;
+        visual_effect:      		visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+        length:      			8;
+    }
+
+    graphics {
+	articulated_part:	Ringhoffer_articulated_switch;
+	default:            	Ringhoffer_consist_graphic_switch;
+	purchase:           	spriteset_R_purchase;
+	cargo_subtype_text: 	switch_trailer_subtype_text;
+	length:			switch_trailers12_length;
+	cargo_capacity:		switch_Ringhoffer_capacity;
+	purchase_cargo_capacity: return RINGHOFFER_CAP/2;
+	purchase_running_cost_factor: return tram_running_cost(RINGHOFFER_MASS, RINGHOFFER_VMAX, RHEOSTAT, HARD_COMFORT);
+	visual_effect: 		switch_Ringhoffer_visual_effect;
+	running_cost_factor:	switch_Ringhoffer_running_cost;  
+	speed:			switch_Ringhoffer_maxspeed;
+	weight:			switch_Ringhoffer_weight;
+	refit_cost:		switch_Ringhoffer_refit_cost;
+	cargo_age_period:	switch_RINGHOFFER_comfort;
+	additional_text: 	return string(STR_BUY_TRAILERS_VIA_REFIT, RINGHOFFER_SIT, RINGHOFFER_CAP-RINGHOFFER_SIT, RINGHOFFER_CAP * 3, get_total_loading_speed(4, 0, RINGHOFFER_CAP));
+    }
+}
+} //if

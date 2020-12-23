@@ -1,0 +1,52 @@
+/*
+ * This file is part of the PolTrams NewGRF.
+ * PolTrams is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, version 2 or - upon your discretion - any later version.
+ * PolTrams is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with PolTrams. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/* Newgrf parameters */
+
+#include "src/header.pnml" 
+
+
+/* Common definitions */
+
+#include "src/definitions.pnml"
+#include "src/spritetemplates.pnml"
+
+#include "src/horses.pnml"
+
+/* universal trams */
+
+#include "src/trams/horse_universal_tram.pnml"
+
+/* passenger trams */
+
+#include "src/trams/horse_passenger_tram.pnml"
+#include "src/trams/bimbatyp1.pnml"
+#include "src/trams/sanoksn1.pnml"
+#include "src/trams/ringhoffer.pnml"
+#include "src/trams/sanoksn2.pnml"
+#include "src/trams/chorzowk.pnml"
+#include "src/trams/konstaln.pnml"
+#include "src/trams/konstal13n.pnml"
+#include "src/trams/konstal102n.pnml"
+#include "src/trams/konstal105n.pnml"
+#include "src/trams/mant4.pnml"
+#include "src/trams/konstal114n.pnml"
+#include "src/trams/konstal116n.pnml"
+#include "src/trams/alstomngd99.pnml"
+#include "src/trams/protram204wr.pnml"
+#include "src/trams/pesa120n.pnml"
+#include "src/trams/bombardierngt8.pnml"
+
+/* cargo trams */
+#include "src/trams/horse_cargo_tram.pnml"
+#include "src/trams/bimbatyp1_worktram.pnml"
+#include "src/trams/chorzowk_worktram.pnml"
+#include "src/trams/konstal13n_worktram.pnml"
+#include "src/trams/konstal105n_worktram.pnml"
+
+

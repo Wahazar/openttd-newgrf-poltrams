@@ -1,0 +1,66 @@
+##grflangid 0x1f
+##plural 0
+# This is the English language file
+
+# GRF name and description
+STR_GRF_NAME        :PolTrams - de nieuwe Poolse tramset {VERSION}
+STR_GRF_DESCRIPTION :{TITLE} - Set Poolse elektrische en paardentrams van 1866 tot 2015, waarbij tramlengte kan worden aangepast in het ombouwmenu.{}{COPYRIGHT}2014 Sojita, Voyager One (grafisch), McZapkie (NML-code, grafisch){}Licentie: GPL v2
+
+STR_PARAM_NAME_RESERVED         :Gereserveerd voor toekomstig gebruik.
+STR_PARAM_DESC_RESERVED         :Plaatshouder...
+STR_PARAM_NAME_HORSE_TRAMS      :Paardentrams
+STR_PARAM_DESC_HORSE_TRAMS      :Paardentrams inschakelen
+STR_PARAM_NAME_ELECTRIC_PASSENGER_TRAMS         :Elektrische passagierstrams
+STR_PARAM_DESC_ELECTRIC_PASSENGER_TRAMS         :Standaard elektrische passagierstrams inschakelen. Standaard is aan.
+STR_PARAM_NAME_CARGO_WORKTRAMS  :Vrachttrams
+STR_PARAM_DESC_CARGO_WORKTRAMS  :Vrachttrams inschakelen (voor expressevracht: goederen, voedsel enz.)
+STR_PARAM_NAME_PURCHASE_COST    :Aanpassingsfactor aankoopkosten
+STR_PARAM_DESC_PURCHASE_COST    :Gebruik deze optie om de aankoopkosten van trams uit deze set aan te passen.
+STR_PARAM_NAME_RUNNING_COST     :Aanpassingsfactor lopende kosten
+STR_PARAM_DESC_RUNNING_COST     :Gebruik deze optie om de lopende kosten van trams in deze set aan te passen.
+STR_PARAM_COST_H                : Half
+STR_PARAM_COST_N                : Normaal
+STR_PARAM_COST_D                :Dubbel
+STR_PARAM_NAME_KEEP_OLD_VEHS    :Oude trams in aankoopmenu houden
+STR_PARAM_DESC_KEEP_OLD_VEHS    :Selecteer deze optie om verlopen van oude trams uit te schakelen. Deze optie geldt alleen voor deze tramset. Je schakelt verlopen in andere sets uit met 'Voertuigen verlopen niet' in de spelinstellingen.
+STR_PARAM_NAME_SECOND_HAND      :Goedkope trams en ombouw toestaan
+STR_PARAM_DESC_SECOND_HAND      :Schakel dit uit om goedkope (maar niet erg betrouwbare) 'tweedehands'-trams uit te schakelen, de levensduur van modellen te verlengen en het kopen van populaire trams goedkoper te maken. Aanbevolen wanneer de instelling 'Voertuigstoringen' ingeschakeld is.
+
+STR_HORSE_TRAM_NAME             :Passagierspaardentram
+STR_BIMBATYP1_NAME              :Tram Bergische Stahlindustrie type 1
+STR_SANOKSN1_NAME               :Tram Graz/Sanok SN1
+STR_RINGHOFFER_NAME                     :Tram Ringhoffer type R
+STR_SANOKSN2_NAME               :Tram Sanok SN2 (met optionele PN2-aanhanger)
+STR_CHORZOWK_NAME               :Tram Chorzow K (met één of twee P15-aanhangers)
+STR_KONSTALN_NAME               :Tram Konstal N (met één of twee ND-aanhangers)
+STR_KONSTALN13_NAME             :Tram Konstal 13N (snelle pcc, tot 3 treinstellen)
+STR_KONSTALN102_NAME            :Tram Konstal 102N (pcc geleed, 1 of 2 treinstellen)
+STR_KONSTALN105_NAME            :Tram Konstal 105N (hoge capaciteit, tot 3 treinstellen)
+STR_MANT4_NAME                  :'tweedehands'-tram MAN T4 (met B4-aanhanger)
+STR_ROTAXE1_NAME                :'tweedehands'-tram SGP/Lohner E1 (met C3-aanhanger)
+STR_KONSTALN114_NAME            :Tram Konstal 114N (lang driedelig treinstel)
+STR_KONSTALN116_NAME            :Tram Konstal 116N (snel driedelig treinstel)
+STR_ALSTOMNGD99_NAME            :Tram Alstom-Konstal NGd99 (lang driedelig treinstel)
+STR_PROTRAM204WR_NAME           :Tram Protram 204Wr As (gerenoveerd 105Na, tot 3 tr.st.)
+STR_PESA120N_NAME               :Tram Pesa 'Swing' 120N (3 of 5 secties)
+STR_BOMBARDIERNGT8_NAME         :Tram Bombardier NGT8 (snel lang driedelig treinstel)
+
+STR_HORSE_CARGO_TRAM_NAME       :Vrachtpaardentram
+STR_BIMBATYP1_WORKTRAM_NAME     :Werktram (ex-Bergische Stahlindustrie type 1)
+STR_CHORZOWK_WORKTRAM_NAME      :Werktram (ex-Chorzow K)
+STR_KONSTALN13_WORKTRAM_NAME    :Werktram (ex-Konstal 13N)
+STR_KONSTALN105_WORKTRAM_NAME   :Werktram (ex-Konstal 105N)
+
+STR_REFIT_SINGLE :- kort (enkele motorwagen)
+STR_REFIT_DOUBLE :- gemiddeld (motorwagen met aanhanger)
+STR_REFIT_TRIPLE :- lang (motorwagen met twee aanhangers)
+
+STR_SINGLE_TRAM :Enkele wagen met {SIGNED_WORD} zitplaatsen en {SIGNED_WORD} staanplaatsen.{}Laad-/lostijd: {COMMA} dagen.
+
+STR_DYNAMIC_RUNNING_COST :Snelle tram, {SIGNED_WORD} zitplaatsen en {SIGNED_WORD} staanplaatsen. De lopende kosten hangen af van de {YELLOW}werkelijke snelheid{BLACK}.{}Laad-/lostijd: {COMMA} dagen.
+
+STR_BUY_TRAILERS_VIA_REFIT : {SIGNED_WORD} zitplaatsen en {SIGNED_WORD} staanplaatsen in één treinstel. Gebruik {YELLOW}ombouwen{BLACK} om extra aanhangers/treinstellen te kopen/verkopen, tot {SIGNED_WORD} keer.{}Laad-/lostijd: {COMMA} dagen.
+
+STR_DYNAMIC_RUNNING_COST_UNITS_VIA_REFIT : {SIGNED_WORD} zitplaatsen en {SIGNED_WORD} staanplaatsen in de korte versie. Gebruik {YELLOW}ombouwen{BLACK} om de tramsamenstelling te wijzigen, tot {SIGNED_WORD} keer. De lopende kosten hangen af van de {YELLOW}werkelijke snelheid{BLACK}.{}Laad-/lostijd: {COMMA} dagen.
+
+STR_CARGO_TRAM          :Vrachttram voor expressevracht (goederen, voedsel enz.).

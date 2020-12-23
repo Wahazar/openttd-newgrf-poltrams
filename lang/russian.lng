@@ -1,0 +1,68 @@
+##grflangid 0x07
+##plural 6
+##gender p n m f
+##case acc nom pre f abl m n dat p gen
+# This is the English language file
+
+# GRF name and description
+STR_GRF_NAME        :PolTrams - новый набор польских трамваев {VERSION}
+STR_GRF_DESCRIPTION :{TITLE} - Набор польских конок и электрических трамваев с 1866 до 2015 года, с возможностью регулировать длину трамвая через меню переоборудования.{}{COPYRIGHT}2014 Sojita, Voyager One (graphics), McZapkie (NML код, графика){}Лицензия: GPL v2
+
+STR_PARAM_NAME_RESERVED         : Зарезервировано
+STR_PARAM_DESC_RESERVED         :Не используется.
+STR_PARAM_NAME_HORSE_TRAMS      : Конные трамваи
+STR_PARAM_DESC_HORSE_TRAMS      :Включить конные трамваи
+STR_PARAM_NAME_ELECTRIC_PASSENGER_TRAMS         : Электрические пассажирские трамваи
+STR_PARAM_DESC_ELECTRIC_PASSENGER_TRAMS         :Включить стандартный электрические пассажирские трамваи. По умолчанию включены.
+STR_PARAM_NAME_CARGO_WORKTRAMS  : Грузовые трамваи
+STR_PARAM_DESC_CARGO_WORKTRAMS  :Включить грузовые трамваи (для экспресс-грузов: товары, почта и т.д.)
+STR_PARAM_NAME_PURCHASE_COST    : Стоимость покупки
+STR_PARAM_DESC_PURCHASE_COST    :Используйте эту опцию, чтобы изменить стоимость покупки трамваев из этого набора.
+STR_PARAM_NAME_RUNNING_COST     : Стоимость обслуживания
+STR_PARAM_DESC_RUNNING_COST     :Используйте эту опцию, чтобы изменить стоимость обслуживания трамваев из этого набора.
+STR_PARAM_COST_H                :Половинная
+STR_PARAM_COST_N                :Нормальная
+STR_PARAM_COST_D                :Двойная
+STR_PARAM_NAME_KEEP_OLD_VEHS    : Оставлять старые трамваи в меню покупки
+STR_PARAM_DESC_KEEP_OLD_VEHS    :Включите эту опцию, чтобы отменить устаревание трамваев. Опция применяется только к трамваям из данного набора.{}Чтобы отключить устаревание транспорта из других наборов, используйте опцию "Транспорт не устаревает" в настройках игры.
+STR_PARAM_NAME_SECOND_HAND      : Дешевые трамваи и переоборудование
+STR_PARAM_DESC_SECOND_HAND      :Выключите эту опцию, чтобы отключить дешевые (но не очень надежные) подержанные трамваи, увеличенный срок жизни моделей трамваев и покупку дешевых прицепных вагонов для популярных трамваев.{}Рекомендуется держать включенной, если в игровых настройках включены поломки транспорта.
+
+STR_HORSE_TRAM_NAME             :Конный трамвай
+STR_BIMBATYP1_NAME              :Трамвай BSI Тип 1
+STR_SANOKSN1_NAME               :Трамвай Грац/Санок SN1
+STR_RINGHOFFER_NAME                     :Трамвай Рингхоффер Тип R
+STR_SANOKSN2_NAME               :Трамвай Санок SN2 (с опциональным прицепным вагоном PN2)
+STR_CHORZOWK_NAME               :Трамвай Хожув K (с одним или двумя прицепными вагонами P15)
+STR_KONSTALN_NAME               :Трамвай Консталь N (с одним или двумя прицепными вагонами ND)
+STR_KONSTALN13_NAME             :Трамвай Консталь 13N (PCC, быстрый, до 3 вагонов)
+STR_KONSTALN102_NAME            :Трамвай Консталь 102N (PCC, сочлененный, 1 или 2 вагона)
+STR_KONSTALN105_NAME            :Трамвай Консталь 105N (высокой вместимости, до 3 вагонов)
+STR_MANT4_NAME                  :Подержанный трамвай MAN T4 (с прицепным вагоном B4)
+STR_ROTAXE1_NAME                :Подержанный трамвай SGP/Лонер E1 (с прицепным вагоном C3)
+STR_KONSTALN114_NAME            :Трамвай Консталь 114N (длинный трехвагонный)
+STR_KONSTALN116_NAME            :Трамвай Консталь 116N (быстрый трехвагонный)
+STR_ALSTOMNGD99_NAME            :Трамвай Альстом-Консталь NGd99 (длинный трехвагонный)
+STR_PROTRAM204WR_NAME           :Трамвай Протрам 204Wr As (восстановленный 105Na, до 3 секций)
+STR_PESA120N_NAME               :Трамвай Песа "Свинг" 120N (3 или 5 секций)
+STR_BOMBARDIERNGT8_NAME         :Трамвай Бомбардье NGT8 (быстрый длинный трехвагонный)
+
+STR_HORSE_CARGO_TRAM_NAME       :Конный грузовой трамвай
+STR_BIMBATYP1_WORKTRAM_NAME     :Грузовой трамвай (бывший BSI Тип 1)
+STR_CHORZOWK_WORKTRAM_NAME      :Грузовой трамвай (бывший Хожув K)
+STR_KONSTALN13_WORKTRAM_NAME    :Грузовой трамвай (бывший Консталь 13N)
+STR_KONSTALN105_WORKTRAM_NAME   :Грузовой трамвай (бывший Консталь 105N)
+
+STR_REFIT_SINGLE : - короткий (один моторный вагон)
+STR_REFIT_DOUBLE : - средний (моторный вагон с прицепным вагоном)
+STR_REFIT_TRIPLE : - длинный (моторный вагон с двумя прицепными вагонами)
+
+STR_SINGLE_TRAM :Один вагон с {SIGNED_WORD} сидячими и {SIGNED_WORD} стоячими местами.{}Время погрузки/разгрузки: {COMMA} дней
+
+STR_DYNAMIC_RUNNING_COST :Быстрый трамвай, {SIGNED_WORD} сидячих и {SIGNED_WORD} стоячих мест. Стоимость обслуживания зависит от {YELLOW}текущей скорости{BLACK}.{}Время погрузки/разгрузки: {COMMA} дней
+
+STR_BUY_TRAILERS_VIA_REFIT :{SIGNED_WORD} сидячих и {SIGNED_WORD} стоячих мест в одном вагоне. Используйте {YELLOW}переоборудование{BLACK} для покупки/продажи дополнительных вагонов, до {SIGNED_WORD} пассажиров.{}Время погрузки/разгрузки: {COMMA} дней
+
+STR_DYNAMIC_RUNNING_COST_UNITS_VIA_REFIT :{SIGNED_WORD} сидячих и {SIGNED_WORD} стоячих мест в короткой версии. Используйте {YELLOW}переоборудование{BLACK} для изменения состава трамвая, до {SIGNED_WORD} пассажиров. Стоимость обслуживания зависит от {YELLOW}текущей скорости{BLACK}.{}Время погрузки/разгрузки: {COMMA} дней
+
+STR_CARGO_TRAM          :Грузовой трамвай для экспресс-грузов (товары, почта и т.д.)

@@ -1,0 +1,112 @@
+// part of Polish Tram Set
+// Graphic by Sojita
+// NML code by McZapkie
+
+spriteset(spriteset_n114_purchase, "gfx/Konstal114N.png") { template_sprite_purchase_consist(76,56) }
+
+spriteset(spriteset_n114a, "gfx/Konstal114N.png") { template_sprite6(6) }
+spriteset(spriteset_n114b, "gfx/Konstal114N.png") { template_sprite4(30) }
+spriteset(spriteset_n114c, "gfx/Konstal114N.png") { template_sprite6(54) }
+
+spriteset(spriteset_depot_n114a, "gfx/Konstal114N.png") { template_sprite_window_sideview6(6) }
+spriteset(spriteset_depot_n114b, "gfx/Konstal114N.png") { template_sprite_window_sideview4(30) }
+spriteset(spriteset_depot_n114c, "gfx/Konstal114N.png") { template_sprite_window_sideview6(54) }
+
+switch (FEAT_ROADVEHS, SELF, Konstaln114_articulated_switch, extra_callback_info1) {
+    1..2: return Konstaln114;
+    return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+//display on tracks
+switch(FEAT_ROADVEHS, SELF, Konstaln114_consist_graphic_switch, position_in_consist) {
+	0:    spriteset_n114a;
+	1:    spriteset_n114b;
+	2:    spriteset_n114c;
+	return CB_FAILED;
+}
+//display in depot window
+switch(FEAT_ROADVEHS, SELF, Konstaln114_consist_depot_switch, position_in_consist) {
+	0:    spriteset_depot_n114a;
+	1:    spriteset_depot_n114b;
+	2:    spriteset_depot_n114c;
+	return CB_FAILED;
+}
+//track or window display
+switch(FEAT_ROADVEHS, SELF, Konstaln114_graphic_switch, extra_callback_info1) {
+	0x00:			Konstaln114_consist_graphic_switch;
+	0x10..0x12:		Konstaln114_consist_depot_switch;
+	return spriteset_n114_purchase;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_konstaln114_length, position_in_consist) {
+	0: return 5;
+	1: return 4;
+	2: return 5;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Konstaln114_visual_effect, position_in_consist) {
+	0: return visual_effect(VISUAL_EFFECT_ELECTRIC, -2);
+	1..2: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	return CB_FAILED;
+}
+
+#define KONSTALN114_VMAX 60
+#define KONSTALN114_MASS 33
+
+switch(FEAT_ROADVEHS, SELF, switch_Konstal114N_capacity, cargo_type_in_veh) {  
+	TOUR: return KONSTALN114_SIT/3;  
+	PASS: return KONSTALN114_CAP/3;  
+        return KONSTALN114_SIT/3;  
+}
+
+
+CARGO_DECAY_SWITCH(SOFT_COMFORT, KONSTALN114) 
+
+tram_running_cost_switch(Konstaln114, KONSTALN114_MASS, SOFT_COMFORT)
+
+if (param_electric_passenger_trams == 1) {
+item(FEAT_ROADVEHS, Konstaln114) {
+    property {
+        name:                           string(STR_KONSTALN114_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(1997, 1, 1);            
+        model_life:                     get_model_life(1997,2004,10);
+        vehicle_life:                   25;
+        retire_early:                   10;
+        reliability_decay:              20;
+        loading_speed:                  get_loading_speed(10, 15)/3; //per unit
+        cost_factor:                    KONSTALN114_COST;      
+        running_cost_factor:            tram_running_cost(KONSTALN114_MASS, KONSTALN114_VMAX, ASYNCHRONOUS, SOFT_COMFORT);
+        cargo_age_period:               SOFT_COMFORT;      
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          KONSTALN114_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_PASSENGERS);
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM, ROADVEH_FLAG_AUTOREFIT, ROADVEH_FLAG_2CC);
+        refit_cost:                     0;
+        cargo_age_period:               CARGO_DECAY(SOFT_COMFORT, KONSTALN114_CAP, KONSTALN114_SIT);
+        power:                          332 kW; 
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 KONSTALN114_CAP/3; //per unit
+        weight:                         KONSTALN114_MASS ton; 
+        tractive_effort_coefficient:    0.3;
+        air_drag_coefficient:           0.15;
+        visual_effect:      		    visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+        length:      			    5;
+    }
+
+    graphics {
+	articulated_part:	Konstaln114_articulated_switch;
+	default:            	Konstaln114_graphic_switch;
+	purchase:           	spriteset_n114_purchase;
+	length:			switch_konstaln114_length;
+//	purchase_cargo_capacity:  return 288;
+	visual_effect: 		switch_Konstaln114_visual_effect;
+	running_cost_factor:    switch_Konstaln114_dynamic_running_cost;
+	purchase_running_cost_factor: return tram_running_cost(KONSTALN114_MASS, KONSTALN114_VMAX, ASYNCHRONOUS, SOFT_COMFORT); 
+	cargo_capacity:		switch_Konstal114N_capacity;
+	cargo_age_period:	switch_KONSTALN114_comfort;
+	additional_text: 	return string(STR_DYNAMIC_RUNNING_COST, KONSTALN114_SIT, KONSTALN114_CAP-KONSTALN114_SIT, get_total_loading_speed(10, 15, KONSTALN114_CAP));
+    }
+}
+} //if

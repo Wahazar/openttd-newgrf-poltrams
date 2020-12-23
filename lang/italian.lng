@@ -1,0 +1,68 @@
+##grflangid 0x27
+##plural 0
+##gender m ma f
+##case fp fs mp ms
+# This is the English language file
+
+# GRF name and description
+STR_GRF_NAME        :PolTrams - nuovo set di tram polacchi {VERSION}
+STR_GRF_DESCRIPTION :{TITLE} - Set di tram polacchi da 1897 fino al 2014.{}{COPYRIGHT}2014 Sojita, Voyager One (grafica), McZapkie (codice NML, grafica){}Licenza: GPL v2
+
+STR_PARAM_NAME_RESERVED         :Riservato per l'uso in futuro.
+STR_PARAM_DESC_RESERVED         :Segnaposto...
+STR_PARAM_NAME_HORSE_TRAMS      :Tram a cavalli
+STR_PARAM_DESC_HORSE_TRAMS      :Abilita i tram a cavalli
+STR_PARAM_NAME_ELECTRIC_PASSENGER_TRAMS         :Tram passeggeri elettrici
+STR_PARAM_DESC_ELECTRIC_PASSENGER_TRAMS         :Abilita i tram standard elettrici per trasporto passeggeri. L'impostazione predefinita li abilita.
+STR_PARAM_NAME_CARGO_WORKTRAMS  :Tram merci
+STR_PARAM_DESC_CARGO_WORKTRAMS  :Abilita i tram di servizio (per il trasporto di merci leggere: beni, forniture, etc.)
+STR_PARAM_NAME_PURCHASE_COST    :Modificare i costi d'acquisto
+STR_PARAM_DESC_PURCHASE_COST    :Questa opzione cambia i costi d'acquisto dei tram di questo set
+STR_PARAM_NAME_RUNNING_COST     :Modificare i costi d'esercizio
+STR_PARAM_DESC_RUNNING_COST     :Questa opzione cambia i costi d'esercizio dei tram di questo set.
+STR_PARAM_COST_H                :Mezzo
+STR_PARAM_COST_N                : Normale
+STR_PARAM_COST_D                :Doppio
+STR_PARAM_NAME_KEEP_OLD_VEHS    :Tram vecchi sempre acquistabili
+STR_PARAM_DESC_KEEP_OLD_VEHS    :Questa opzione blocca l'obsolescenza dei tram vecchi. Ha effetto solo sui tram di questo set. Per bloccare l'obsolescenza dei veicoli di altri set, usare le impostazioni di OTTD.
+STR_PARAM_NAME_SECOND_HAND      :Includere tram a basso costo e riadattamenti
+STR_PARAM_DESC_SECOND_HAND      :Disattivando questo parametro si escludono tram poco costosi (ma non molto affidabili) acquistabili di seconda mano, si accorcia la durata di vita di tutti i modelli, e si restringe il lasso di tempo in cui si possono acquistare, a prezzo basso, rimorchi dei tram più diffusi. È consigliabile attivare questo parametro se l'impostazione "guasti dei veicoli" è attiva.
+
+STR_HORSE_TRAM_NAME             :Tram passeggeri a cavalli
+STR_BIMBATYP1_NAME              :Tram Bergische Stahlindustrie Tipo 1
+STR_SANOKSN1_NAME               :Tram Graz/Sanok SN1
+STR_RINGHOFFER_NAME                     :Tram Ringhoffer Tipo R
+STR_SANOKSN2_NAME               :Tram Sanok SN2 (con rimorchio PN2 opzionale)
+STR_CHORZOWK_NAME               :Tram Chorzow K (con uno o due rimorchi P15)
+STR_KONSTALN_NAME               :Tram Konstal N (con uno o due rimorchi ND)
+STR_KONSTALN13_NAME             :Tram Konstal 13N (PCC veloce, fino a 3 unità)
+STR_KONSTALN102_NAME            :Tram Konstal 102N (PCC articolato, 1 o 2 unità)
+STR_KONSTALN105_NAME            :Tram Konstal 105N (ad alta capacià, fino a 3 unità)
+STR_MANT4_NAME                  :Tram "usato" MAN T4 (con rimorchio B4)
+STR_ROTAXE1_NAME                :Tram "usato" SGP/Lohner E1 (con rimorchio C3)
+STR_KONSTALN114_NAME            :Tram Konstal 114N (unità tripla lunga)
+STR_KONSTALN116_NAME            :Tram Konstal 116N (unità tripla veloce)
+STR_ALSTOMNGD99_NAME            :Tram Alstom-Konstal NGd99 (unitá tripla lunga)
+STR_PROTRAM204WR_NAME           :Tram Protram 204Wr As (105Na ristrutturato, fino a 3 unità)
+STR_PESA120N_NAME               :Tram Pesa "Swing" 120N (3 o 5 sezioni)
+STR_BOMBARDIERNGT8_NAME         :Tram Bombardier NGT8 (unitá tripla lunga veloce)
+
+STR_HORSE_CARGO_TRAM_NAME       :Tram merci a cavalli
+STR_BIMBATYP1_WORKTRAM_NAME     :Tram per lavori (ex-Bergische Stahlindustrie Tipo 1)
+STR_CHORZOWK_WORKTRAM_NAME      :Tram per lavori (ex-Chorzow K)
+STR_KONSTALN13_WORKTRAM_NAME    :Tram di servizio (ex-Konstal 13N)
+STR_KONSTALN105_WORKTRAM_NAME   :Tram di servizio (ex-Konstal 105N)
+
+STR_REFIT_SINGLE : - corto (carrozza motorizzata singola)
+STR_REFIT_DOUBLE : - medio (carrozza motorizzata con rimorchio)
+STR_REFIT_TRIPLE : - lungo (carrozza motorizzata con due rimorchi)
+
+STR_SINGLE_TRAM :Carrozza singola con {SIGNED_WORD} posti a sedere e {SIGNED_WORD} posti in piedi.{}Durata delle operazioni di carico/scarico: {COMMA} giorni
+
+STR_DYNAMIC_RUNNING_COST :Tram veloce, {SIGNED_WORD} posti a sedere e  {SIGNED_WORD} posti in piedi. I costi d'esercizio dipendono dalla {YELLOW}velocità effettiva{BLACK}.{}Durata delle operazioni di carico/scarico: {COMMA} giorni
+
+STR_BUY_TRAILERS_VIA_REFIT : {SIGNED_WORD} posti a sedere e {SIGNED_WORD} posti in piedi per ogni unità. Usate il {YELLOW}riadattamento{BLACK} per comprare/vendere rimorchi/unità aggiuntive, fino a {SIGNED_WORD} passeggeri.{}Durata delle operazioni di carico/scarico: {COMMA} giorni
+
+STR_DYNAMIC_RUNNING_COST_UNITS_VIA_REFIT : {SIGNED_WORD} posti a sedere e {SIGNED_WORD} posti in piedi nella versione corta. Usate il {YELLOW}riadattamento{BLACK} per cambiare la composizione del tram, fino a {SIGNED_WORD} passeggeri. I costi d'esercizio dipendono dalla {YELLOW}velocità effettiva{BLACK}.{}Durata delle operazioni di carico/scarico: {COMMA} giorni
+
+STR_CARGO_TRAM          :Tram merci per trasporto di carichi leggeri (beni, forniture, etc).

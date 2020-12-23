@@ -1,0 +1,6 @@
+VERSION        :v7661M (8168e1dcb6dd)
+VERSION_STRING :v7661M (8168e1dcb6dd)
+TITLE          :poltrams v7661M (8168e1dcb6dd)
+FILENAME       :poltrams.grf
+REPO_HASH      :8168e1dcb6dd
+NEWGRF_VERSION :7661

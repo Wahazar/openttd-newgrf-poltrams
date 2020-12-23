@@ -1,0 +1,56 @@
+// part of Polish Tram Set
+// Graphic by McZapkie, Voyager One
+// NML code by McZapkie
+
+spriteset(spriteset_Typ1_purchase, "gfx/Bergische_Stahlindustrie_Typ1.png") { template_sprite_purchase_consist(28,30) }
+spriteset(spriteset_Typ1_depot, "gfx/Bergische_Stahlindustrie_Typ1.png") { template_sideview4ps(6) }
+spriteset(spriteset_Typ1, "gfx/Bergische_Stahlindustrie_Typ1.png") { template_sprite4ps(6) }
+
+switch(FEAT_ROADVEHS, SELF, Typ1_graphic_switch, extra_callback_info1) {
+	0x00:		spriteset_Typ1;
+	0x10..0x12:	spriteset_Typ1_depot;
+	return spriteset_Typ1_purchase;
+}
+
+#define BIMBATYP1_VMAX 25
+#define BIMBATYP1_MASS 6
+
+if (param_electric_passenger_trams == 1) {
+item(FEAT_ROADVEHS, BimbaTyp1) {
+    property {
+        /* common properties */
+        name:                           string(STR_BIMBATYP1_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(1897, 1, 1);            
+        model_life:                     get_model_life(1897,1925,10);
+        vehicle_life:                   30;
+	retire_early:			10;
+        reliability_decay:              12;
+        loading_speed:                  get_loading_speed(4, 0);
+        cost_factor:                    BIMBATYP1_COST;      
+        running_cost_factor:            tram_running_cost(BIMBATYP1_MASS, BIMBATYP1_VMAX, RHEOSTAT, HARD_COMFORT);
+        /* tram properties */
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          BIMBATYP1_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_PASSENGERS);
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM,ROADVEH_FLAG_AUTOREFIT, ROADVEH_FLAG_2CC);
+        refit_cost:                     0;
+        cargo_age_period:               CARGO_DECAY(SOFT_COMFORT, BIMBATYP1_CAP,BIMBATYP1_SIT);
+        power:                          22 kW;
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 BIMBATYP1_CAP;
+        weight:                         BIMBATYP1_MASS ton;
+        tractive_effort_coefficient:    1.0;
+        air_drag_coefficient:           0.7;
+        visual_effect:      		visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+//	sound_effect: return sound("sfx/ottophokus_ding2_8.wav");
+        length:      			5;
+    }
+
+    graphics {
+	default:            	Typ1_graphic_switch;
+	purchase:           	spriteset_Typ1_purchase;
+	additional_text: 	return string(STR_SINGLE_TRAM, BIMBATYP1_SIT, BIMBATYP1_CAP-BIMBATYP1_SIT, get_total_loading_speed(4, 0, BIMBATYP1_CAP));
+    }
+}
+} //if

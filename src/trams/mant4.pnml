@@ -1,0 +1,157 @@
+// part of the Polish Tram Set
+// Graphic by Sojita, McZapkie, Husak
+// NML code by McZapkie
+
+spriteset(spriteset_ManT4_purchase, "gfx/ManT4B4.png") { template_sprite_purchase_consist(50,104) }
+spriteset(spriteset_ManT4_depot, "gfx/ManT4B4.png") { template_sprite_window_sideview8(4) }
+spriteset(spriteset_B4_depot, "gfx/ManT4B4.png") { template_sprite_window_sideview8(28) }
+spriteset(spriteset_ManT4, "gfx/ManT4B4.png") { template_sprite8(4) }
+spriteset(spriteset_B4, "gfx/ManT4B4.png") { template_sprite8(28) }
+
+switch (FEAT_ROADVEHS, SELF, ManT4_articulated_switch, extra_callback_info1) {
+    1: return ManT4;
+    return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+switch(FEAT_ROADVEHS, SELF, ManT4_graphic_switch, extra_callback_info1) {
+    /* Decide whether vehicle is drawn on map or in a special window  */
+	0x00:		spriteset_ManT4;
+	0x10..0x12:	spriteset_ManT4_depot;
+	return spriteset_ManT4_purchase;
+}
+
+switch(FEAT_ROADVEHS, SELF, ManB4_graphic_switch, extra_callback_info1) {
+    /* Decide whether vehicle is drawn on map or in a special window  */
+	0x00:		spriteset_B4;
+	0x10..0x12:	spriteset_B4_depot;
+	return spriteset_ManT4_purchase;
+}
+
+
+switch(FEAT_ROADVEHS, SELF, ManT4_single_graphics_switch, position_in_consist) {
+	0: 	ManT4_graphic_switch;
+	1: invisible;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, ManT4_B4_graphics_switch, position_in_consist) {
+	0: 	ManT4_graphic_switch;
+	1:	ManB4_graphic_switch;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, ManT4_consist_graphic_switch, cargo_subtype) {
+    /* Pass cargo subtype to next switch  */
+	0: ManT4_single_graphics_switch;
+	1: ManT4_B4_graphics_switch;
+	return CB_FAILED;
+}
+
+
+switch(FEAT_ROADVEHS, SELF, switch_ManT4_cap1, position_in_consist) {
+	0: return (cargo_type_in_veh==PASS)?MANT4_CAP:MANT4_SIT;
+	1: return 0;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_ManT4_cap2, position_in_consist) {
+	0: return (cargo_type_in_veh==PASS)?MANT4_CAP:MANT4_SIT;
+	1: return (cargo_type_in_veh==PASS)?MANT4_CAP:MANT4_SIT;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_ManT4_capacity, cargo_subtype) {
+	0: switch_ManT4_cap1;
+	1: switch_ManT4_cap2;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_ManT4_visual_effect, position_in_consist) {
+	0: return visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+	1: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	return CB_FAILED;
+}
+
+#define MANT4_VMAX 55
+#define MANT4_MASS 16
+#define MANB4_MASS 11
+
+switch(FEAT_ROADVEHS, SELF, switch_ManT4_running_cost, cargo_subtype) {
+	0: return tram_running_cost(MANT4_MASS, MANT4_VMAX+5, RHEOSTAT, HARD_COMFORT);
+	1: return tram_running_cost(MANT4_MASS + MANB4_MASS, MANT4_VMAX+5, RHEOSTAT, HARD_COMFORT);
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_ManT4_weight, cargo_subtype) {
+	0: return MANT4_MASS * 4;
+	1: return (MANT4_MASS + MANB4_MASS) * 4;
+	return CB_FAILED;
+}
+
+
+switch(FEAT_ROADVEHS, SELF, switch_ManT4_maxspeed, cargo_subtype) {
+// units: km/h:2
+	0: return 27;
+	1: return 25;
+	return CB_FAILED;
+}
+
+
+switch(FEAT_ROADVEHS, SELF, switch_ManT4_refit_cost, var[0x10,8,0xFF] - cargo_subtype) {
+    /* Refit cost based on difference between target cargo sybtype and current cargo subtype.
+	   Refitting to fewer carriages refunds money, while adding carriages costs (2x) money.        */
+	-1:				-(1*MANB4_REFIT_REFUND);
+	0:				0;
+	1:				(1*MANB4_REFIT_COST);
+	return CB_FAILED;
+}
+
+CARGO_DECAY_SWITCH(SOFT_COMFORT, MANT4) 
+
+if  ( (param_second_hand == 1) && (param_electric_passenger_trams == 1) ) {
+item(FEAT_ROADVEHS, ManT4) {
+    property {
+        name:                           string(STR_MANT4_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(1988, 9, 1);            
+        model_life:                     get_model_life(1988,1998,0);
+        vehicle_life:                   15;
+        retire_early:                   0;
+        reliability_decay:              25;
+        loading_speed:                  get_loading_speed(5, 0);
+        cost_factor:                    MANT4_COST;      
+        running_cost_factor:            tram_running_cost(MANT4_MASS, MANT4_VMAX, RHEOSTAT, HARD_COMFORT);      
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          MANT4_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_PASSENGERS);
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM,ROADVEH_FLAG_AUTOREFIT, ROADVEH_FLAG_2CC);
+        refit_cost:                     MANB4_REFIT_COST;
+        cargo_age_period:               CARGO_DECAY(HARD_COMFORT, MANT4_CAP, MANT4_SIT);
+        power:                          190 kW;
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 MANT4_CAP; //car
+        weight:                         MANT4_MASS ton;
+        tractive_effort_coefficient:    0.2;
+        air_drag_coefficient:           0.2;
+        visual_effect:      		visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+        length:      			8;
+    }
+
+    graphics {
+	articulated_part:	ManT4_articulated_switch;
+	default:            	ManT4_consist_graphic_switch;
+	purchase:           	spriteset_ManT4_purchase;
+	cargo_subtype_text: 	switch_trailer_subtype_text;
+	length:			switch_trailers12_length;
+	cargo_capacity:		switch_ManT4_capacity;
+	purchase_cargo_capacity: return MANT4_CAP/2;
+	purchase_running_cost_factor: return tram_running_cost(MANT4_MASS, MANT4_VMAX, RHEOSTAT, HARD_COMFORT);
+	visual_effect: 		switch_ManT4_visual_effect;
+	running_cost_factor:	switch_ManT4_running_cost;  
+	speed:			switch_ManT4_maxspeed;
+	weight:			switch_ManT4_weight;
+	refit_cost:		switch_ManT4_refit_cost;
+	cargo_age_period:	switch_MANT4_comfort;
+	additional_text: 	return string(STR_BUY_TRAILERS_VIA_REFIT, MANT4_SIT, MANT4_CAP-MANT4_SIT, MANT4_CAP * 2, get_total_loading_speed(5, 0, MANT4_CAP));
+    }
+} // item
+} //if

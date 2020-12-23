@@ -1,0 +1,155 @@
+// part of Polish Tram Set
+// Graphic by Sojita
+// NML code by McZapkie
+
+spriteset(spriteset_N105_purchase, "gfx/Konstal105N.png") { template_sprite_purchase_consist(27,104) }
+spriteset(spriteset_N105_depot, "gfx/Konstal105N.png") { template_sprite_window_sideview8(5) }
+spriteset(spriteset_N105, "gfx/Konstal105N.png") { template_sprite8(5) }
+
+switch (FEAT_ROADVEHS, SELF, KonstalN105_articulated_switch, extra_callback_info1) {
+    1..2: return KonstalN105;
+    return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+switch(FEAT_ROADVEHS, SELF, KonstalN105_graphic_switch, extra_callback_info1) {
+	0x00:			spriteset_N105;
+	0x10..0x12:		spriteset_N105_depot;
+	return spriteset_N105_purchase;
+}
+
+switch(FEAT_ROADVEHS, SELF, KonstalN105_single_graphics_switch, position_in_consist) {
+	0: 	KonstalN105_graphic_switch;
+	1..2: invisible;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, KonstalN105_double_graphics_switch, position_in_consist) {
+	0..1: 	KonstalN105_graphic_switch;
+	2: 	invisible;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, KonstalN105_triple_graphics_switch, position_in_consist) {
+	0..2: 	KonstalN105_graphic_switch;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, KonstalN105_consist_graphic_switch, cargo_subtype) {
+    /* Pass cargo subtype to next switch  */
+	0: KonstalN105_single_graphics_switch;
+	1: KonstalN105_double_graphics_switch;
+	2: KonstalN105_triple_graphics_switch;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN105_cap1, position_in_consist) {
+	0: return (cargo_type_in_veh==PASS)?KONSTALN105_CAP:KONSTALN105_SIT;
+	1..2: return 0;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN105_cap2, position_in_consist) {
+	0..1: return (cargo_type_in_veh==PASS)?KONSTALN105_CAP:KONSTALN105_SIT;
+	2: return 0;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN105_cap3, position_in_consist) {
+	0..2: return (cargo_type_in_veh==PASS)?KONSTALN105_CAP:KONSTALN105_SIT;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN105_capacity, cargo_subtype) {
+	0: switch_KonstalN105_cap1;
+	1: switch_KonstalN105_cap2;
+	2: switch_KonstalN105_cap3;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN105_multipleunit_effect, cargo_subtype) {
+	0: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	1..2: return visual_effect(VISUAL_EFFECT_ELECTRIC, -3);
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN105_visual_effect, position_in_consist) {
+	0: return visual_effect(VISUAL_EFFECT_ELECTRIC, -3);
+	1: switch_KonstalN105_multipleunit_effect;
+	2: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	return CB_FAILED;
+}
+
+#define KONSTALN105_VMAX 55
+#define KONSTALN105_MASS 17
+
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN105_running_cost, cargo_subtype) {
+	0..2: return tram_running_cost((cargo_subtype + 1) * KONSTALN105_MASS, KONSTALN105_VMAX, RHEOSTAT, HARD_COMFORT);
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN105_weight, cargo_subtype) {
+	0..2: return (cargo_subtype + 1) * KONSTALN105_MASS * 4;
+	return CB_FAILED;
+}
+
+TRAILER_COST_SWITCHES(KONSTALN105, 2005)
+TRAILER2_COST_SWITCHES(KONSTALN105, 2005)
+
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN105_refit_cost, var[0x10,8,0xFF] - cargo_subtype) {
+    /* Refit cost based on difference between target cargo sybtype and current cargo subtype.
+	   Refitting to fewer carriages refunds money, while adding carriages costs (more) money.        */
+	-2:				switch_KONSTALN105_refund2;
+	-1:				switch_KONSTALN105_refund;
+	0:				0;
+	1:				switch_KONSTALN105_costs;
+	2:				switch_KONSTALN105_costs2;
+	return CB_FAILED;
+}
+
+CARGO_DECAY_SWITCH(HARD_COMFORT, KONSTALN105) 
+
+if (param_electric_passenger_trams == 1) {
+item(FEAT_ROADVEHS, KonstalN105) {
+    property {
+        name:                           string(STR_KONSTALN105_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(1973, 1, 1);            
+        model_life:                     get_model_life(1973,2001,20);
+        vehicle_life:                   30;
+        retire_early:                   get_retire_early(20);
+        reliability_decay:              20;
+        loading_speed:                  get_loading_speed(7, 0);
+        cost_factor:                    KONSTALN105_COST;      
+        running_cost_factor:            tram_running_cost(KONSTALN105_MASS, KONSTALN105_VMAX, RHEOSTAT, HARD_COMFORT);      
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          KONSTALN105_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_PASSENGERS);
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM,ROADVEH_FLAG_AUTOREFIT);
+        refit_cost:                     KONSTALN105_REFIT_COST;
+        cargo_age_period:               CARGO_DECAY(HARD_COMFORT, KONSTALN105_CAP, KONSTALN105_SIT);
+        power:                          166 kW;
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 KONSTALN105_CAP; //per unit
+        weight:                         KONSTALN105_MASS ton;
+        tractive_effort_coefficient:    0.3;
+        air_drag_coefficient:           0.2;
+        visual_effect:      		    visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+        length:      			    8;
+    }
+
+    graphics {
+	articulated_part:		KonstalN105_articulated_switch;
+	default:            	KonstalN105_consist_graphic_switch;
+	purchase:           	spriteset_N105_purchase;
+	cargo_subtype_text: 	switch_trailers_subtype_text;
+	length:			switch_trailers123_length;
+	cargo_capacity:		switch_KonstalN105_capacity;
+	purchase_cargo_capacity:return KONSTALN105_CAP/3;
+	visual_effect: 		switch_KonstalN105_visual_effect;
+	running_cost_factor:	switch_KonstalN105_running_cost;  
+	weight:			switch_KonstalN105_weight;
+	power:			switch_KonstalN1xx_power;
+	refit_cost:		switch_KonstalN105_refit_cost;
+	cargo_age_period:	switch_KONSTALN105_comfort;
+	additional_text: 	return string(STR_BUY_TRAILERS_VIA_REFIT, KONSTALN105_SIT, KONSTALN105_CAP-KONSTALN105_SIT, KONSTALN105_CAP*3, get_total_loading_speed(7, 0, KONSTALN105_CAP));
+    }
+}
+} // if

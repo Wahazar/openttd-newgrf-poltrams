@@ -1,0 +1,110 @@
+// part of Polish Tram Set
+// Graphic by Sojita
+// NML code by McZapkie
+
+spriteset(spriteset_ngt8_purchase, "gfx/BombardierNGT8.png") { template_sprite_purchase_consist(76,70) } 
+
+spriteset(spriteset_ngt8a, "gfx/BombardierNGT8.png") { template_sprite7(6) }
+spriteset(spriteset_ngt8b, "gfx/BombardierNGT8.png") { template_sprite6(30) }
+spriteset(spriteset_ngt8c, "gfx/BombardierNGT8.png") { template_sprite7(54) }
+
+spriteset(spriteset_depot_ngt8a, "gfx/BombardierNGT8.png") { template_sprite_window_sideview7(6) }
+spriteset(spriteset_depot_ngt8b, "gfx/BombardierNGT8.png") { template_sprite_window_sideview6(30) }
+spriteset(spriteset_depot_ngt8c, "gfx/BombardierNGT8.png") { template_sprite_window_sideview7(54) }
+
+switch (FEAT_ROADVEHS, SELF, Bombardierngt8_articulated_switch, extra_callback_info1) {
+    1..2: return Bombardierngt8;
+    return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+//display on tracks
+switch(FEAT_ROADVEHS, SELF, Bombardierngt8_consist_graphic_switch, position_in_consist) {
+	0:    spriteset_ngt8a;
+	1:    spriteset_ngt8b;
+	2:    spriteset_ngt8c;
+	return CB_FAILED;
+}
+
+//display in depot window
+switch(FEAT_ROADVEHS, SELF, Bombardierngt8_consist_depot_switch, position_in_consist) {
+	0:    spriteset_depot_ngt8a;
+	1:    spriteset_depot_ngt8b;
+	2:    spriteset_depot_ngt8c;
+	return CB_FAILED;
+}
+//track or window display
+switch(FEAT_ROADVEHS, SELF, Bombardierngt8_graphic_switch, extra_callback_info1) {
+	0x00:			Bombardierngt8_consist_graphic_switch;
+	0x10..0x12:		Bombardierngt8_consist_depot_switch;
+	return spriteset_ngt8_purchase;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Bombardierngt8_length, position_in_consist) {
+	0: return 6;
+	1: return 5;
+	2: return 6;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Bombardierngt8_visual_effect, position_in_consist) {
+	0: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	1: return visual_effect(VISUAL_EFFECT_ELECTRIC, -1);
+	2: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Bombardierngt8_capacity, position_in_consist) {
+	0: return (cargo_type_in_veh==PASS)?BOMBARDIERNGT8_CAP:BOMBARDIERNGT8_SIT;
+	1..2: return 0;
+	return CB_FAILED;
+}
+
+#define BOMBARDIERNGT8_VMAX 80
+#define BOMBARDIERNGT8_MASS 42
+
+tram_running_cost_switch(Bombardierngt8, BOMBARDIERNGT8_MASS, CLIMA_COMFORT)
+
+if (param_electric_passenger_trams == 1) {
+item(FEAT_ROADVEHS, Bombardierngt8) {
+    property {
+        name:                           string(STR_BOMBARDIERNGT8_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(2014, 1, 1);            
+        model_life:                     get_model_life(2014,0,0);
+        vehicle_life:                   20;
+        retire_early:                   0;
+        reliability_decay:              20;
+        loading_speed:                  get_loading_speed(10, 70)/3; //70% of lowered floor, per unit
+        cost_factor:                    BOMBARDIERNGT8_COST;      
+        running_cost_factor:            tram_running_cost(BOMBARDIERNGT8_MASS, BOMBARDIERNGT8_VMAX, ASYNCHRONOUS, CLIMA_COMFORT);      
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          BOMBARDIERNGT8_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_PASSENGERS);
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM, ROADVEH_FLAG_AUTOREFIT, ROADVEH_FLAG_2CC);
+        refit_cost:                     0;
+        cargo_age_period:               CARGO_DECAY(CLIMA_COMFORT, BOMBARDIERNGT8_CAP, BOMBARDIERNGT8_SIT);
+        power:                          420 kW; 
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 BOMBARDIERNGT8_CAP; //total
+        weight:                         BOMBARDIERNGT8_MASS ton; 
+        tractive_effort_coefficient:    0.3;
+        air_drag_coefficient:           0.12;
+        visual_effect:      		    visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+//	sound_effect: return sound("sfx/wim_beep4_8.wav");
+        length:      			    7;
+    }
+
+    graphics {
+	articulated_part:	Bombardierngt8_articulated_switch;
+	default:            	Bombardierngt8_graphic_switch;
+	purchase:           	spriteset_ngt8_purchase;
+	length:			switch_Bombardierngt8_length;
+	cargo_capacity:		switch_Bombardierngt8_capacity;
+	purchase_cargo_capacity: return BOMBARDIERNGT8_CAP/3;
+	visual_effect: 		switch_Bombardierngt8_visual_effect;
+	running_cost_factor:    switch_Bombardierngt8_dynamic_running_cost;
+	purchase_running_cost_factor: return tram_running_cost(BOMBARDIERNGT8_MASS, BOMBARDIERNGT8_VMAX, ASYNCHRONOUS, CLIMA_COMFORT); 
+	additional_text: 	return string(STR_DYNAMIC_RUNNING_COST, BOMBARDIERNGT8_SIT, BOMBARDIERNGT8_CAP-BOMBARDIERNGT8_SIT, get_total_loading_speed(10, 70, BOMBARDIERNGT8_CAP));
+    }
+}
+} //if

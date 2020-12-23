@@ -1,0 +1,205 @@
+// part of Polish Tram Set
+// Graphic by Voyager1
+// NML code by McZapkie
+
+
+spriteset(spriteset_120N_purchase, "gfx/Pesa120N.png") { template_sprite_purchase_consist(119,104) }
+
+spriteset(spriteset_120Na, "gfx/Pesa120N.png") { template_sprite3ps(5) }
+spriteset(spriteset_120Nb, "gfx/Pesa120N.png") { template_sprite4ps(28) }
+spriteset(spriteset_120Nc, "gfx/Pesa120N.png") { template_sprite2ps(51) }
+spriteset(spriteset_120Nd, "gfx/Pesa120N.png") { template_sprite3ps(74) }
+spriteset(spriteset_120Ne, "gfx/Pesa120N.png") { template_sprite3ps(97) }
+
+spriteset(spriteset_depot_120Na, "gfx/Pesa120N.png") { template_sideview3ps(5) }
+spriteset(spriteset_depot_120Nb, "gfx/Pesa120N.png") { template_sideview4ps(28) }
+spriteset(spriteset_depot_120Nc, "gfx/Pesa120N.png") { template_sideview2ps(51) }
+spriteset(spriteset_depot_120Nd, "gfx/Pesa120N.png") { template_sideview3ps(74) }
+spriteset(spriteset_depot_120Ne, "gfx/Pesa120N.png") { template_sideview3ps(97) }
+
+switch (FEAT_ROADVEHS, SELF, Pesa120N_articulated_switch, extra_callback_info1) {
+    1..4: return Pesa120N;
+    return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+//display on map
+switch(FEAT_ROADVEHS, SELF, Pesa120N_3units_graphics_switch, position_in_consist) {
+	0: 	spriteset_120Ne;
+	1:    	spriteset_120Nb;
+	2:    	spriteset_120Nd;
+	3..4: 	invisible;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, Pesa120N_5units_graphics_switch, position_in_consist) {
+	0: 	spriteset_120Na;
+	1:    	spriteset_120Nb;
+	2:    	spriteset_120Nc;
+	3:    	spriteset_120Nb;
+	4:    	spriteset_120Nd;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, Pesa120N_consist_graphic_switch, cargo_subtype) {
+	0: Pesa120N_3units_graphics_switch;
+	1: Pesa120N_5units_graphics_switch;
+	return CB_FAILED;
+}
+
+//display in depot window
+switch(FEAT_ROADVEHS, SELF, Pesa120N_3units_graphics_depot_switch, position_in_consist) {
+	0: 	spriteset_depot_120Ne;
+	1:    	spriteset_depot_120Nb;
+	2:    	spriteset_depot_120Nd;
+	3..4: 	invisible;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, Pesa120N_5units_graphics_depot_switch, position_in_consist) {
+	0: 	spriteset_depot_120Na;
+	1:    	spriteset_depot_120Nb;
+	2:    	spriteset_depot_120Nc;
+	3:    	spriteset_depot_120Nb;
+	4:    	spriteset_depot_120Nd;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, Pesa120N_consist_depot_switch, cargo_subtype) {
+	0: Pesa120N_3units_graphics_depot_switch;
+	1: Pesa120N_5units_graphics_depot_switch;
+	return CB_FAILED;
+}
+
+//track or window display
+switch(FEAT_ROADVEHS, SELF, Pesa120N_graphic_switch, extra_callback_info1) {
+	0x00:		Pesa120N_consist_graphic_switch;
+	0x10..0x12:	Pesa120N_consist_depot_switch;
+	return spriteset_120N_purchase;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Pesa120N_length3, position_in_consist) {
+	0: return 3;
+	1: return 4;
+	2: return 3;
+	3..4: return 1;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_Pesa120N_length5, position_in_consist) {
+	0: return 3;
+	1: return 4;
+	2: return 2;
+	3: return 4;
+	4: return 3;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_Pesa120N_length, cargo_subtype) {
+    	0: switch_Pesa120N_length3;
+	1: switch_Pesa120N_length5;
+    return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Pesa120N_3units_visual_effect, position_in_consist) {
+	0: return visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+	1..4: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_Pesa120N_5units_visual_effect, position_in_consist) {
+	0..1: return visual_effect(VISUAL_EFFECT_DISABLE, 0);	
+	2: return visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+	3..4: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_Pesa120N_visual_effect, cargo_subtype) {
+    	0: switch_Pesa120N_3units_visual_effect;
+	1: switch_Pesa120N_5units_visual_effect;
+    return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Pesa120N_cap3, position_in_consist) {
+	0..2: return ((cargo_type_in_veh==PASS)?PESA120N_CAP:PESA120N_SIT)/5-1;
+	3..4: return 0;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_Pesa120N_cap5, position_in_consist) {
+	0..4: return ((cargo_type_in_veh==PASS)?PESA120N_CAP:PESA120N_SIT)/5;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Pesa120N_capacity, cargo_subtype) {
+	0: switch_Pesa120N_cap3;
+	1: switch_Pesa120N_cap5;
+	return CB_FAILED;
+}
+
+#define PESA120N_VMAX 70
+#define PESA120N_UNIT_SHORT_MASS 6
+#define PESA120N_1UNIT_LONG_MASS 12
+
+switch(FEAT_ROADVEHS, SELF, switch_Pesa120N_weight, cargo_subtype) {
+	0: return (2 * PESA120N_UNIT_SHORT_MASS + PESA120N_1UNIT_LONG_MASS) * 4;
+	1: return (3 * PESA120N_UNIT_SHORT_MASS + 2 * PESA120N_1UNIT_LONG_MASS) * 4;
+	return CB_FAILED;
+}
+
+tram_running_cost_switch(Pesa120N_3unit, 2 * PESA120N_UNIT_SHORT_MASS + PESA120N_1UNIT_LONG_MASS, CLIMA_COMFORT)
+tram_running_cost_switch(Pesa120N_5unit, 3 * PESA120N_UNIT_SHORT_MASS + 2 * PESA120N_1UNIT_LONG_MASS, CLIMA_COMFORT)
+
+switch(FEAT_ROADVEHS, SELF, switch_Pesa120N_running_cost, cargo_subtype) {
+	0: switch_Pesa120N_3unit_dynamic_running_cost;
+	1: switch_Pesa120N_5unit_dynamic_running_cost;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Pesa120N_refit_cost, var[0x10,8,0xFF] - cargo_subtype) {
+/* Refit cost based on difference between target cargo subtype and current cargo subtype. Refitting to fewer carriages refunds money, while adding carriages costs (more) money.        */
+	-1:				-(1*PESA120N_REFIT_REFUND);
+	0:				0;
+	1:				(1*PESA120N_REFIT_COST);
+	return CB_FAILED;
+}
+
+CARGO_DECAY_SWITCH(CLIMA_COMFORT, PESA120N)
+
+if (param_electric_passenger_trams == 1) {
+item(FEAT_ROADVEHS, Pesa120N) {
+    property {
+        name:                           string(STR_PESA120N_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(2009, 9, 9);            
+        model_life:                     get_model_life(2009,0,0);
+        vehicle_life:                   20;
+        retire_early:                   0;
+        reliability_decay:              20;
+        loading_speed:                  get_loading_speed(10, 100) / 3; //total 4 double+one single door, 70% of lowered floor; avg per unit
+        cost_factor:                    PESA120N_COST;      
+        running_cost_factor:            tram_running_cost(2 * PESA120N_UNIT_SHORT_MASS + PESA120N_1UNIT_LONG_MASS, PESA120N_VMAX, ASYNCHRONOUS, CLIMA_COMFORT);      
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          PESA120N_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_PASSENGERS);
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM, ROADVEH_FLAG_AUTOREFIT, ROADVEH_FLAG_2CC);
+        refit_cost:                     0;
+        cargo_age_period:               CARGO_DECAY(CLIMA_COMFORT, PESA120N_CAP, PESA120N_SIT);
+        power:                          420 kW; 
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 PESA120N_CAP/5; //per unit
+        weight:                         2 * PESA120N_UNIT_SHORT_MASS + PESA120N_1UNIT_LONG_MASS ton; 
+        tractive_effort_coefficient:    0.3;
+        air_drag_coefficient:           0.18;
+        visual_effect:      		visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+        length:      			3;
+    }
+
+    graphics {
+	articulated_part:	Pesa120N_articulated_switch;
+	default:            	Pesa120N_graphic_switch;
+	purchase:           	spriteset_120N_purchase;
+	cargo_subtype_text: 	switch_trailer_subtype_text;
+	length:			switch_Pesa120N_length;
+	cargo_capacity:		switch_Pesa120N_capacity;
+	purchase_cargo_capacity:  return PESA120N_CAP*3/25;
+	visual_effect: 		switch_Pesa120N_visual_effect;
+	running_cost_factor:    switch_Pesa120N_running_cost;
+	purchase_running_cost_factor: return tram_running_cost(2 * PESA120N_UNIT_SHORT_MASS + PESA120N_1UNIT_LONG_MASS, PESA120N_VMAX, ASYNCHRONOUS, SOFT_COMFORT); 
+	weight:			switch_Pesa120N_weight;
+	refit_cost:		switch_Pesa120N_refit_cost;
+	cargo_age_period:	switch_PESA120N_comfort;
+	additional_text: 	return string(STR_DYNAMIC_RUNNING_COST_UNITS_VIA_REFIT, PESA120N_SIT*3/5, (PESA120N_CAP-PESA120N_SIT)*3/5, PESA120N_CAP, get_total_loading_speed(10, 100, PESA120N_CAP));
+    }
+}
+} // if

@@ -1,0 +1,156 @@
+// part of Polish Tram Set
+// Graphic by Sojita
+// NML code by McZapkie
+
+spriteset(spriteset_N13_purchase, "gfx/Konstal13N.png") { template_sprite_purchase_consist(27,104) }
+spriteset(spriteset_N13_depot, "gfx/Konstal13N.png") { template_sprite_window_sideview8(5) }
+spriteset(spriteset_N13, "gfx/Konstal13N.png") { template_sprite8(5) }
+
+switch (FEAT_ROADVEHS, SELF, KonstalN13_articulated_switch, extra_callback_info1) {
+    1..2: return KonstalN13;
+    return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+switch(FEAT_ROADVEHS, SELF, KonstalN13_graphic_switch, extra_callback_info1) {
+	0x00:			spriteset_N13;
+	0x10..0x12:	spriteset_N13_depot;
+	return spriteset_N13_purchase;
+}
+
+switch(FEAT_ROADVEHS, SELF, KonstalN13_single_graphics_switch, position_in_consist) {
+	0: 	KonstalN13_graphic_switch;
+	1..2: invisible;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, KonstalN13_double_graphics_switch, position_in_consist) {
+	0..1: 	KonstalN13_graphic_switch;
+	2: 	invisible;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, KonstalN13_triple_graphics_switch, position_in_consist) {
+	0..2: 	KonstalN13_graphic_switch;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, KonstalN13_consist_graphic_switch, cargo_subtype) {
+    /* Pass cargo subtype to next switch  */
+	0: KonstalN13_single_graphics_switch;
+	1: KonstalN13_double_graphics_switch;
+	2: KonstalN13_triple_graphics_switch;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN13_cap1, position_in_consist) {
+	0: return (cargo_type_in_veh==PASS)?KONSTALN13_CAP+1:KONSTALN13_SIT;
+	1..2: return 0;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN13_cap2, position_in_consist) {
+	0..1: return (cargo_type_in_veh==PASS)?KONSTALN13_CAP+1:KONSTALN13_SIT;
+	2: return 0;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN13_cap3, position_in_consist) {
+	0..2: return (cargo_type_in_veh==PASS)?KONSTALN13_CAP+1:KONSTALN13_SIT;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN13_capacity, cargo_subtype) {
+	0: switch_KonstalN13_cap1;
+	1: switch_KonstalN13_cap2;
+	2: switch_KonstalN13_cap3;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN13_multipleunit_effect, cargo_subtype) {
+	0: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	1..2: return visual_effect(VISUAL_EFFECT_ELECTRIC, -3);
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN13_visual_effect, position_in_consist) {
+	0: return visual_effect(VISUAL_EFFECT_ELECTRIC, -3);
+	1: switch_KonstalN13_multipleunit_effect;
+	2: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	return CB_FAILED;
+}
+
+#define KONSTALN13_VMAX 55
+#define KONSTALN13_MASS 13
+
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN13_running_cost, cargo_subtype) {
+	0..2: return tram_running_cost((cargo_subtype + 1) * KONSTALN13_MASS, KONSTALN13_VMAX, RHEOSTAT, HARD_COMFORT);
+	return CB_FAILED;
+}
+// abitrary mass units = 500 kg 
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN13_weight, cargo_subtype) {
+	0..2: return (cargo_subtype + 1) * KONSTALN13_MASS *4;
+	return CB_FAILED;
+}
+
+TRAILER_COST_SWITCHES(KONSTALN13, 1980)
+TRAILER2_COST_SWITCHES(KONSTALN13, 1980)
+
+CARGO_DECAY_SWITCH(HARD_COMFORT, KONSTALN13) 
+
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN13_refit_cost, var[0x10,8,0xFF] - cargo_subtype) {
+    /* Refit cost based on difference between target cargo sybtype and current cargo subtype.
+	   Refitting to fewer carriages refunds money, while adding carriages costs (more) money.        */
+	-2:				switch_KONSTALN13_refund2;
+	-1:				switch_KONSTALN13_refund;
+	0:				0;
+	1:				switch_KONSTALN13_costs;
+	2:				switch_KONSTALN13_costs2;
+	return CB_FAILED;
+}
+
+if (param_electric_passenger_trams == 1) {
+item(FEAT_ROADVEHS, KonstalN13) {
+    property {
+        name:                           string(STR_KONSTALN13_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(1959, 1, 9);            
+        model_life:                     get_model_life(1959,1975,30);
+        vehicle_life:                   35;
+	retire_early:			get_retire_early(30);
+        reliability_decay:              20;
+        loading_speed:                  get_loading_speed(7, 0);
+        cost_factor:                    KONSTALN13_COST;      
+        running_cost_factor:            tram_running_cost(KONSTALN13_MASS, KONSTALN13_VMAX, RHEOSTAT, HARD_COMFORT);      
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          KONSTALN13_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_PASSENGERS);
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM,ROADVEH_FLAG_AUTOREFIT);
+        refit_cost:                     KONSTALN13_REFIT_COST;
+        cargo_age_period:               CARGO_DECAY(HARD_COMFORT, KONSTALN13_CAP, KONSTALN13_SIT);
+        power:                          166 kW;
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 KONSTALN13_CAP; //per unit
+        weight:                         KONSTALN13_MASS ton;
+        tractive_effort_coefficient:    0.3;
+        air_drag_coefficient:           0.15;
+        visual_effect:      		    visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+//	sound_effect: return sound("sfx/159156__heigh-hoo__tram-matsuyama8.wav");
+        length:      			    8;
+    }
+
+    graphics {
+	articulated_part:		KonstalN13_articulated_switch;
+	default:            	KonstalN13_consist_graphic_switch;
+	purchase:           	spriteset_N13_purchase;
+	cargo_subtype_text: 	switch_trailers_subtype_text;
+	length:			switch_trailers123_length;
+	cargo_capacity:		switch_KonstalN13_capacity;
+	purchase_cargo_capacity:return KONSTALN13_CAP/3;
+	visual_effect: 		switch_KonstalN13_visual_effect;
+	running_cost_factor:	switch_KonstalN13_running_cost;  
+	weight:			switch_KonstalN13_weight;
+	power:			switch_KonstalN1xx_power;
+	refit_cost:		switch_KonstalN13_refit_cost;
+	cargo_age_period:	switch_KONSTALN13_comfort;
+	additional_text: 	return string(STR_BUY_TRAILERS_VIA_REFIT, KONSTALN13_SIT, KONSTALN13_CAP-KONSTALN13_SIT, KONSTALN13_CAP*3, get_total_loading_speed(7, 0, KONSTALN13_CAP));
+    }
+}
+}//if

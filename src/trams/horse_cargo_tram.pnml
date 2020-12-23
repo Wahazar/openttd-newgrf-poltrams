@@ -1,0 +1,101 @@
+// part of Polish Tram Set
+// Graphic by McZapkie, Voyager One
+// NML code by McZapkie
+
+//cargo tram
+
+spriteset(spriteset_HorseCargo_purchase, "gfx/horse_tram_freight.png") { template_sprite_purchase_consist(28,104) }
+// spriteset(spriteset_HorseCargo_depot, "gfx/horse_tram_freight.png") { template_sideview4ps(6) }
+spriteset(spriteset_HorseCargo, "gfx/horse_tram_freight.png") { template_sprite4ps(6) }
+
+/*
+switch(FEAT_ROADVEHS, SELF, HorseCargo_graphic_switch, extra_callback_info1) {
+	0x00:		spriteset_HorseCargo;
+	0x10..0x12:	spriteset_HorseCargo_depot;
+	return spriteset_HorseCargo_purchase;
+}
+*/
+
+switch(FEAT_ROADVEHS, SELF, HorseCargo_graphic_switch, position_in_consist) {
+	0:	return velocity_1horsewalk_graphic_switch;
+	1:	return spriteset_HorseCargo;
+return CB_FAILED;
+}
+
+switch (FEAT_ROADVEHS, SELF, switch_HorseCargo_articulated, extra_callback_info1) { 
+    1 : return HorseCargo; 
+    return CB_RESULT_NO_MORE_ARTICULATED_PARTS; 
+} 
+switch(FEAT_ROADVEHS, SELF, switch_HorseCargo_length, position_in_consist) {
+	0:	return 4;
+	1:	return 3;
+return CB_FAILED;
+}
+
+#define HORSE_CARGO_TRAM_VMAX 18
+#define HORSE_CARGO_TRAM_MASS 3
+#define HORSE_CARGO_TRAM_LOAD 5
+
+switch(FEAT_ROADVEHS, SELF, maxload_horse_cargo_tram_switch, cargo_type_in_veh) {  
+	MAIL: return HORSE_CARGO_TRAM_LOAD*8/2;  
+	GOOD: return HORSE_CARGO_TRAM_LOAD*8/4;  
+	ENSP: return HORSE_CARGO_TRAM_LOAD*8/5;  
+	FMSP: return HORSE_CARGO_TRAM_LOAD*8/4;  
+	MNSP: return HORSE_CARGO_TRAM_LOAD*8/3;  
+	VALU: return HORSE_CARGO_TRAM_LOAD*8/1;  
+	GOLD: return HORSE_CARGO_TRAM_LOAD*8/4;  
+	DIAM: return HORSE_CARGO_TRAM_LOAD*8/1;  
+        return HORSE_CARGO_TRAM_LOAD;  
+}  
+switch(FEAT_ROADVEHS, SELF, capacity_HorseCargo_switch, position_in_consist) {
+	0:	return 0;
+	1:	return maxload_horse_cargo_tram_switch;
+return CB_FAILED;
+}
+
+if ((param_horse_trams == 1) && (param_cargo_worktrams == 1)) {
+item(FEAT_ROADVEHS, HorseCargo) {
+    property {
+        /* common properties */
+        name:                           string(STR_HORSE_CARGO_TRAM_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(1870, 1, 1);            
+        model_life:                     get_model_life(1870,1930,10);
+        vehicle_life:                   20;
+	retire_early:			10;
+        reliability_decay:              8;
+        loading_speed:                  5;
+        cost_factor:                    HORSE_TRAM_COST;      
+        running_cost_factor:            min(2 * STAFF_RUNNING_COST /9, 255);
+        /* tram properties */
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          HORSE_CARGO_TRAM_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_EXPRESS, CC_MAIL, CC_ARMOURED);
+	non_refittable_cargo_classes:       bitmask(CC_LIQUID, CC_PASSENGERS, CC_BULK, CC_OVERSIZED);
+	default_cargo_type:		GOOD;
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM,ROADVEH_FLAG_AUTOREFIT, ROADVEH_FLAG_2CC, ROADVEH_FLAG_NO_BREAKDOWN_SMOKE);
+        refit_cost:                     0;
+        cargo_age_period:               185;
+        power:                          10 hp;
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 HORSE_CARGO_TRAM_LOAD;
+        weight:                         HORSE_CARGO_TRAM_MASS ton;
+        tractive_effort_coefficient:    0.4;
+        air_drag_coefficient:           0.5;
+        visual_effect:      		visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	sound_effect: SOUND_HORSE;
+	tram_type:			RAIL;
+        length:      			4;
+    }
+
+    graphics {
+	default:            	HorseCargo_graphic_switch;
+	purchase:           	spriteset_HorseCargo_purchase;
+	cargo_capacity:		capacity_HorseCargo_switch;
+	purchase_cargo_capacity: return HORSE_CARGO_TRAM_LOAD;
+	articulated_part:	switch_HorseCargo_articulated;
+	length:			switch_HorseCargo_length;
+	additional_text: 	return string(STR_CARGO_TRAM);
+    }
+}
+} //if

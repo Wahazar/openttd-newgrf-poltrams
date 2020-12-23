@@ -1,0 +1,158 @@
+// part of Polish Tram Set
+// Graphic by Sojita, McZapkie
+// NML code by McZapkie
+
+spriteset(spriteset_204Wr_purchase, "gfx/ProTram204Wr.png") { template_sprite_purchase_consist(27,104) }
+spriteset(spriteset_204Wr_depot, "gfx/ProTram204Wr.png") { template_sprite_window_sideview8(5) }
+spriteset(spriteset_204Wr, "gfx/ProTram204Wr.png") { template_sprite8(5) }
+
+switch (FEAT_ROADVEHS, SELF, Protram204Wr_articulated_switch, extra_callback_info1) {
+    1..2: return Protram204Wr;
+    return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+switch(FEAT_ROADVEHS, SELF, Protram204Wr_graphic_switch, extra_callback_info1) {
+	0x00:			spriteset_204Wr;
+	0x10..0x12:		spriteset_204Wr_depot;
+	return spriteset_204Wr_purchase;
+}
+
+switch(FEAT_ROADVEHS, SELF, Protram204Wr_single_graphics_switch, position_in_consist) {
+	0: 	Protram204Wr_graphic_switch;
+	1..2: invisible;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, Protram204Wr_double_graphics_switch, position_in_consist) {
+	0..1: 	Protram204Wr_graphic_switch;
+	2: 	invisible;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, Protram204Wr_triple_graphics_switch, position_in_consist) {
+	0..2: 	Protram204Wr_graphic_switch;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, Protram204Wr_consist_graphic_switch, cargo_subtype) {
+    /* Pass cargo subtype to next switch  */
+	0: Protram204Wr_single_graphics_switch;
+	1: Protram204Wr_double_graphics_switch;
+	2: Protram204Wr_triple_graphics_switch;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Protram204Wr_cap1, position_in_consist) {
+	0: return ((cargo_type_in_veh==PASS)?PROTRAM204WR_CAP:PROTRAM204WR_SIT)-1;
+	1..2: return 0;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_Protram204Wr_cap2, position_in_consist) {
+	0..1: return (cargo_type_in_veh==PASS)?PROTRAM204WR_CAP:PROTRAM204WR_SIT;
+	2: return 0;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_Protram204Wr_cap3, position_in_consist) {
+	0..2: return (cargo_type_in_veh==PASS)?PROTRAM204WR_CAP:PROTRAM204WR_SIT;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Protram204Wr_capacity, cargo_subtype) {
+	0: switch_Protram204Wr_cap1;
+	1: switch_Protram204Wr_cap2;
+	2: switch_Protram204Wr_cap3;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Protram204Wr_multipleunit_effect, cargo_subtype) {
+	0: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	1..2: return visual_effect(VISUAL_EFFECT_ELECTRIC, -3);
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Protram204Wr_visual_effect, position_in_consist) {
+	0: return visual_effect(VISUAL_EFFECT_ELECTRIC, -3);
+	1: switch_Protram204Wr_multipleunit_effect;
+	2: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	return CB_FAILED;
+}
+
+#define PROTRAM204WR_VMAX 55
+#define PROTRAM204WR_MASS 19
+
+switch(FEAT_ROADVEHS, SELF, switch_Protram204Wr_running_cost, cargo_subtype) {
+	0..2: return tram_running_cost((cargo_subtype + 1) * PROTRAM204WR_MASS, PROTRAM204WR_VMAX, ASYNCHRONOUS, HARD_COMFORT);
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Protram204Wr_weight, cargo_subtype) {
+	0..2: return (cargo_subtype + 1) * PROTRAM204WR_MASS *4;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_Protram204Wr_refit_cost, var[0x10,8,0xFF] - cargo_subtype) {
+    /* Refit cost based on difference between target cargo sybtype and current cargo subtype.
+	   Refitting to fewer carriages refunds money, while adding carriages costs (more) money.        */
+	-2:				-(2*PROTRAM204WR_REFIT_REFUND);
+	-1:				-(1*PROTRAM204WR_REFIT_REFUND);
+	0:				0;
+	1:				(1*PROTRAM204WR_REFIT_COST);
+	2:				(2*PROTRAM204WR_REFIT_COST);
+	return CB_FAILED;
+}
+
+//200 kW per unit
+switch(FEAT_ROADVEHS, SELF, switch_Protram204Wr_power, cargo_subtype) {
+	0..2: return (cargo_subtype + 1) * 200 * 100 /746;
+	return CB_FAILED;
+}
+
+CARGO_DECAY_SWITCH(SOFT_COMFORT, PROTRAM204WR) 
+
+if (param_electric_passenger_trams == 1) {
+item(FEAT_ROADVEHS, Protram204Wr) {
+    property {
+        name:                           string(STR_PROTRAM204WR_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(2003, 1, 1);            
+        model_life:                     get_model_life(2003,0,0);
+        vehicle_life:                   16;
+        retire_early:                   0;
+        reliability_decay:              20;
+        loading_speed:                  get_loading_speed(7, 0);
+        cost_factor:                    PROTRAM204WR_COST;      
+        running_cost_factor:            tram_running_cost(PROTRAM204WR_MASS, PROTRAM204WR_VMAX, ASYNCHRONOUS, HARD_COMFORT);      
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          PROTRAM204WR_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_PASSENGERS);
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM,ROADVEH_FLAG_AUTOREFIT, ROADVEH_FLAG_2CC);
+        refit_cost:                     PROTRAM204WR_REFIT_COST;
+        cargo_age_period:               CARGO_DECAY(SOFT_COMFORT, PROTRAM204WR_CAP, PROTRAM204WR_SIT);
+        power:                          200 kW;
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 PROTRAM204WR_CAP; //per unit
+        weight:                         PROTRAM204WR_MASS ton;
+        tractive_effort_coefficient:    0.33;
+        air_drag_coefficient:           0.1;
+        visual_effect:      		    visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+        length:      			    8;
+    }
+
+    graphics {
+	articulated_part:	Protram204Wr_articulated_switch;
+	default:            	Protram204Wr_consist_graphic_switch;
+	purchase:           	spriteset_204Wr_purchase;
+	cargo_subtype_text: 	switch_trailers_subtype_text;
+	length:			switch_trailers123_length;
+	cargo_capacity:		switch_Protram204Wr_capacity;
+	purchase_cargo_capacity:return PROTRAM204WR_CAP/3;
+	visual_effect: 		switch_Protram204Wr_visual_effect;
+	running_cost_factor:	switch_Protram204Wr_running_cost;  
+	weight:			switch_Protram204Wr_weight;
+	power:			switch_Protram204Wr_power;
+	refit_cost:		switch_Protram204Wr_refit_cost;
+	cargo_age_period:	switch_PROTRAM204WR_comfort;
+	additional_text: 	return string(STR_BUY_TRAILERS_VIA_REFIT, PROTRAM204WR_SIT, PROTRAM204WR_CAP-PROTRAM204WR_SIT, PROTRAM204WR_CAP * 3, get_total_loading_speed(7, 0, PROTRAM204WR_CAP));
+    }
+}
+} //if

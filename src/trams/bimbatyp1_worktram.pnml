@@ -1,0 +1,69 @@
+// part of Polish Tram Set
+// Graphic by McZapkie, Voyager One
+// NML code by McZapkie
+
+spriteset(spriteset_Typ1_worktram_purchase, "gfx/Bergische_Stahlindustrie_Typ1_worktram.png") { template_sprite_purchase_consist(28,104) }
+spriteset(spriteset_Typ1_worktram_depot, "gfx/Bergische_Stahlindustrie_Typ1_worktram.png") { template_sideview4ps(6) }
+spriteset(spriteset_Typ1_worktram, "gfx/Bergische_Stahlindustrie_Typ1_worktram.png") { template_sprite4ps(6) }
+
+switch(FEAT_ROADVEHS, SELF, Typ1_worktram_graphic_switch, extra_callback_info1) {
+	0x00:		spriteset_Typ1_worktram;
+	0x10..0x12:	spriteset_Typ1_worktram_depot;
+	return spriteset_Typ1_worktram_purchase;
+}
+
+#define BIMBA_CARGO_TRAM_LOAD 8
+
+switch(FEAT_ROADVEHS, SELF, maxload_bimba_cargo_tram_switch, cargo_type_in_veh) {  
+	MAIL: return BIMBA_CARGO_TRAM_LOAD*8/2;  
+	GOOD: return BIMBA_CARGO_TRAM_LOAD*8/4;  
+	ENSP: return BIMBA_CARGO_TRAM_LOAD*8/5;  
+	FMSP: return BIMBA_CARGO_TRAM_LOAD*8/4;  
+	MNSP: return BIMBA_CARGO_TRAM_LOAD*8/3;  
+	VALU: return BIMBA_CARGO_TRAM_LOAD*8/1;  
+	GOLD: return BIMBA_CARGO_TRAM_LOAD*8/4;  
+	DIAM: return BIMBA_CARGO_TRAM_LOAD*8/1;  
+        return BIMBA_CARGO_TRAM_LOAD;  
+} 
+
+if (param_cargo_worktrams == 1) {
+item(FEAT_ROADVEHS, BimbaTyp1_worktram) {
+    property {
+        /* common properties */
+        name:                           string(STR_BIMBATYP1_WORKTRAM_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(1920, 1, 1);            
+        model_life:                     get_model_life(1920,1955,0);
+        vehicle_life:                   30;
+	retire_early:			0;
+        reliability_decay:              15;
+        loading_speed:                  4;
+        cost_factor:                    BIMBATYP1_COST /2;      
+        running_cost_factor:            tram_running_cost(BIMBATYP1_MASS, BIMBATYP1_VMAX/2, RHEOSTAT, HARD_COMFORT);
+        /* tram properties */
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          BIMBATYP1_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_EXPRESS, CC_MAIL, CC_ARMOURED);
+	non_refittable_cargo_classes:       bitmask(CC_LIQUID, CC_PASSENGERS, CC_BULK, CC_OVERSIZED);
+	default_cargo_type:		GOOD;
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM,ROADVEH_FLAG_AUTOREFIT, ROADVEH_FLAG_2CC);
+        refit_cost:                     0;
+        cargo_age_period:               185;
+        power:                          22 kW;
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 BIMBA_CARGO_TRAM_LOAD;
+        weight:                         BIMBATYP1_MASS ton;
+        tractive_effort_coefficient:    1.0;
+        air_drag_coefficient:           0.7;
+        visual_effect:      		visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+        length:      			5;
+    }
+
+    graphics {
+	default:            	Typ1_worktram_graphic_switch;
+	purchase:           	spriteset_Typ1_worktram_purchase;
+	cargo_capacity:		maxload_bimba_cargo_tram_switch;
+	additional_text: 	return string(STR_CARGO_TRAM);
+    }
+} 
+} // if

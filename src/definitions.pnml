@@ -1,0 +1,232 @@
+// Polish Tram Set
+// Graphic by Sojita
+// NML code by McZapkie
+
+
+/* switches */
+/* 1 trailer */
+switch (FEAT_ROADVEHS, SELF, switch_trailer_subtype_text, cargo_subtype)
+{
+  0: string(STR_REFIT_SINGLE);
+  1: string(STR_REFIT_DOUBLE);
+     return CB_RESULT_NO_TEXT;
+}  
+
+switch(FEAT_ROADVEHS, SELF, switch_trailer_length1, position_in_consist) {
+	0..1: return 1;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_trailer_length2, position_in_consist) {
+	0: return 7;
+	1: return 1;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_trailers12_length, cargo_subtype) {
+    	0: switch_trailer_length1;
+	1: switch_trailer_length2;
+    return CB_FAILED;
+}
+
+/* 2 trailers */
+switch (FEAT_ROADVEHS, SELF, switch_trailers_subtype_text, cargo_subtype)
+{
+  0: string(STR_REFIT_SINGLE);
+  1: string(STR_REFIT_DOUBLE);
+  2: string(STR_REFIT_TRIPLE);
+     return CB_RESULT_NO_TEXT;
+}  
+
+switch(FEAT_ROADVEHS, SELF, switch_trailers_length1, position_in_consist) {
+	0..2: return 1;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_trailers_length2, position_in_consist) {
+	0: return 8;
+        1: return 1;
+        2: return 1;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_trailers123_length, cargo_subtype) {
+    	0: switch_trailers_length1;
+	1: switch_trailers_length2;
+    return 8;
+}
+
+//for 14N,102N,105N, note to myself: arbitrary power units
+switch(FEAT_ROADVEHS, SELF, switch_KonstalN1xx_power, cargo_subtype) {
+	0..2: return (cargo_subtype + 1) * 166 * 100 /746;
+	return CB_FAILED;
+}
+
+//model life including retire early
+#define get_model_life(idate, odate, retire) param_keep_old_vehs == 0 ? \
+(odate == 0 ? VEHICLE_NEVER_EXPIRES : odate-idate+retire+4) :  VEHICLE_NEVER_EXPIRES
+
+//retire early only if second hand vehicles enabled
+#define get_retire_early(retire) param_second_hand == 0 ? retire : 0
+
+#define get_loading_speed(doorwings, loweredfloor) doorwings*2+loweredfloor/15  //number of door wings, percent of lowered floor
+
+#define get_total_loading_speed(doorwings, loweredfloor, capacity) int(2 * capacity/(doorwings*2+loweredfloor/15+0.1)/3.7+1)  //total time of loading, one portion per 20 ticks
+
+#define POLTRAM_CLIMATES            bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL)
+
+#define HARD_COMFORT           40  // very short cargo aging period
+#define SOFT_COMFORT           60  // short cargo aging period
+#define CLIMA_COMFORT          85  // improved cargo aging period
+
+#define CARGO_DECAY(COMFORT, CAPACITY, SEATS) COMFORT + 100 * (SEATS)/((CAPACITY) +1)  
+// cargo aging period depend on seats/capacity ratio with clima/soft seats bonus)
+
+#define CARGO_DECAY_SWITCH(COMFORT, vehicleid) \
+switch(FEAT_ROADVEHS, SELF, switch_##vehicleid##_comfort, cargo_type_in_veh) {   \
+	PASS: return COMFORT + 100 * ( vehicleid##_SIT )/(( vehicleid##_CAP ) +1);  \
+        return COMFORT + 50;  \
+}  
+// cargo aging period depend on capacity ratio, which vary if passengers or tourists are boarded
+
+/*passenger capacity */
+#define HORSE_TRAM_CAP         	24
+#define BIMBATYP1_CAP         	28
+#define SANOKSN1_CAP         	56
+#define RINGHOFFER_CAP         	40
+#define SANOKSN2_CAP         	56
+#define CHORZOWK_CAP         	76
+#define KONSTALN_CAP         	81
+#define KONSTALN13_CAP       	122
+#define KONSTALN102_CAP      	92*2
+#define KONSTALN105_CAP      	136
+#define MANT4_CAP 	     	150
+#define KONSTALN114_CAP      	96*3
+#define KONSTALN116_CAP      	195
+#define ALSTOMNGD99_CAP      	270
+#define PROTRAM204WR_CAP     	96
+#define PESA120N_CAP         	210
+#define BOMBARDIERNGT8_CAP   	225
+
+/*passenger seats */
+#define HORSE_TRAM_SIT       20
+#define BIMBATYP1_SIT        16
+#define SANOKSN1_SIT         24
+#define RINGHOFFER_SIT       18
+#define SANOKSN2_SIT         24
+#define CHORZOWK_SIT         24
+#define KONSTALN_SIT         16
+#define KONSTALN13_SIT       21
+#define KONSTALN102_SIT      16*2
+#define KONSTALN105_SIT      20
+#define MANT4_SIT 	     30
+#define KONSTALN114_SIT      12*3
+#define KONSTALN116_SIT      40
+#define ALSTOMNGD99_SIT      49
+#define PROTRAM204WR_SIT     20
+#define PESA120N_SIT         40
+#define BOMBARDIERNGT8_SIT   77
+
+/* building costs */
+#define HORSE_TRAM_COST        5
+#define BIMBATYP1_COST         6
+#define SANOKSN1_COST         10
+#define RINGHOFFER_COST     14
+#define SANOKSN2_COST         12
+#define CHORZOWK_COST         15
+#define KONSTALN_COST         18
+#define KONSTALN13_COST       25
+#define KONSTALN102_COST      40
+#define KONSTALN105_COST      35
+#define MANT4_COST            16
+#define KONSTALN114_COST      78
+#define KONSTALN116_COST      82
+#define ALSTOMNGD99_COST      100
+#define PROTRAM204WR_COST     50
+#define PESA120N_COST         115
+#define BOMBARDIERNGT8_COST   190
+
+/* refit costs */
+#define SANOKPN2_REFIT_REFUND     3
+#define SANOKPN2_REFIT_COST       6
+#define RINGHOFFER_D_REFIT_REFUND     3
+#define RINGHOFFER_D_REFIT_COST       6
+#define CHORZOWP15_REFIT_REFUND   4
+#define CHORZOWP15_REFIT_COST     8
+#define KONSTALND_REFIT_REFUND    5
+#define KONSTALND_REFIT_COST     10
+#define KONSTALN13_REFIT_REFUND  16
+#define KONSTALN13_REFIT_COST    32
+#define KONSTALN102_REFIT_REFUND  16
+#define KONSTALN102_REFIT_COST    34
+#define KONSTALN105_REFIT_REFUND 20
+#define KONSTALN105_REFIT_COST   44
+#define MANB4_REFIT_REFUND     6
+#define MANB4_REFIT_COST       12
+#define PROTRAM204WR_REFIT_REFUND 22
+#define PROTRAM204WR_REFIT_COST   50
+#define PESA120N_REFIT_REFUND   20
+#define PESA120N_REFIT_COST   56
+
+/* running costs */
+#define STAFF_RUNNING_COST       10
+#define CLEAN_RUNNING_COST       5
+#define CLIMA_RUNNING_COST       20
+#define RHEOSTAT -50
+#define ASYNCHRONOUS 200
+
+#define basic_running_cost(m, v, e)  STAFF_RUNNING_COST + (m) * ((1296 - e) + (v) * (v)) / 2592 
+// v [km/h]
+
+#define tram_running_cost(tram_mass, speed, engine, additional_comfort) \
+additional_comfort == CLIMA_COMFORT ?  \
+min(CLIMA_RUNNING_COST + basic_running_cost(tram_mass, speed, engine),255) :  \
+(additional_comfort == SOFT_COMFORT ? \
+min(CLEAN_RUNNING_COST + basic_running_cost(tram_mass, speed, engine),255) :    \
+min(basic_running_cost(tram_mass, speed, engine),255))
+ 
+#define tram_running_cost_switch(tram_name, tram_mass, additional_comfort) \
+switch (FEAT_ROADVEHS, SELF, switch_##tram_name##_dynamic_running_cost, additional_comfort) { \
+return  tram_running_cost(tram_mass, 37 * current_speed / 10, ASYNCHRONOUS, additional_comfort); \
+}
+// v [m/s]
+
+/* 	Refit cost based on difference between target cargo sybtype and current cargo subtype.
+   	Refitting to fewer carriages refunds money, while adding carriages costs (2x) money.        
+	After certain second_hand_date date, removing trailers is not refunded.
+	If param_second_hand is enabled, additional trailers are 2x cheaper after second_hand_date. 
+*/
+
+#define TRAILER_COST_SWITCHES(trailer_name, second_hand_date) \
+switch(FEAT_ROADVEHS, SELF, switch_##trailer_name##_refund, current_date >= date(second_hand_date, 1, 1)) { \
+	1:	return 0; \
+	return - trailer_name##_REFIT_REFUND; \
+} \
+switch(FEAT_ROADVEHS, SELF, switch_##trailer_name##_costs, \
+(param_second_hand == 0 ? 0 : (current_date >= date(second_hand_date, 1, 1)) ) ) { \
+	1:	return trailer_name##_REFIT_COST/2; \
+	return trailer_name##_REFIT_COST; \
+} 
+
+/* for second trailer */
+#define TRAILER2_COST_SWITCHES(trailer_name, second_hand_date) \
+switch(FEAT_ROADVEHS, SELF, switch_##trailer_name##_refund2, current_date >= date(second_hand_date, 1, 1)) { \
+	1:	return 0; \
+	return -2 * trailer_name##_REFIT_REFUND; \
+} \
+switch(FEAT_ROADVEHS, SELF, switch_##trailer_name##_costs2, \
+(param_second_hand == 0 ? 0 : (current_date >= date(second_hand_date, 1, 1)) ) ) { \
+	1:	return trailer_name##_REFIT_COST; \
+	return trailer_name##_REFIT_COST *2; \
+} 
+
+cargotable {
+    PASS, COAL, MAIL, OIL_, LVST, GOOD, GRAI, WOOD, IORE, STEL, VALU, PAPR, WHEA, FOOD, GOLD, RUBR,
+    FRUT, MAIZ, CORE, WATR, DIAM, AORE, BEER, BDMT, BRCK, CERA, CERE, CLAY, CMNT, COPR, DYES, ENSP,
+    FERT, FICR, FISH, FMSP, FRVG, GLAS, GRVL, LIME, MILK, MNSP, OLSD, PETR, PLAS, POTA, RCYC, RFPR,
+    SAND, SCMT, SGBT, SGCN, SULP, TOUR, VEHI, WDPR, WOOL, GEAR, YETI, BOOM
+}
+
+ tramtypetable {
+	RAIL, ELRL
+	}

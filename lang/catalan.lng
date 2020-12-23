@@ -1,0 +1,65 @@
+##grflangid 0x22
+##plural 0
+##gender Masculin Femenin
+# This is the English language file
+
+# GRF name and description
+STR_GRF_NAME        :PolTrams {VERSION}
+STR_GRF_DESCRIPTION :{TITLE} - Extensió de tramvies polonesos des de 1897 fins al 2014.{}{COPYRIGHT}2014 Sojita, Voyager One (gràfics), McZapkie (codi NML, gràfics){}Llicència: GPL v2
+
+STR_PARAM_NAME_RESERVED         :Reservat per ús futur.
+STR_PARAM_DESC_RESERVED         :Marcador de posició...
+STR_PARAM_NAME_HORSE_TRAMS      :Tramvies amb cavalls
+STR_PARAM_DESC_HORSE_TRAMS      :Activa els tramvies amb cavalls
+STR_PARAM_NAME_ELECTRIC_PASSENGER_TRAMS         :Tramvies elèctrics de passatgers
+STR_PARAM_DESC_ELECTRIC_PASSENGER_TRAMS         :Activa els tramvies elèctrics estàndard de passatgers. Per defecte aquesta opció està activada.
+STR_PARAM_NAME_CARGO_WORKTRAMS  :Tramvies de càrrega
+STR_PARAM_DESC_CARGO_WORKTRAMS  :Activa els tramvies de càrrega (per a càrregues exprés: mercaderies, subministraments, etc).
+STR_PARAM_NAME_PURCHASE_COST    :Modificador del preu de compra
+STR_PARAM_DESC_PURCHASE_COST    :Empra aquesta opció per a canviar els preus de compra dels tramvies d'aquesta extensió.
+STR_PARAM_NAME_RUNNING_COST     :Modificador del cost de circulació
+STR_PARAM_DESC_RUNNING_COST     :Empra aquesta opció per canviar els costos de circulació dels tramvies d'aquesta extensió.
+STR_PARAM_COST_H                :Meitat
+STR_PARAM_COST_N                : Normal
+STR_PARAM_COST_D                :Doble
+STR_PARAM_NAME_KEEP_OLD_VEHS    :Mantén els tramvies antics en el menú de compra
+STR_PARAM_DESC_KEEP_OLD_VEHS    :Selecciona aquesta opció per a desactivar la data de caducitat dels tramvies antics. Aquesta opció s'aplica només al conjunt de tramvies d'aquesta extensió. Per a desactivar la caducitat dels vehicles d'altres extensions, empra l'opció "Els vehicles mai caduquen" en les opcions de configuració.
+STR_PARAM_NAME_SECOND_HAND      :Permet tramvies i remodelats barats
+STR_PARAM_DESC_SECOND_HAND      :Apaga per a desactivar els tramvies barats "de segona mà" (però no molt fiables), l'extensió de la vida útil i la compra barata de tràilers de tramvies populars. Recomanat mantenir-la activada si el paràmetre "Avaries de vehicles" està activat.
+
+STR_HORSE_TRAM_NAME             :Tramvia a cavalls de passatgers
+STR_BIMBATYP1_NAME              :Tramvia Bergische Stahlindustrie Tipus 1
+STR_SANOKSN1_NAME               :Tramvia Graz/Sanok SN1
+STR_SANOKSN2_NAME               :Tramvia Sanok SN2 (amb tràiler opcional PN2)
+STR_CHORZOWK_NAME               :Tramvia Chorzow K (amb un o dos tràilers P15)
+STR_KONSTALN_NAME               :Tramvia Konstal N (amb un o dos tràilers ND)
+STR_KONSTALN13_NAME             :Tramvia Konstal 13N (pcc ràpid, fins a 3 unitats)
+STR_KONSTALN102_NAME            :Tramvia Konstal 102N (pcc articulat, 1 o 2 unitats)
+STR_KONSTALN105_NAME            :Tramvia Konstal 105N (alta capacitat, fins a 3 unitats)
+STR_MANT4_NAME                  :Tramvia "de segona mà" MAN T4 (amb tràiler B4)
+STR_KONSTALN114_NAME            :Tramvia Konstal 114N (unitat llarga triple)
+STR_KONSTALN116_NAME            :Tramvia Konstal 116N (unitat ràpida triple)
+STR_ALSTOMNGD99_NAME            :Tramvia Alstom-Konstal NGd99 (unitat llarga triple)
+STR_PROTRAM204WR_NAME           :Tramvia Protram 204Wr As (remodelat a 105Na, fins a 3 unitats)
+STR_PESA120N_NAME               :Tramvia Pesa "Swing" 120N (3 o 5 seccions)
+STR_BOMBARDIERNGT8_NAME         :Tramvia Bombardier NGT8 (unitat ràpida llarga triple)
+
+STR_HORSE_CARGO_TRAM_NAME       :Tramvia a cavalls de càrrega
+STR_BIMBATYP1_WORKTRAM_NAME     :Tramvia de càrrega (ex-Bergische Stahlindustrie Tipus 1)
+STR_CHORZOWK_WORKTRAM_NAME      :Tramvia de càrrega (ex-Chorzow K)
+STR_KONSTALN13_WORKTRAM_NAME    :Tramvia de càrrega (ex-Konstal 13N)
+STR_KONSTALN105_WORKTRAM_NAME   :Tramvia de càrrega (ex-Konstal 105N)
+
+STR_REFIT_SINGLE : - curt (cotxe motor individual)
+STR_REFIT_DOUBLE : - mitjà (cotxe motor amb tràiler)
+STR_REFIT_TRIPLE : - llarg (cotxe motor amb dos tràilers)
+
+STR_SINGLE_TRAM :Cotxe individual amb {SIGNED_WORD} places amb seient i {SIGNED_WORD} places de peu.{}Temps de càrrega/descàrrega: {COMMA} di{P a es}
+
+STR_DYNAMIC_RUNNING_COST :Tramvia ràpid, {SIGNED_WORD} places amb seient i {SIGNED_WORD} places de peu. Els costos de circulació depenen de la {YELLOW}velocitat actual{BLACK}.{}Temps de càrrega/descàrrega: {COMMA} di{P a es}
+
+STR_BUY_TRAILERS_VIA_REFIT : {SIGNED_WORD} places amb seient i {SIGNED_WORD} places de peu en una unitat. {YELLOW}Remodela{BLACK} per vendre/comprar tràilers/unitats addicionals, fins a {SIGNED_WORD} passatgers.{}Temps de càrrega/descàrrega: {COMMA} di{P a es}
+
+STR_DYNAMIC_RUNNING_COST_UNITS_VIA_REFIT : {SIGNED_WORD} places amb seient i {SIGNED_WORD} palces de peu en versió curta. {YELLOW}Remodela{BLACK} per a canviar la composició del tramvia, fins a {SIGNED_WORD} passatgers. Els costos de circulació depenen de la {YELLOW}velocitat actual{BLACK}.{}Temps de càrrega/descàrrega: {COMMA} di{P a es}
+
+STR_CARGO_TRAM          :Tramvia de càrrega (mercaderies, subministraments, etc).

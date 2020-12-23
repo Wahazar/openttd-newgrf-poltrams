@@ -1,0 +1,103 @@
+/*
+ * This file is part of the PolTrams NewGRF.
+ * PolTrams is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, version 2 or - upon your discretion - any later version.
+ * PolTrams is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with PolTrams. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+grf {
+	grfid: "MC\01\07";
+	name: string(STR_GRF_NAME);
+	desc: string(STR_GRF_DESCRIPTION);
+	version: 15;
+	min_compatible_version: 15;
+    param {
+        param_horse_trams {
+            type: bool;
+	    def_value: 1;
+            name: string(STR_PARAM_NAME_HORSE_TRAMS);
+            desc: string(STR_PARAM_DESC_HORSE_TRAMS);
+        }
+    }
+    param {
+        param_electric_passenger_trams {
+            type: bool;
+	    def_value: 1;
+            name: string(STR_PARAM_NAME_ELECTRIC_PASSENGER_TRAMS);
+            desc: string(STR_PARAM_DESC_ELECTRIC_PASSENGER_TRAMS);
+        }
+    }
+    param {
+        param_cargo_worktrams {
+            type: bool;
+	    def_value: 1;
+            name: string(STR_PARAM_NAME_CARGO_WORKTRAMS);
+            desc: string(STR_PARAM_DESC_CARGO_WORKTRAMS);
+        }
+    }
+    param {
+        param_reserved4 {
+            type: bool;
+	    def_value: 1;
+            name: string(STR_PARAM_NAME_RESERVED);
+            desc: string(STR_PARAM_DESC_RESERVED);
+        }
+    }
+    param {
+        param_purchase_cost {
+            type:   int;
+            min_value: 0;
+            max_value: 2;
+            def_value: 1;
+            name:   string(STR_PARAM_NAME_PURCHASE_COST);
+            desc:   string(STR_PARAM_DESC_PURCHASE_COST);
+            names: {
+                        0: string(STR_PARAM_COST_H);
+                        1: string(STR_PARAM_COST_N);
+                        2: string(STR_PARAM_COST_D);
+            };
+        }
+    }
+    param {
+        param_running_cost {
+            type:   int;
+            min_value: 0;
+            max_value: 2;
+            def_value: 1;
+            name:   string(STR_PARAM_NAME_RUNNING_COST);
+            desc:   string(STR_PARAM_DESC_RUNNING_COST);
+            names: {
+                        0: string(STR_PARAM_COST_H);
+                        1: string(STR_PARAM_COST_N);
+                        2: string(STR_PARAM_COST_D);
+            };
+        }
+    }
+    param {
+        param_keep_old_vehs {
+            type: bool;
+            name: string(STR_PARAM_NAME_KEEP_OLD_VEHS);
+            desc: string(STR_PARAM_DESC_KEEP_OLD_VEHS);
+        }
+    }
+    param {
+        param_second_hand {
+            type: bool;
+	    def_value: 1;
+            name: string(STR_PARAM_NAME_SECOND_HAND);
+            desc: string(STR_PARAM_DESC_SECOND_HAND);
+        }
+    }
+}
+
+train_width_32_px = 1;
+traininfo_y_offset = -2;
+
+basecost {
+    PR_BUILD_VEHICLE_ROAD:     param_purchase_cost+2; //default double base give normal costs
+    PR_RUNNING_ROADVEH:        param_running_cost+1; //default double base give normal costs
+    PR_RUNNING_TRAIN_ELECTRIC:        param_running_cost-1; 
+}
+
+

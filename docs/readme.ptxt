@@ -1,0 +1,99 @@
+Poltrams - Polish trams
+-------------------
+This version: {{GRF_TITLE}}
+
+Contents:
+
+1 About
+2 Compatibility
+3 Features
+4 Development
+5 License
+6 Credits
+
+
+
+-------
+1 About
+-------
+
+Poltrams newgrf allow to use most popular Polish trams: starting from XIX-century horse trams, throughout pre-war Sanok and variety of PPR Konstal products ending with modern Alstom, Pesa and Bombardier vehicles.
+
+Name of this Repo:  {{GRF_TITLE}}
+Repository version: {{REPO_REVISION}}
+GRF_ID: {{GRF_ID}}
+MD5 sum:            {{GRF_MD5}}
+
+
+---------------
+2 Compatibility
+---------------
+
+Poltrams is compatible with temperate, subarctic and subtropical climate.
+Any passenger class can be boarded via automatic station refit.
+
+
+----------------------
+3 Features
+----------------------
+
+Poltrams offers high capacity and high fast passenger throughput. 
+Because both seats and standing places are taken into account,
+travel comfort and therefore long distance payment, is limited
+(hovewer modern trams with air condition and soft seats are slightly more comfortable).
+Above parameters determine poltams as efficient short-distance urban transport,
+especially usefull for cargodist.
+
+
+3.1 Parameters
+--------------
+
+* Purchase cost modifier:
+    Half, normal and double purchase costs.
+* Running cost modifier:
+    Half, normal and double running costs.
+* Keep old trams in purchase menu:
+    Allows to disable expiration of old trams. This option applies only to this poltram set. 
+    To disable expiration of all another vehicles, use option "Vehicles never expire" in game settings.
+
+----------------------
+4 Development
+----------------------
+
+Requirements for building this NewGRF successfully:
+	NML (0.3 or nightly)
+	gcc
+	awk
+	grep
+	md5sum (or md5 on Mac)
+	make
+    mercurial (recommended)
+    python (recommended)
+If you want to bundle the grf, you'll need additionally
+	tar
+	zip
+	bzip2
+	unix2dos (optional)
+
+
+---------
+5 License
+---------
+
+This NewGRF was written by the authors as listed in the credits section
+and is free to use for anyone under the terms of the GNU Pulic License
+version 2 or higher. See license.txt.
+
+
+
+---------
+6 Credits
+---------
+
+Authors: nml code: Maciej Czapkiewicz (aka McZapkie)
+         makefile: Ingo von Borstel (aka planetmaker)         
+
+Graphics:
+	trams: Sojita, McZapkie, Voyager One, authors of CS trams set 
+
+

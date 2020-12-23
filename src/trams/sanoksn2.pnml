@@ -1,0 +1,154 @@
+// part of the Polish Tram Set
+// Graphic by Sojita
+// NML code by McZapkie
+
+spriteset(spriteset_SN2_purchase, "gfx/SanokSN2.png") { template_sprite_purchase_consist(50,104) }
+spriteset(spriteset_SN2_depot, "gfx/SanokSN2.png") { template_sprite_window_sideview8(28) }
+spriteset(spriteset_PN2_depot, "gfx/SanokSN2.png") { template_sprite_window_sideview8(4) }
+spriteset(spriteset_SN2, "gfx/SanokSN2.png") { template_sprite8(28) }
+spriteset(spriteset_PN2, "gfx/SanokSN2.png") { template_sprite8(4) }
+
+switch (FEAT_ROADVEHS, SELF, SanokSN2_articulated_switch, extra_callback_info1) {
+    1: return SanokSN2;
+    return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+switch(FEAT_ROADVEHS, SELF, SanokSN2_graphic_switch, extra_callback_info1) {
+    /* Decide whether vehicle is drawn on map or in a special window  */
+	0x00:		spriteset_SN2;
+	0x10..0x12:	spriteset_SN2_depot;
+	return spriteset_SN2_purchase;
+}
+
+switch(FEAT_ROADVEHS, SELF, SanokPN2_graphic_switch, extra_callback_info1) {
+    /* Decide whether vehicle is drawn on map or in a special window  */
+	0x00:		spriteset_PN2;
+	0x10..0x12:	spriteset_PN2_depot;
+	return spriteset_SN2_purchase;
+}
+
+
+switch(FEAT_ROADVEHS, SELF, SanokSN2_single_graphics_switch, position_in_consist) {
+	0: 	SanokSN2_graphic_switch;
+	1: invisible;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, SanokSN2_PN2_graphics_switch, position_in_consist) {
+	0: 	SanokSN2_graphic_switch;
+	1:	SanokPN2_graphic_switch;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, SanokSN2_consist_graphic_switch, cargo_subtype) {
+    /* Pass cargo subtype to next switch  */
+	0: SanokSN2_single_graphics_switch;
+	1: SanokSN2_PN2_graphics_switch;
+	return CB_FAILED;
+}
+
+
+switch(FEAT_ROADVEHS, SELF, switch_SanokSN2_cap1, position_in_consist) {
+	0: return (cargo_type_in_veh==PASS)?SANOKSN2_CAP:SANOKSN2_SIT;
+	1: return 0;
+	return CB_FAILED;
+}
+switch(FEAT_ROADVEHS, SELF, switch_SanokSN2_cap2, position_in_consist) {
+	0..1: return (cargo_type_in_veh==PASS)?SANOKSN2_CAP:SANOKSN2_SIT;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_SanokSN2_capacity, cargo_subtype) {
+	0: switch_SanokSN2_cap1;
+	1: switch_SanokSN2_cap2;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_SanokSN2_visual_effect, position_in_consist) {
+	0: return visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+	1: return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+	return CB_FAILED;
+}
+
+#define SANOKSN2_VMAX 36
+#define SANOKSN2_MASS 11
+#define SANOKPN2_MASS 10
+
+switch(FEAT_ROADVEHS, SELF, switch_SanokSN2_running_cost, cargo_subtype) {
+	0: return tram_running_cost(SANOKSN2_MASS, SANOKSN2_VMAX, RHEOSTAT, HARD_COMFORT);
+	1: return tram_running_cost(SANOKSN2_MASS + SANOKPN2_MASS, SANOKSN2_VMAX, RHEOSTAT, HARD_COMFORT);
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_SanokSN2_weight, cargo_subtype) {
+	0: return SANOKSN2_MASS * 4;
+	1: return (SANOKSN2_MASS + SANOKPN2_MASS) * 4;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_SanokSN2_maxspeed, cargo_subtype) {
+// units: km/h:2
+	0: return 18;
+	1: return 17;
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_SanokSN2_refit_cost, var[0x10,8,0xFF] - cargo_subtype) {
+    /* Refit cost based on difference between target cargo sybtype and current cargo subtype.
+	   Refitting to fewer carriages refunds money, while adding carriages costs (2x) money.        */
+	-1:				-(1*SANOKPN2_REFIT_REFUND);
+	0:				0;
+	1:				(1*SANOKPN2_REFIT_COST);
+	return CB_FAILED;
+}
+
+CARGO_DECAY_SWITCH(HARD_COMFORT, SANOKSN2) 
+
+if (param_electric_passenger_trams == 1) {
+item(FEAT_ROADVEHS, SanokSN2) {
+    property {
+        name:                           string(STR_SANOKSN2_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(1937, 1, 1);            
+        model_life:                     get_model_life(1937,1962,15);
+        vehicle_life:                   35;
+        retire_early:                   15;
+        reliability_decay:              10;
+        loading_speed:                  get_loading_speed(4, 0);
+        cost_factor:                    SANOKSN2_COST;      
+        running_cost_factor:            tram_running_cost(SANOKSN2_MASS, SANOKSN2_VMAX, RHEOSTAT, HARD_COMFORT);      
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          SANOKSN2_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_PASSENGERS);
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM,ROADVEH_FLAG_AUTOREFIT);
+        refit_cost:                     SANOKPN2_REFIT_COST;
+        cargo_age_period:               CARGO_DECAY(HARD_COMFORT, SANOKSN2_CAP, SANOKSN2_SIT);
+        power:                          88 kW;
+        running_cost_base:              RUNNING_COST_ELECTRIC;
+        cargo_capacity:                 SANOKSN2_CAP; //car
+        weight:                         SANOKSN2_MASS ton;
+        tractive_effort_coefficient:    0.25;
+        air_drag_coefficient:           0.2;
+        visual_effect:      		visual_effect(VISUAL_EFFECT_ELECTRIC, 0);
+        length:      			8;
+    }
+
+    graphics {
+	articulated_part:	SanokSN2_articulated_switch;
+	default:            	SanokSN2_consist_graphic_switch;
+	purchase:           	spriteset_SN2_purchase;
+	cargo_subtype_text: 	switch_trailer_subtype_text;
+	length:			switch_trailers12_length;
+	cargo_capacity:		switch_SanokSN2_capacity;
+	purchase_cargo_capacity: return SANOKSN2_CAP/2;
+	purchase_running_cost_factor: return tram_running_cost(SANOKSN2_MASS, SANOKSN2_VMAX, RHEOSTAT, HARD_COMFORT);
+	visual_effect: 		switch_SanokSN2_visual_effect;
+	running_cost_factor:	switch_SanokSN2_running_cost;  
+	speed:			switch_SanokSN2_maxspeed;
+	weight:			switch_SanokSN2_weight;
+	refit_cost:		switch_SanokSN2_refit_cost;
+	cargo_age_period:	switch_SANOKSN2_comfort;
+	additional_text: 	return string(STR_BUY_TRAILERS_VIA_REFIT, SANOKSN2_SIT, SANOKSN2_CAP-SANOKSN2_SIT, SANOKSN2_CAP * 3, get_total_loading_speed(4, 0, SANOKSN2_CAP));
+    }
+}
+} //if
