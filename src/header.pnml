@@ -10,7 +10,7 @@ grf {
 	grfid: "MC\01\07";
 	name: string(STR_GRF_NAME);
 	desc: string(STR_GRF_DESCRIPTION);
-	version: 16;
+	version: 17;
 	min_compatible_version: 15;
     param {
         param_horse_trams {
@@ -87,6 +87,14 @@ grf {
 	    def_value: 1;
             name: string(STR_PARAM_NAME_SECOND_HAND);
             desc: string(STR_PARAM_DESC_SECOND_HAND);
+        }
+    }
+    param {
+        param_no_catenary {
+            type: bool;
+	    def_value: 1;
+            name: string(STR_PARAM_NAME_NO_CATENARY);
+            desc: string(STR_PARAM_DESC_NO_CATENARY);
         }
     }
 }

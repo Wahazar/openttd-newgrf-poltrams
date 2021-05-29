@@ -1,6 +1,6 @@
 Poltrams - Polish trams
 -------------------
-This version: poltrams v5880M (916694b2e76c)
+This version: poltrams noRev
 
 Contents:
 
@@ -19,8 +19,8 @@ Contents:
 
 Poltrams newgrf allow to use most popular Polish trams: starting from XIX-century horse trams, throughout pre-war Sanok and variety of PPR Konstal products ending with modern Alstom, Pesa and Bombardier vehicles.
 
-Name of this Repo:  poltrams v5880M (916694b2e76c)
-Repository version: 5880
+Name of this Repo:  poltrams noRev
+Repository version: 0
 GRF_ID: 
 MD5 sum:            {{GRF_MD5}}
 
@@ -53,8 +53,10 @@ especially usefull for cargodist.
 * Running cost modifier:
     Half, normal and double running costs.
 * Keep old trams in purchase menu:
-    Allows to disable expiration of old trams. This option applies only to this poltram set. 
+    Allows to disable expiration of old trams. This option applies only to this Poltram set. 
     To disable expiration of all another vehicles, use option "Vehicles never expire" in game settings.
+* Enable tram line without catenary:
+ Allows horse trams if there is no external newgrf providing non-electrified tramway line.
 
 ----------------------
 4 Development

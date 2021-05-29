@@ -25,6 +25,8 @@ STR_PARAM_NAME_KEEP_OLD_VEHS    :Keep old trams in purchase menu
 STR_PARAM_DESC_KEEP_OLD_VEHS    :Select this option to disable expiration of old trams. This option applies only to this tram set. To disable expiration of other sets use option "Vehicles never expire" in game settings.
 STR_PARAM_NAME_SECOND_HAND    	:Allow cheap trams and refits
 STR_PARAM_DESC_SECOND_HAND    	:Switch off to disable cheap (but not very reliable) "second hand" trams, extend model life time and cheap trailer purchase of popular trams. Recommended to keep turned on if "vehicle breakdowns" setting is turned on. 
+STR_PARAM_NAME_NO_CATENARY    	:Enable tram line without catenary
+STR_PARAM_DESC_NO_CATENARY    	:Switch on if you want to enable horse trams and you are not using external newgrf providing custom RAIL tram type. 
 
 STR_HORSE_UNIVERSAL_TRAM_NAME   :Universal horse tram
 STR_HORSE_TRAM_NAME      	:Horse passenger tram
@@ -66,3 +68,11 @@ STR_DYNAMIC_RUNNING_COST_UNITS_VIA_REFIT : {SIGNED_WORD} sitting and {SIGNED_WOR
 
 STR_CARGO_TRAM		: Cargo "worktram" for express freight (good, supplies etc).
 STR_UNIVERSAL_TRAM	: All-purpose tram for passengers, mail and light freight.
+
+STR_TRAM_BUILD_VEHICLE             :Build New Tram Vehicles
+STR_TRAM_AUTOREPLACE               :Tram Vehicles
+STR_TRAM_NEW_ENGINE                :tram
+
+STR_TRAM_TRACK_NAME                :Tramway
+STR_TRAM_TRACK_TOOLBAR             :Tramway Construction
+STR_TRAM_TRACK_MENU                :Tramway construction

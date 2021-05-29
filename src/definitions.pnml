@@ -230,3 +230,37 @@ cargotable {
  tramtypetable {
 	RAIL, ELRL
 	}
+
+if (param_no_catenary)  {
+item(FEAT_TRAMTYPES, item_basic_tramtrack, 13) {
+	property {
+		label:                       "RAIL";
+		introduction_date:           1860;
+		name:                        string(STR_TRAM_TRACK_NAME);
+		toolbar_caption:             string(STR_TRAM_TRACK_TOOLBAR);
+		menu_text:                   string(STR_TRAM_TRACK_MENU);
+		build_window_caption:        string(STR_TRAM_BUILD_VEHICLE);
+		autoreplace_text:            string(STR_TRAM_AUTOREPLACE);
+		new_engine_text:             string(STR_TRAM_NEW_ENGINE);
+		powered_tramtype_list:       ["RAIL", "ELRL"];
+//		tramtype_flags:              bitmask(TRAMTYPE_FLAG_CATENARY);
+		construction_cost:           8; //Defaults: ROAD = 8, ELRD = 16, RAIL = 8, ELRL = 16
+		maintenance_cost:            16; //Defaults: ROAD = 16, ELRD = 24, RAIL = 16, ELRL = 24		
+//		speed_limit:                 85 mph;
+		sort_order:                  00;		
+		map_colour:                  0x20;
+//		requires_roadtype_list:      ?;
+//		introduces_roadtype_list:    ?;
+//		alternative_roadtype_list:   ?;
+	}/*
+	graphics {
+		gui:						 switch_electric_road_gui_style_check;
+		underlay:                    switch_modern_asphalt_style_check;
+		roadstops:                   spriteset_modern_asphalt_road_stops;
+//		track_overlay:               spriteset_modern_asphalt_road_overlay;
+		bridge_surfaces:             switch_modern_asphalt_bridge_overlay_style_check;
+//		tunnels:                     spriteset_modern_asphalt_road_tunnels;
+//		tunnel_overlay:              spriteset_modern_asphalt_tunnel_overlay;
+	}*/
+}
+}
