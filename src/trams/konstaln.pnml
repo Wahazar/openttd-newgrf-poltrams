@@ -56,21 +56,20 @@ switch(FEAT_ROADVEHS, SELF, KonstalN_consist_graphic_switch, cargo_subtype) {
 	return CB_FAILED;
 }
 
-
 switch(FEAT_ROADVEHS, SELF, switch_KonstalN_cap1, position_in_consist) {
-	0: return KONSTALN_CAP - 1;
+	0: return (cargo_type_in_veh==PASS)?KONSTALN_CAP-1:KONSTALN_SIT;
 	1..2: return 0;
 	return CB_FAILED;
 }
 switch(FEAT_ROADVEHS, SELF, switch_KonstalN_cap2, position_in_consist) {
-	0: return KONSTALN_CAP -1;
-	1: return KONSTALN_CAP +1;
+	0: return (cargo_type_in_veh==PASS)?KONSTALN_CAP-1:KONSTALN_SIT;
+	1: return (cargo_type_in_veh==PASS)?KONSTALN_CAP+1:KONSTALN_SIT;
 	2: return 0;
 	return CB_FAILED;
 }
 switch(FEAT_ROADVEHS, SELF, switch_KonstalN_cap3, position_in_consist) {
-	0: return KONSTALN_CAP - 1;
-	1..2: return KONSTALN_CAP + 1;
+	0: return (cargo_type_in_veh==PASS)?KONSTALN_CAP-1:KONSTALN_SIT;
+	1..2: return (cargo_type_in_veh==PASS)?KONSTALN_CAP+1:KONSTALN_SIT;
 	return CB_FAILED;
 }
 

@@ -77,7 +77,7 @@ switch(FEAT_ROADVEHS, SELF, switch_Protram204Wr_visual_effect, position_in_consi
 	return CB_FAILED;
 }
 
-#define PROTRAM204WR_VMAX 55
+#define PROTRAM204WR_VMAX 70
 #define PROTRAM204WR_MASS 19
 
 switch(FEAT_ROADVEHS, SELF, switch_Protram204Wr_running_cost, cargo_subtype) {
