@@ -109,7 +109,7 @@ switch(FEAT_ROADVEHS, SELF, switch_##vehicleid##_comfort, cargo_type_in_veh) {  
 #define BOMBARDIERNGT8_CAP   	225
 
 /*passenger seats */
-#define HORSE_TRAM_SIT       20
+#define HORSE_TRAM_SIT       16
 #define BIMBATYP1_SIT        16
 #define SANOKSN1_SIT         24
 #define RINGHOFFER_SIT       18

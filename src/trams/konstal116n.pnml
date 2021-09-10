@@ -52,8 +52,14 @@ switch(FEAT_ROADVEHS, SELF, switch_Konstaln116_visual_effect, position_in_consis
 	return CB_FAILED;
 }
 
+switch(FEAT_ROADVEHS, SELF, switch_Konstaln116_touristic_switch, cargo_type_in_veh) {  
+	TOUR: return KONSTALN116_SIT;  
+	PASS: return KONSTALN116_CAP;  
+        return KONSTALN116_SIT;  
+}
+
 switch(FEAT_ROADVEHS, SELF, switch_Konstaln116_capacity, position_in_consist) {
-	0: return 195;
+	0: return switch_Konstaln116_touristic_switch;
 	1..2: return 0;
 	return CB_FAILED;
 }
@@ -61,11 +67,6 @@ switch(FEAT_ROADVEHS, SELF, switch_Konstaln116_capacity, position_in_consist) {
 #define KONSTALN116_VMAX 70
 #define KONSTALN116_MASS 29
 
-switch(FEAT_ROADVEHS, SELF, switch_Konstal116N_capacity, cargo_type_in_veh) {  
-	TOUR: return KONSTALN116_SIT/3;  
-	PASS: return KONSTALN116_CAP/3;  
-        return KONSTALN116_SIT/3;  
-}
 
 tram_running_cost_switch(Konstaln116, KONSTALN116_MASS, SOFT_COMFORT)
 

@@ -22,9 +22,15 @@ switch(FEAT_ROADVEHS, SELF, HorsePass_graphic_switch, position_in_consist) {
 return CB_FAILED;
 }
 
+switch(FEAT_ROADVEHS, SELF, capacity_HorsePass_touristic_switch, cargo_type_in_veh) {  
+	TOUR: return HORSE_TRAM_SIT;  
+	PASS: return HORSE_TRAM_CAP;  
+        return HORSE_TRAM_CAP;  
+}  
+
 switch(FEAT_ROADVEHS, SELF, capacity_HorsePass_switch, position_in_consist) {
 	0:	return 0;
-	1:	return HORSE_TRAM_CAP;
+	1:	return capacity_HorsePass_touristic_switch;
 return CB_FAILED;
 }
 
