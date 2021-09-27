@@ -21,6 +21,7 @@
 /* universal trams */
 
 #include "src/trams/horse_universal_tram.pnml"
+#include "src/trams/SteamTram.pnml"
 
 /* passenger trams */
 

@@ -129,6 +129,7 @@ switch(FEAT_ROADVEHS, SELF, switch_##vehicleid##_comfort, cargo_type_in_veh) {  
 
 /* building costs */
 #define HORSE_TRAM_COST        5
+#define STEAM_TRAM_COST	16
 #define BIMBATYP1_COST         6
 #define SANOKSN1_COST         10
 #define RINGHOFFER_COST     14
@@ -147,6 +148,8 @@ switch(FEAT_ROADVEHS, SELF, switch_##vehicleid##_comfort, cargo_type_in_veh) {  
 #define BOMBARDIERNGT8_COST   190
 
 /* refit costs */
+#define STEAM_TRAM_REFIT_REFUND     4
+#define STEAM_TRAM_REFIT_COST     8
 #define SANOKPN2_REFIT_REFUND     3
 #define SANOKPN2_REFIT_COST       6
 #define RINGHOFFER_D_REFIT_REFUND     3
@@ -246,8 +249,8 @@ item(FEAT_TRAMTYPES, item_basic_tramtrack, 13) {
 //		tramtype_flags:              bitmask(TRAMTYPE_FLAG_CATENARY);
 		construction_cost:           8; //Defaults: ROAD = 8, ELRD = 16, RAIL = 8, ELRL = 16
 		maintenance_cost:            16; //Defaults: ROAD = 16, ELRD = 24, RAIL = 16, ELRL = 24		
-//		speed_limit:                 85 mph;
-		sort_order:                  00;		
+		speed_limit:                 25 mph;
+		sort_order:                  255;		
 		map_colour:                  0x20;
 //		requires_roadtype_list:      ?;
 //		introduces_roadtype_list:    ?;

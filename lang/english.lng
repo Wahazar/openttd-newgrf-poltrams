@@ -30,6 +30,7 @@ STR_PARAM_DESC_NO_CATENARY    	:Switch on if you want to enable horse trams and 
 
 STR_HORSE_UNIVERSAL_TRAM_NAME   :Universal horse tram
 STR_HORSE_TRAM_NAME      	:Horse passenger tram
+STR_STEAM_TRAM_NAME   :Steam tram
 STR_BIMBATYP1_NAME      	:Tram Bergische Stahlindustrie Type 1 
 STR_SANOKSN1_NAME      		:Tram Graz/Sanok SN1
 STR_RINGHOFFER_NAME      		:Tram Ringhoffer Type R
@@ -67,12 +68,13 @@ STR_BUY_TRAILERS_VIA_REFIT : {SIGNED_WORD} sitting and {SIGNED_WORD} standing pl
 STR_DYNAMIC_RUNNING_COST_UNITS_VIA_REFIT : {SIGNED_WORD} sitting and {SIGNED_WORD} standing places in short version. Use {YELLOW}refit{BLACK} to change tram consist, up to {SIGNED_WORD} pass. Running costs depends on {YELLOW}actual speed{BLACK}. {}Load/unload time: {COMMA} days
 
 STR_CARGO_TRAM		: Cargo "worktram" for express freight (good, supplies etc).
-STR_UNIVERSAL_TRAM	: All-purpose tram for passengers, mail and light freight.
+STR_UNIVERSAL_TRAM	: All-purpose horse tram for passengers, mail and light freight.
+STR_STEAM_TRAM	: All-purpose steam tram for passengers, mail and light freight, reffitable in depot.
 
 STR_TRAM_BUILD_VEHICLE             :Build New Tram Vehicles
-STR_TRAM_AUTOREPLACE               :Tram Vehicles
+STR_TRAM_AUTOREPLACE               :Tram Vehicles (not electric)
 STR_TRAM_NEW_ENGINE                :tram
 
-STR_TRAM_TRACK_NAME                :Tramway
-STR_TRAM_TRACK_TOOLBAR             :Tramway Construction
-STR_TRAM_TRACK_MENU                :Tramway construction
+STR_TRAM_TRACK_NAME                :Tramway without catenary
+STR_TRAM_TRACK_TOOLBAR             :Non-electrified Tramway Construction
+STR_TRAM_TRACK_MENU                :Non-electrified Tramway construction

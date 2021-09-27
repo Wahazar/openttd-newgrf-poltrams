@@ -1,3 +1,7 @@
+Version 1.19
+Tram track order changed
+Kolomyia steam train added
+
 Version 1.18
 Tourist cap fixed
 

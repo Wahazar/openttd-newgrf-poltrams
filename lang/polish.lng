@@ -28,6 +28,7 @@ STR_PARAM_DESC_SECOND_HAND      :Wyłączenie opcji usuwa z menu tanie (ale awar
 
 STR_HORSE_UNIVERSAL_TRAM_NAME   :Pasażersko-bagażowy tramwaj konny
 STR_HORSE_TRAM_NAME             :Tramwaj konny "belgijka"
+STR_STEAM_TRAM_NAME   		:Tramwaj parowy "kołomyjski"
 STR_BIMBATYP1_NAME              :Tramwaj Typ 1 (Bergische Stahlindustrie "bimba")
 STR_SANOKSN1_NAME               :Tramwaj Graz/Sanok SN1
 STR_RINGHOFFER_NAME                     :Tramwaj Typ R
@@ -65,4 +66,14 @@ STR_BUY_TRAILERS_VIA_REFIT :{SIGNED_WORD} miejsc do siedzenia oraz {SIGNED_WORD}
 STR_DYNAMIC_RUNNING_COST_UNITS_VIA_REFIT : Wersja podstawowa tramwaju z {SIGNED_WORD} miejscami do siedzenia oraz {SIGNED_WORD} miejscami stojącymi. Opcja {YELLOW}"przebudowa"{BLACK} pozwala na zmianę długości składu i zwiększenie pojemności do {SIGNED_WORD} pasażerów. Koszty utrzymania zależą od {YELLOW}chwilowej prędkości{BLACK}.{}Czas całkowitego wy/załadunku: {COMMA} dni
 
 STR_CARGO_TRAM          :Tramwaj techniczny do przesyłek ekspresowych (towary, sprzęt itp).
-STR_UNIVERSAL_TRAM          :Tramwaj ogólnego przeznaczenia, do przewozu pasażerów i przesyłek ekspresowych.
+STR_UNIVERSAL_TRAM          :Tramwaj konny ogólnego przeznaczenia, do przewozu pasażerów i przesyłek ekspresowych.
+STR_STEAM_TRAM	: Tramwaj parowy z wagonami pdo przebudowy w zajezdni, do przewozu pasażerów i przesyłek ekspresowych.
+
+STR_TRAM_BUILD_VEHICLE             :Nowe Tramwaje
+STR_TRAM_AUTOREPLACE               :Tramwaje (nieelektryczne)
+STR_TRAM_NEW_ENGINE                :trawmaj
+
+STR_TRAM_TRACK_NAME                :Tory tramwajowe (niezelektryfikowane)
+STR_TRAM_TRACK_TOOLBAR             :Konstrukcja niezelektryfikowanych torów tramwajowych
+STR_TRAM_TRACK_MENU                :Budowa niezelektryfikowanej linii tramwajowej
+

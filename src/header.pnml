@@ -10,7 +10,7 @@ grf {
 	grfid: "MC\01\07";
 	name: string(STR_GRF_NAME);
 	desc: string(STR_GRF_DESCRIPTION);
-	version: 18;
+	version: 19;
 	min_compatible_version: 15;
     param {
         param_horse_trams {

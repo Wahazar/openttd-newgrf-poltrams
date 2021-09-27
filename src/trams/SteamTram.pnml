@@ -1,0 +1,171 @@
+// part of Polish Tram Set
+// Graphic by McZapkie, Voyager One
+// NML code by McZapkie
+
+//cargo tram
+
+spriteset(spriteset_SteamTram_purchase, "gfx/industrial_tram_locomotives.png")         
+{ tmpl_sprite_purchase4(400) }
+
+spriteset(spriteset_SteamTram_loc_graphic, "gfx/industrial_tram_locomotives.png")                  { tmpl_sprite_train_block4(400) }
+
+spriteset(spriteset_Boxcar_graphic, "gfx/industrial_tram_wagons_1.png")                  { tmpl_sprite_train_block3mirror(0) }
+
+spriteset(spriteset_Pass2_graphic, "gfx/passenger_wagons_2.png")                  { tmpl_sprite_train_block3(0) }
+
+switch(FEAT_ROADVEHS, SELF, SteamTram_cargo_switch, cargo_type_in_veh) {
+	PASS:	return spriteset_Pass2_graphic;
+	TOUR:	return spriteset_Pass2_graphic;
+return spriteset_Boxcar_graphic;
+}
+
+switch(FEAT_ROADVEHS, SELF, SteamTram_graphic_switch_short, position_in_consist) {
+	0:	return spriteset_SteamTram_loc_graphic;
+	1:	return SteamTram_cargo_switch;
+	2:	return SteamTram_cargo_switch;
+	3: 	return invisible;
+	4: 	return invisible;
+return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, SteamTram_graphic_switch_medium, position_in_consist) {
+	0:	return spriteset_SteamTram_loc_graphic;
+	1:	return SteamTram_cargo_switch;
+	2:	return SteamTram_cargo_switch;
+	3:	return SteamTram_cargo_switch;
+	4:	return SteamTram_cargo_switch;
+return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, SteamTram_graphic_switch, cargo_subtype) {
+	0:	return SteamTram_graphic_switch_short;
+	1:	return SteamTram_graphic_switch_medium;
+return CB_FAILED;
+}
+
+
+switch (FEAT_ROADVEHS, SELF, switch_SteamTram_articulated, extra_callback_info1) { 
+    1..4 : return Steam_Tram; 
+    return CB_RESULT_NO_MORE_ARTICULATED_PARTS; 
+} 
+
+
+#define STEAM_TRAM_VMAX 20
+#define STEAM_TRAM_MASS 11
+#define STEAM_TRAM_LOAD 10
+#define STEAM_TRAM_LOAD_PASS 30
+
+switch(FEAT_ROADVEHS, SELF, maxload_SteamTram_switch, cargo_type_in_veh) { 
+	PASS: return STEAM_TRAM_LOAD_PASS; 
+	TOUR: return STEAM_TRAM_LOAD_PASS/4; 
+	MAIL: return STEAM_TRAM_LOAD*8/2;  
+	GOOD: return STEAM_TRAM_LOAD*8/4;  
+	ENSP: return STEAM_TRAM_LOAD*8/5;  
+	FMSP: return STEAM_TRAM_LOAD*8/4;  
+	MNSP: return STEAM_TRAM_LOAD*8/3;  
+	VALU: return STEAM_TRAM_LOAD*8/1;  
+	GOLD: return STEAM_TRAM_LOAD*8/4;  
+	DIAM: return STEAM_TRAM_LOAD*8/1;  
+        return STEAM_TRAM_LOAD;  
+}  
+switch(FEAT_ROADVEHS, SELF, capacity_SteamTram_switch_short, position_in_consist) {
+	0:	return 0;
+	1:	return maxload_SteamTram_switch;
+	2:	return maxload_SteamTram_switch;
+	return 0;
+}
+
+switch(FEAT_ROADVEHS, SELF, capacity_SteamTram_switch_medium, position_in_consist) {
+	0:	return 0;
+	1:	return maxload_SteamTram_switch;
+	2:	return maxload_SteamTram_switch;
+	3:	return maxload_SteamTram_switch;
+	4:	return maxload_SteamTram_switch;
+	return 0;
+}
+
+switch(FEAT_ROADVEHS, SELF, capacity_SteamTram_switch, cargo_subtype) {
+	0:	return capacity_SteamTram_switch_short;
+	return capacity_SteamTram_switch_medium;
+}
+
+switch(FEAT_ROADVEHS, SELF, effect_SteamTram_switch, position_in_consist) {
+	0:	return visual_effect(VISUAL_EFFECT_STEAM, -2);
+	return visual_effect(VISUAL_EFFECT_DISABLE, 0);
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_SteamTram_running_cost, cargo_subtype) {
+	0: return min(3 * STAFF_RUNNING_COST /2, 255);
+	1: return min(5 * STAFF_RUNNING_COST /2, 255);
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_SteamTram_refit_cost, var[0x10,8,0xFF] - cargo_subtype) {
+    /* Refit cost based on difference between target cargo sybtype and current cargo subtype.
+	   Refitting to fewer carriages refunds money, while adding carriages costs (2x) money.        */
+	-1:				-(1*STEAM_TRAM_REFIT_REFUND);
+	0:				0;
+	1:				(1*STEAM_TRAM_REFIT_COST);
+	return CB_FAILED;
+}
+
+switch(FEAT_ROADVEHS, SELF, switch_SteamTram_length, position_in_consist) {
+	0:	return 4;
+return 3;
+}
+
+if ((param_horse_trams == 1) && (param_cargo_worktrams == 1)) {
+item(FEAT_ROADVEHS, Steam_Tram) {
+    property {
+        /* common properties */
+        name:                           string(STR_STEAM_TRAM_NAME);
+        climates_available:             POLTRAM_CLIMATES;
+        introduction_date:              date(1886, 1, 1);            
+        model_life:                     get_model_life(1886,1950,10);
+        vehicle_life:                   30;
+	retire_early:			10;
+        reliability_decay:              15;
+        loading_speed:                  6;
+        cost_factor:                    STEAM_TRAM_COST;      
+        running_cost_factor:            min(2 * STAFF_RUNNING_COST /2, 255);
+        /* tram properties */
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;
+        speed:                          STEAM_TRAM_VMAX km/h;
+        refittable_cargo_classes:       bitmask(CC_PASSENGERS, CC_EXPRESS, CC_MAIL, CC_ARMOURED);
+	non_refittable_cargo_classes:       bitmask(CC_LIQUID, CC_BULK, CC_OVERSIZED, CC_REFRIGERATED);
+	cargo_disallow_refit:       	[BOOM];
+	default_cargo_type:		PASS;
+        misc_flags:                     bitmask(ROADVEH_FLAG_TRAM, ROADVEH_FLAG_2CC);
+        refit_cost:                     STEAM_TRAM_REFIT_COST;
+        cargo_age_period:               185;
+        power:                          52 hp;
+        running_cost_base:              RUNNING_COST_ROADVEH;
+        cargo_capacity:                 STEAM_TRAM_LOAD_PASS;
+        weight:                         STEAM_TRAM_MASS ton;
+        tractive_effort_coefficient:    0.3;
+        air_drag_coefficient:           0.2;
+        visual_effect:      		visual_effect(VISUAL_EFFECT_STEAM, -2);
+	sound_effect: SOUND_STEAM;
+	tram_type:			RAIL;
+        length:      			4;
+    }
+
+    graphics {
+	default:            	SteamTram_graphic_switch;
+	purchase:           	spriteset_SteamTram_purchase;
+	cargo_subtype_text: 	switch_trailer_subtype_text;
+	cargo_capacity:		capacity_SteamTram_switch;
+	purchase_cargo_capacity: return STEAM_TRAM_LOAD_PASS/2;
+	articulated_part:	switch_SteamTram_articulated;
+	running_cost_factor:	switch_SteamTram_running_cost;
+	length:			switch_SteamTram_length;
+	refit_cost:		switch_SteamTram_refit_cost;
+	visual_effect:		effect_SteamTram_switch;
+	additional_text: 	return string(STR_STEAM_TRAM);
+    }
+}
+} //if
+
+
+
+

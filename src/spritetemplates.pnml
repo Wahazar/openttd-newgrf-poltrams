@@ -164,3 +164,46 @@ template template_spriteh2(y) {
 spriteset(invisible, "gfx/empty.png") {
 	[0, 0]
 }
+
+//steam tram
+template tmpl_sprite_train_block3(y) {
+// [left_x,   upper_y,    width,    height,    offset_x,    offset_y]
+    [0,          y,       8,         18,        -3,          -14]//-3,          -13
+    [16,         y,       20,        16,        -8,         -9]//-14,         -9
+    [48,         y,       28,        12,        -3,         -7]//-7,         -7
+    [96,         y,       20,        16,         -1,         -5]//-2,         -7
+    [128,        y,       8,         18,        -3,          -7]//-3,          -8
+    [144,        y,       20,        16,        -23,         -4]//-17,         -6
+    [176,        y,       28,        12,        -23,         -7] //-17,         -7
+    [224,        y,       20,        16,        -8,         -10] //-8,         -10
+}
+
+template tmpl_sprite_train_block3mirror(y) {
+// [left_x,   upper_y,    width,    height,    offset_x,    offset_y]
+    [0,          y,       8,         18,        -3,          -15]
+    [16,         y,       20,        16,        -8,         -9]
+    [48,         y,       28,        12,        -5,         -7]
+    [96,         y,       20,        16,         -3,         -5]
+    [0,        y,       8,         18,        -3,          -7]
+    [16,        y,       20,        16,        -22,         -4]
+    [48,        y,       28,        12,        -22,         -7]
+    [96,        y,       20,        16,        -9,         -10]
+}
+
+template tmpl_sprite_train_block4(y) {
+// [left_x,   upper_y,    width,    height,    offset_x,    offset_y]
+    [0,          y,       8,         18,        -3,          -13]//
+    [16,         y,       20,        16,        -5,         -9]//-14,         -9
+    [48,         y,       28,        12,        -7,         -7]//
+    [96,         y,       20,        16,        -3,         -7]//-2,         -7
+    [128,        y,       8,         18,        -3,          -6]//-3,          -8
+    [144,        y,       20,        16,        -21,         -6]//-17,         -6
+    [176,        y,       28,        12,        -20,         -7] //-17,         -7
+    [224,        y,       20,        16,        -11,         -9] //-8,         -10
+}
+
+template tmpl_sprite_purchase4(y) {
+// [left_x,   upper_y,    width,    height,    offset_x,    offset_y]
+    [256,        y,       32,        12,        -22,         -7]
+}
+

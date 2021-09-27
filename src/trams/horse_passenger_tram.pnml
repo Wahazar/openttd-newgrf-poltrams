@@ -44,7 +44,7 @@ switch(FEAT_ROADVEHS, SELF, switch_HorsePass_length, position_in_consist) {
 return CB_FAILED;
 }
 
-#define HORSE_TRAM_VMAX 18
+#define HORSE_TRAM_VMAX 20
 #define HORSE_TRAM_MASS 2
 
 if (param_horse_trams == 1) {
