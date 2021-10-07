@@ -250,7 +250,7 @@ item(FEAT_TRAMTYPES, item_basic_tramtrack, 13) {
 		construction_cost:           8; //Defaults: ROAD = 8, ELRD = 16, RAIL = 8, ELRL = 16
 		maintenance_cost:            16; //Defaults: ROAD = 16, ELRD = 24, RAIL = 16, ELRL = 24		
 		speed_limit:                 25 mph;
-		sort_order:                  255;		
+		sort_order:                  27;		
 		map_colour:                  0x20;
 //		requires_roadtype_list:      ?;
 //		introduces_roadtype_list:    ?;
